@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:00:08 by yidouiss          #+#    #+#             */
-/*   Updated: 2022/10/18 14:43:03 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/06/24 20:25:46 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int	spltnum(char const *s, char c)
-{
-	int	sw;
-	int	size;
-
-	sw = 0;
-	size = 0;
-	while (*s)
-	{
-		if (*s != c && sw == 0)
-		{
-			sw = 1;
-			size++;
-		}
-		else if (*s == c)
-			sw = 0;
-		s++;
-	}
-	return (size);
-}
 
 char	**idk(int size, char *s, char **str, char c)
 {
@@ -71,10 +50,10 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	j = 0;
 	k = 0;
-	str = malloc((spltnum(s, c) + 1) * sizeof(char *));
+	str = malloc((ft_spltnum(s, c) + 1) * sizeof(char *));
 	if (!str)
 		return (NULL);
-	while (i < spltnum(s, c))
+	while (i < ft_spltnum(s, c))
 	{
 		while (s[k] != c && s[k] != '\0')
 		{
@@ -87,5 +66,5 @@ char	**ft_split(char const *s, char c)
 		j = 0;
 	}
 	str[i] = 0;
-	return (idk(spltnum(s, c), (char *)s, str, c));
+	return (idk(ft_spltnum(s, c), (char *)s, str, c));
 }

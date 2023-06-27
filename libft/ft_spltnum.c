@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_spltnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 11:12:42 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/24 20:57:51 by yidouiss         ###   ########.fr       */
+/*   Created: 2023/06/24 20:20:40 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/06/24 20:23:48 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include "../libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-
-typedef	struct	s_args
+int	ft_spltnum(char const *s, char c)
 {
-	int		narg;
-	char	**arg;
-}	t_args;
+	int	sw;
+	int	size;
 
-int	splitargs(char *input);
-int	command(t_args args);
-int	echo(char *input);
-
-#endif
+	sw = 0;
+	size = 0;
+	while (*s)
+	{
+		if (*s != c && sw == 0)
+		{
+			sw = 1;
+			size++;
+		}
+		else if (*s == c)
+			sw = 0;
+		s++;
+	}
+	return (size);
+}

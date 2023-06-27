@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/13 18:06:07 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/06/24 21:07:37 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,11 @@ int	main(int argc, char **argv)
 	rl_initialize();
 	while (1)
 	{
-		input = readline("minishell$ ");
+		input = readline("\x1B[34mminishell$ ");
 		if (input)
 		{
 			add_history(input);
-			printf("You entered: %s\n", input);
-			if (ft_strcmp(input, "exit") == 0)
-			{
-				free(input);
-				exit(0);
-			}
+			printf("%d\n", splitargs(input));
 			free(input);
 		}
 	}
