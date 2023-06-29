@@ -6,11 +6,16 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/24 21:07:37 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:47:35 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+static int    is_pipe(char *str)
+{
+    return (!ft_strncmp(str, "|", 1));
+}
 
 int	main(int argc, char **argv)
 {
@@ -25,7 +30,8 @@ int	main(int argc, char **argv)
 		if (input)
 		{
 			add_history(input);
-			printf("%d\n", splitargs(input));
+			printf("%d\n", is_pipe(input));
+			//printf("%d\n", splitargs(input));
 			free(input);
 		}
 	}

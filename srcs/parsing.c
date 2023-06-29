@@ -6,11 +6,49 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:02 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/24 21:04:02 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:45:54 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+int	convert(char *string, int s, int e)
+{
+	printf("quote detected from %d to %d\n", s, e);
+	return(0);
+}
+
+int	check_quote(t_args args)
+{
+	int	i;
+	int	s;
+	int	e;
+	int	flag;
+
+	i = 0;
+	s = 0;
+	e = 0;
+	flag = 0;
+	while(i < args.narg)
+	{
+		while(*args.arg[i])
+		{
+			if (*args.arg[i] == "'" && flag == 0)
+				flag = 1;
+			if (*args.arg[i] == "'" && flag == 1)
+			{
+				convert(&args.arg[i], s, e);
+				e = 0;
+				s = 0;
+				flag = 0;
+			}
+			*args.arg[i]++;
+			if (flag == 0)
+				s++;
+			e++;
+		}
+	}
+}
 
 int	command(t_args args)
 {
@@ -44,3 +82,4 @@ int	splitargs(char *input)
 	command(args);
 	return (0);
 }
+
