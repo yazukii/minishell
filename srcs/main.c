@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/29 12:47:35 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:42:39 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 		{
 			add_history(input);
 			printf("%d\n", is_pipe(input));
-			//printf("%d\n", splitargs(input));
+			printf("%d\n", splitargs(input));
 			free(input);
 		}
 	}
