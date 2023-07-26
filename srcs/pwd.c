@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 16:52:05 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/01 15:04:34 by yidouiss         ###   ########.fr       */
+/*   Created: 2023/07/01 14:05:11 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/07/16 16:34:22 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int	echo(char *input)
+char	*pwd(int ret)
 {
-	printf("echo\n");
-	return (0);
+	char *pwd;
+
+	pwd = getcwd(NULL, 32);
+	printf("%s\n", pwd);
+	if (ret == 1)
+	{
+		free (pwd);
+		return(NULL);
+	}
+	else
+		return (pwd);
 }

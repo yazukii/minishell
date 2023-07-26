@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:00:08 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/24 20:25:46 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/07/24 20:48:49 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char	**ft_split(char const *s, char c)
 		}
 		if (j != 0)
 			str[i++] = (char *)malloc(sizeof(char) * (j + 1));
-		k++;
 		j = 0;
+		k++;
 	}
 	str[i] = 0;
 	return (idk(ft_spltnum(s, c), (char *)s, str, c));

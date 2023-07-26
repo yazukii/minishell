@@ -2,7 +2,10 @@ NAME = minishell
 
 FILES = srcs/main.c \
 		srcs/parsing.c \
-		srcs/echo.c
+		srcs/echo.c \
+		srcs/pwd.c \
+		srcs/cmdsplit.c \
+		srcs/error.c
 
 LIBFT = libft/libft.
 
@@ -13,22 +16,22 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 %.o : %.c 
-	$(CC) -c $< -o $@
+	@$(CC) -c -g $< -o $@
 
 all : $(NAME)
 
 libf :
-	make -C ./libft
+	@make -C ./libft
 
 $(NAME) : $(OBJS) libf
-	$(CC) $(OBJS) libft/libft.a $(CFLAGS) -lreadline -o $(NAME)
+	@$(CC) $(OBJS) libft/libft.a $(CFLAGS) -lreadline -o $(NAME)
 
 clean :
-	rm -f $(SRCS)/$(OBJS)
-	make -C libft clean
+	@rm -f $(SRCS)/$(OBJS)
+	@make -C libft clean
 
 fclean : clean
-	rm -f $(NAME)
-	make -C libft fclean
+	@rm -f $(NAME)
+	@make -C libft fclean
 
 re : fclean all

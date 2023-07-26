@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 15:13:12 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/06/24 20:23:29 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:33:06 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -22,6 +23,7 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
 void				*ft_memset(void *dest, int c, size_t n);
 int					ft_intlen(int n);
 char				*ft_strrev(char *str);
