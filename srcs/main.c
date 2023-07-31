@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 17:59:56 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:11:24 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,8 @@ int	main(int argc, char **argv)
 		if (input)
 		{
 			add_history(input);
-			finput = ft_cmdsplit(input, ' ');
-			while (i < ft_cmdnum(input, ' '))
-			{
-				printf("%s\n", finput[i]);
-				i++;
-			}
-			free(finput);
-			i = 0;
-			//check_env(input);
+			//expand(input);
+			parsing(input);
 			free(input);
 		}
 	}

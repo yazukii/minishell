@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:05:11 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/16 16:34:22 by yidouiss         ###   ########.fr       */
+/*   Created: 2023/07/30 17:41:34 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/07/30 23:10:20 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-char	*pwd(int ret)
+int	checksquotes(char c, int i)
 {
-	char *pwd;
+	static int	sq;
 
-	pwd = getcwd(NULL, 32);
-	printf("%s\n", pwd);
-	if (ret == 1)
+	if (i == -1)
 	{
-		free (pwd);
-		return(NULL);
+		if (sq == 1)
+			return (1);
+		sq = 0;
+		return (0);
 	}
-	else
-		return (pwd);
+	if (c == '\'' && sq == 1)
+		sq = 0;
+	else if (c == '\'' && sq == 0)
+		sq = 1;
+	return (sq);
 }

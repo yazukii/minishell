@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 21:27:15 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:37:41 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/07/30 23:20:15 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,16 @@ int	checkquotes(char *str, int i)
 {
 	static int	sq;
 	static int	dq;
+	int			s;
 
+	s = 0;
 	if (i == -1)
 	{
 		if (sq == 1 || dq == 1)
-			return (ft_error(1));
+			s = 1;
 		sq = 0;
 		dq = 0;
-		return (0);
+		return (s);
 	}
 	if (str[i] == '\'' && sq == 1)
 		sq = 0;
@@ -85,11 +87,11 @@ char	**ft_cmdsplit(char *str, char s)
 	t_split	sp;
 
 	sp.j = 0;
-	sp.i = 0;
+	sp.i = -1;
 	sp.b = 0;
 	sp.e = 0;
 	sp.cmd = malloc(sizeof(char *) * ft_cmdnum(str, s));
-	while (str[sp.i])
+	while (str[++sp.i])
 	{
 		sp.sw = checkquotes(str, sp.i);
 		if (str[sp.i] == s && sp.sw == 0)
@@ -102,9 +104,9 @@ char	**ft_cmdsplit(char *str, char s)
 				sp.e = 0;
 			}
 		}
-		sp.i++;
 	}
 	sp.cmd[sp.j] = createstr(str, sp.b, sp.i);
-	checkquotes(str, -1);
+	if (checkquotes(str, -1) == 1)
+		return (NULL);
 	return (sp.cmd);
 }

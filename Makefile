@@ -2,10 +2,10 @@ NAME = minishell
 
 FILES = srcs/main.c \
 		srcs/parsing.c \
-		srcs/echo.c \
-		srcs/pwd.c \
 		srcs/cmdsplit.c \
-		srcs/error.c
+		srcs/error.c \
+		srcs/expand.c \
+		srcs/utils.c
 
 LIBFT = libft/libft.
 
