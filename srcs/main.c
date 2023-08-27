@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/08/21 22:49:07 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:36:26 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ int	main(int argc, char **argv)
 	char **finput;
 	int i = 0;
 	(void)argv;
-
-	//system("clear");
-	//system("./badapple.sh");
-	system("clear");
-	system("./fumo.sh");
+	
 	rl_initialize();
 	while (1)
 	{
