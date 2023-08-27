@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:12:42 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/31 12:13:35 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:43:44 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,13 @@ void	tilde(char **str);
 int		ft_cmdnum(char const *s, char c);
 int		ft_error();
 char	**ft_cmdsplit(char *str, char s);
+void	tilde(char **str);
 int		check_env(char* input);
 int		command(t_args args);
 int		parsing(char *input);
 char	*pwd(int ret);
 int		echo(char *input);
+int		cmdsub(char ***str);
+int		ft_add(char ***arr, char *new, int index, int pos);
 
 #endif

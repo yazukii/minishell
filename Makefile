@@ -5,7 +5,9 @@ FILES = srcs/main.c \
 		srcs/cmdsplit.c \
 		srcs/error.c \
 		srcs/expand.c \
-		srcs/utils.c
+		srcs/utils.c \
+		srcs/tilde.c \
+		srcs/cmdsub.c
 
 LIBFT = libft/libft.
 

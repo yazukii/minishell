@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:02 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/30 23:09:58 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:06:11 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	test(char **finput, char *input)
 	i = 0;
 	while (i < ft_cmdnum(input, ' '))
 	{
-		expand(&finput[i]);
 		printf("%s\n", finput[i]);
 		i++;
 	}
@@ -29,9 +28,18 @@ int	test(char **finput, char *input)
 
 int parsing(char *input)
 {
+	int			i;
 	char** finput;
 
+	i = 0;
 	finput = ft_cmdsplit(input, ' ');
+	while (i < ft_cmdnum(input, ' '))
+	{
+		expand(&finput[i]);
+		tilde(&finput[i]);
+		i++;
+	}
+	cmdsub(&finput);
 	if (finput == NULL)
 		return (ft_error(1));
 	test(finput, input);
