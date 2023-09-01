@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
 /*	Returns the length the string would be after replacing the env var.
 	This is done to be able to dinamically allocate memory later*/

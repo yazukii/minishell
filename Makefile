@@ -1,39 +1,50 @@
 NAME = minishell
-
-FILES = srcs/main.c \
-		srcs/parsing.c \
-		srcs/cmdsplit.c \
-		srcs/error.c \
-		srcs/expand.c \
-		srcs/utils.c \
-		srcs/tilde.c \
-		srcs/cmdsub.c
-
-LIBFT = libft/libft.
-
-OBJS = $(FILES:.c=.o)
-
 CC = gcc
-
+RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror
 
-%.o : %.c 
-	@$(CC) -c -g $< -o $@
+
+SRCS = ./main.c \
+		./parsing.c \
+		./cmdsplit.c \
+		./error.c \
+		./expand.c \
+		./utils.c \
+		./tilde.c \
+		./cmdsub.c
+
+LIBFT = libft.a
+LIBFT_DIR = ./libft
+OBJS_DIR = ./objs
+INC_DIR = ./headers
+SRCS_DIR = srcs/Main \
+		   srcs/Parsing \
+
+OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
+
+vpath %.c $(SRCS_DIR)
 
 all : $(NAME)
 
-libf :
-	@make -C ./libft
+$(NAME) : $(OBJS)
+	@make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) -o $@ $^ -L$(LIBFT_DIR) -lft
 
-$(NAME) : $(OBJS) libf
-	@$(CC) $(OBJS) libft/libft.a $(CFLAGS) -lreadline -o $(NAME)
+$(OBJS_DIR) :
+	@mkdir -p $(OBJS_DIR)
+
+$(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
+	@$(CC) $(CFLAGS) -o $@ -I $(INC_DIR) -I$(LIBFT_DIR) -c $^
+
+debug:
+	@$(MAKE) -n $(NAME)
 
 clean :
-	@rm -f $(SRCS)/$(OBJS)
-	@make -C libft clean
+	@$(RM) $(OBJS_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 fclean : clean
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
 	@make -C libft fclean
 
 re : fclean all

@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/08/27 19:36:26 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
-int	ft_error(int e)
+static int	is_pipe(char *str)
 {
-	if (e == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	return (!ft_strncmp(str, "|", 1));
+}
+
+int	main(int argc, char **argv)
+{
+	char	*input;
+	char	**finput;
+	int		i;
+
+	(void) argv;
+	(void) argc;
+	i = 0;
+	rl_initialize();
+	while (1)
+	{
+		input = readline(BLU"minishell$ "RESET);
+		if (input)
+		{
+			add_history(input);
+			//expand(input);
+			parsing(input);
+			free(input);
+		}
+	}
+	return (0);
 }
