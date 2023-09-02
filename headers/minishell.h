@@ -40,7 +40,7 @@ typedef	struct	s_args
 typedef struct s_prompt
 {
 	t_list	*cmds;				//* Reference to s_mini
-	char	**envp;				//*
+	char	**envp;				//* Env pointer
 	pid_t	**pid;				//* Pid of this minishell instance
 }			t_prompt;
 
@@ -62,14 +62,13 @@ typedef struct s_split
 	int		j;
 }				t_split;
 
+// Parsing
 int		splitargs(char *input);
 int		checksquotes(char c, int i);
 void	expand(char **str);
 void	tilde(char **str);
 int		ft_cmdnum(char const *s, char c);
-int		ft_error();
 char	**ft_cmdsplit(char *str, char s);
-void	tilde(char **str);
 int		check_env(char* input);
 int		command(t_args args);
 int		parsing(char *input);
@@ -77,5 +76,8 @@ char	*pwd(int ret);
 int		echo(char *input);
 int		cmdsub(char ***str);
 int		ft_add(char ***arr, char *new, int index, int pos);
+
+// Error
+int		ft_error(int errno);
 
 #endif

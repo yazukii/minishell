@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
-int	ft_error(int e)
+int	ft_error(int errno)
 {
-	if (e == 1)
+	if (errno == 1)
 		printf(RED"Syntax error, you need to close the quotes\n"RESET);
 	return (1);
 }

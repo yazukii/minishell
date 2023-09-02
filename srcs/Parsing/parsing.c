@@ -26,10 +26,10 @@ int	test(char **finput, char *input)
 	return (0);
 }
 
-int parsing(char *input)
+int	parsing(char *input)
 {
-	int			i;
-	char** finput;
+	int		i;
+	char	**finput;
 
 	i = 0;
 	finput = ft_cmdsplit(input, ' ');

@@ -42,7 +42,7 @@ void	tilde(char **str)
 {
 	int		i;
 	char	*home;
-	char *tmp;
+	char	*tmp;
 
 	i = 0;
 	tmp = *str;

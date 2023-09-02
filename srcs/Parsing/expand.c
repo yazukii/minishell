@@ -78,8 +78,8 @@ int	var_replace(int j, char *var, char **fstr)
 	return (j);
 }
 
-/*	Dynamically alocate the right amount of byte to the final str and then
-	browse the string and whenever a var name is encounterd, replace it
+/*	Dynamically allocate the right amount of byte to the final str and then
+	browse the string and whenever a var name is encountered, replace it
 	by it's value with the function 'var_replace()' */
 char	*var_alloc(char *str, int size)
 {

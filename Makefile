@@ -11,7 +11,7 @@ SRCS = ./main.c \
 		./expand.c \
 		./utils.c \
 		./tilde.c \
-		./cmdsub.c
+		./cmdsub.c \
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -19,6 +19,7 @@ OBJS_DIR = ./objs
 INC_DIR = ./headers
 SRCS_DIR = srcs/Main \
 		   srcs/Parsing \
+		   srcs/Error \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
