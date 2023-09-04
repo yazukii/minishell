@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
-int	ft_redir()
+int	ft_redir(void)
 {
 	printf("redir\n");
 	return (0);

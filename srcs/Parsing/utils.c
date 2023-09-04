@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int	checksquotes(char c, int i)
 {
@@ -32,7 +32,7 @@ int	checksquotes(char c, int i)
 
 int	ft_arr_size(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])
@@ -42,11 +42,12 @@ int	ft_arr_size(char **arr)
 
 int	ft_add(char ***arr, char *new, int index, int pos)
 {
-	int	size;
-	int	i;
-	int	j;
-	char **str;
+	int		size;
+	int		i;
+	int		j;
+	char	**str;
 
+	(void) pos;
 	i = 0;
 	j = 0;
 	size = ft_arr_size(*arr);

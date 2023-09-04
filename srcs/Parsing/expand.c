@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 /*	Returns the length the string would be after replacing the env var.
 	This is done to be able to dinamically allocate memory later*/
@@ -114,7 +114,7 @@ char	*var_alloc(char *str, int size)
 void	expand(char **str)
 {
 	int		i;
-	char	*var;
+//	char	*var;
 	char	*tmp;
 	int		strsize;
 

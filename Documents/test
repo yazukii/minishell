@@ -1,4 +1,4 @@
-struct typedef	t_text
+truct typedef	t_text
 {
 	char *text;
 	int  flag;

@@ -2,6 +2,7 @@ NAME = minishell
 CC = gcc
 RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror
+LIBS = -lreadline
 
 
 SRCS = ./main.c \
@@ -12,6 +13,7 @@ SRCS = ./main.c \
 		./utils.c \
 		./tilde.c \
 		./cmdsub.c \
+		./echo.c \
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -20,6 +22,7 @@ INC_DIR = ./headers
 SRCS_DIR = srcs/Main \
 		   srcs/Parsing \
 		   srcs/Error \
+		   srcs/Builtins \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -29,13 +32,13 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -o $@ $^ -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(LIBS) -o $@ $^ -L$(LIBFT_DIR) -lft
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -o $@ -I $(INC_DIR) -I$(LIBFT_DIR) -c $^
+	@$(CC) $(CFLAGS) -o $@ -I$(INC_DIR) -I$(LIBFT_DIR) -c $^
 
 debug:
 	@$(MAKE) -n $(NAME)
@@ -47,5 +50,8 @@ clean :
 fclean : clean
 	@$(RM) $(NAME)
 	@make -C libft fclean
+
+echo:
+	$(CC) echo.c
 
 re : fclean all

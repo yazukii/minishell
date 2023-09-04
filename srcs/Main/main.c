@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
-static int	is_pipe(char *str)
-{
-	return (!ft_strncmp(str, "|", 1));
-}
+//static int	is_pipe(char *str)
+//{
+//	return (!ft_strncmp(str, "|", 1));
+//}
 
 int	main(int argc, char **argv)
 {
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 
 	(void) argv;
 	(void) argc;
+	(void) finput;
 	i = 0;
 	rl_initialize();
 	while (1)
