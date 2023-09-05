@@ -34,7 +34,7 @@ int	cmdsub(char ***str)
 
 	tmp = *str;
 	i = 0;
-	while (tmp[i])
+	while (i < ft_cmdnum(*tmp, ' '))
 	{
 		if (tmp[i][0] == '<' || tmp[i][0] == '>')
 			ft_redir();

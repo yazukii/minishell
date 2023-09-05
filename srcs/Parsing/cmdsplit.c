@@ -34,7 +34,7 @@ int	ft_cmdnum(char const *s, char c)
 	return (n + 1);
 }
 
-char	*createstr(char *str, int b, int e)
+char	*createstr(char const *str, int b, int e)
 {
 	char	*cmd;
 	int		i;
@@ -53,7 +53,7 @@ char	*createstr(char *str, int b, int e)
 	return (cmd);
 }
 
-int	checkquotes(char *str, int i)
+int	checkquotes(char const *str, int i)
 {
 	static int	sq;
 	static int	dq;
