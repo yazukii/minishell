@@ -49,6 +49,7 @@ void	gestion_echapement(char *str, int i, int fd)
 	if (str[i + 1] == '\'')
 		write(fd, "\'", 1);
 }
+/*
 int main(int argc, char **argv)
 {
 	int i = 1;
@@ -56,4 +57,4 @@ int main(int argc, char **argv)
 	while (i < argc)
 		echo(argv[i++], 0, 1);
 	return (0);
-}
+}*/

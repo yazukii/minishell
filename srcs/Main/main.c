@@ -21,12 +21,10 @@ int	main(int argc, char **argv)
 {
 	char	*input;
 	char	**finput;
-	int		i;
 
 	(void) argv;
 	(void) argc;
 	(void) finput;
-	i = 0;
 	rl_initialize();
 	while (1)
 	{
