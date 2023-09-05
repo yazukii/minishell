@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "minishell.h"
 
 char	*replace_tilde(char *str, int p, char *home)
 {
@@ -42,7 +42,7 @@ void	tilde(char **str)
 {
 	int		i;
 	char	*home;
-	char *tmp;
+	char	*tmp;
 
 	i = 0;
 	tmp = *str;
