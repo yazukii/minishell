@@ -24,7 +24,7 @@ fi
 
 # Test 3: Echo with special characters
 output=$(echo "Special characters: \\ \\\" \$ \'" | $program)
-expected="Special characters: \\ \" \$ '"
+expected="Special characters: \ \" $ '"
 if [ "$output" = "$expected" ]; then
     echo "Test 3: Passed"
 else

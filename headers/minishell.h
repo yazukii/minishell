@@ -17,8 +17,10 @@
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
 # define YEL   "\x1B[33m"n

@@ -1,3 +1,4 @@
-//
-// Created by Joshua Morcom-Harneis on 02.09.23.
-//
+/*	exit:
+ * 		- a garder pour la fin pour comprendre toutes les structures a free
+ *
+ */
