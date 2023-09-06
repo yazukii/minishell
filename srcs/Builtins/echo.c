@@ -3,13 +3,13 @@
 
 /*pour echo:
  * - faire des test
- * - print dans stdout
  * - identifier les sequences d'echapement
  * 		-\n, \t, \\, \", \$, \'
- * 	deja fait dans le parsing?
- * (- faire des substitutions de commandes
- * - ne pas print si le $txt est unset)
- *
+ * 		- \n c'est un seul charactere en ascii?
+ * 		- identifier le comportement si c'est juste un \ suivi d'un charactere
+ *	- different comportement si les sequences d'echapement se trouvent entre double quote ou single
+ *		- Double quotes allow variable expansion and interpretation of escape sequences.
+		- Single quotes treat the enclosed text as a literal string, preserving it exactly as written without variable or escape sequence expansion.
 */
 void	gestion_echapement(char *str, int i, int fd);
 void	echo(char *str, int option_flag, int fd);
@@ -31,7 +31,6 @@ void	echo(char *str, int option_flag, int fd)
 	}
 	if (!option_flag)
 		write(fd, "\n", 1);
-	return ;
 }
 
 void	gestion_echapement(char *str, int i, int fd)
@@ -48,8 +47,14 @@ void	gestion_echapement(char *str, int i, int fd)
 		write(fd, "$", 1);
 	if (str[i + 1] == '\'')
 		write(fd, "\'", 1);
+	else
+		write(fd, &str[i], 1);
 }
+<<<<<<< HEAD
 /*
+=======
+
+>>>>>>> main
 int main(int argc, char **argv)
 {
 	int i = 1;

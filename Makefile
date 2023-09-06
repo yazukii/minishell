@@ -14,6 +14,9 @@ SRCS = ./main.c \
 		./tilde.c \
 		./cmdsub.c \
 		./echo.c \
+		./pwd.c \
+		./env.c \
+		./export.c \
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -52,6 +55,6 @@ fclean : clean
 	@make -C libft fclean
 
 echo:
-	$(CC) echo.c
+	$(CC) srcs/Builtins/echo.c
 
 re : fclean all

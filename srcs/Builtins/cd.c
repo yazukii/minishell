@@ -7,4 +7,6 @@
  * implement ..
  * implement -  to go directly to the last dir you were at (use oldpwd)
  * error management
- * /
+ */
+
+int	cd()
