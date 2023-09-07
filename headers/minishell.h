@@ -17,11 +17,14 @@
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
-# define YEL   "\x1B[33m"
+# define YEL   "\x1B[33m"n
+
 # define BLU   "\x1B[34m"
 # define MAG   "\x1B[35m"
 # define CYN   "\x1B[36m"
@@ -30,6 +33,31 @@
 # define PATH  "/Users/yani/Library/Python/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/yani/Library/Python/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/yani/.spicetify:/Users/yani/.spicetifytest"
 
 int	g_status;					//* Exit status of the most-recently-executed command
+
+enum	e_builtins{
+	CD,
+	ECHO,
+	ENV,
+	EXIT,
+	EXPORT,
+	PWD,
+	UNSET
+};
+
+typedef struct s_list_env
+{
+	char				*key;
+	char				*value;
+	struct s_list_env	*next;
+}	t_list_env;
+
+typedef struct s_list_tokken
+{
+	enum e_builtins			Builtin_ID;
+	char					*PATH;
+	char					**args;
+	struct s_list_tokken	*next;
+}	t_list_tokken;
 
 typedef	struct	s_args
 {
@@ -40,7 +68,7 @@ typedef	struct	s_args
 typedef struct s_prompt
 {
 	t_list	*cmds;				//* Reference to s_mini
-	char	**envp;				//*
+	char	**envp;				//* Env pointer
 	pid_t	**pid;				//* Pid of this minishell instance
 }			t_prompt;
 
@@ -62,14 +90,13 @@ typedef struct s_split
 	int		j;
 }				t_split;
 
+// Parsing
 int		splitargs(char *input);
 int		checksquotes(char c, int i);
 void	expand(char **str);
 void	tilde(char **str);
 int		ft_cmdnum(char const *s, char c);
-int		ft_error();
 char	**ft_cmdsplit(char *str, char s);
-void	tilde(char **str);
 int		check_env(char* input);
 int		command(t_args args);
 int		parsing(char *input);
@@ -77,5 +104,8 @@ char	*pwd(int ret);
 int		echo(char *input);
 int		cmdsub(char ***str);
 int		ft_add(char ***arr, char *new, int index, int pos);
+
+// Error
+int		ft_error(int errno);
 
 #endif

@@ -1,0 +1,45 @@
+1. Structure
+    - approche top-> down
+    - faire une grosse structure?
+    - Faire des Enums et des defines
+    - apprendre a utiliser errno
+    - var explicite
+
+2. technical:
+ - var_length has a malloc but no free
+ - var_val has a malloc but no free
+
+3. Parthing:
+   - tokenization (arbres binaires execution gauche droite)
+   - single quote:
+       - pas de reset du static int qui aide pour les quotes sur des nouvelles lignes de commande?
+        - qu'est ce que minishell fait si un prompt contient un nombre impair de single quote
+        - segfault si juste une single quote
+   - pipes
+   - redirections:
+            - implimenter un heredoc
+   - commandes
+   - double quote
+   - expand
+   - $?
+
+4. Execution:
+    - avoir une gestion d'erreur pour tout les builtins
+    - Coder les builtins
+    - gerer les signaux (pipe?) (ctrl-*)
+    - Regarder le path des executables
+    - redirections
+    - pipes
+
+5. Historique:
+    - Setup
+    - update
+    - acces pour old_dir (cd -) etc
+
+
+tricks pour avoir plus de variable global que 1: faire une fonction qui retourne qui retourne une adresse static, au
+premier appel de la fonction tu alloue de la memoire a cette adrese et par la suite tu appelles la fonction pour acceder a la memoire.
+
+a discuter avec el Q:
+    - utiliser des fonctions statics
+    - union
