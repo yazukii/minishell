@@ -17,6 +17,7 @@ SRCS = ./main.c \
 		./pwd.c \
 		./env.c \
 		./export.c \
+		./redirections.c \
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -26,6 +27,7 @@ SRCS_DIR = srcs/Main \
 		   srcs/Parsing \
 		   srcs/Error \
 		   srcs/Builtins \
+		   srcs/Execution \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 

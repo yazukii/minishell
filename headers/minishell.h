@@ -34,6 +34,31 @@
 
 int	g_status;					//* Exit status of the most-recently-executed command
 
+enum	e_builtins{
+	CD,
+	ECHO,
+	ENV,
+	EXIT,
+	EXPORT,
+	PWD,
+	UNSET
+};
+
+typedef struct s_list_env
+{
+	char				*key;
+	char				*value;
+	struct s_list_env	*next;
+}	t_list_env;
+
+typedef struct s_list_tokken
+{
+	enum e_builtins			Builtin_ID;
+	char					*PATH;
+	char					**args;
+	struct s_list_tokken	*next;
+}	t_list_tokken;
+
 typedef	struct	s_args
 {
 	int		narg;

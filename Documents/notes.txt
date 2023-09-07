@@ -1,6 +1,6 @@
 1. Structure
     - approche top-> down
-    - Avoir une grosse structure?
+    - faire une grosse structure?
     - Faire des Enums et des defines
     - apprendre a utiliser errno
     - var explicite
@@ -16,7 +16,8 @@
         - qu'est ce que minishell fait si un prompt contient un nombre impair de single quote
         - segfault si juste une single quote
    - pipes
-   - redirections
+   - redirections:
+            - implimenter un heredoc
    - commandes
    - double quote
    - expand

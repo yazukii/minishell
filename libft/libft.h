@@ -18,12 +18,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-
 void				*ft_memset(void *dest, int c, size_t n);
 int					ft_intlen(int n);
 char				*ft_strrev(char *str);
