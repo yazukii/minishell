@@ -44,10 +44,10 @@
     - pre_tokken, if two spaces in a row
     - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
-    - faire marcher le code    
     - nettoyage des singles_quotes avec la pre_tokkenization (attention a etre dans un double quote)
     - si le pre_tokken est le premier pre_tokken ou le premier apres un pipe c'est typer comme une commande
 ### DONE:
+    - faire marcher le code 
     - rendre le code compilable
     - expand, check_sep (faire un tableau avec toutes les variables d'environnement)
 tricks pour avoir plus de variable global que 1: faire une fonction qui retourne qui retourne une adresse static, au
