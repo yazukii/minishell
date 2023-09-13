@@ -18,5 +18,5 @@ void	parseur(t_parsing *bag)
 	}
 	pre_tokken(bag);
 	pre_tokken_size(bag);
-	tokkenizer(bag);
+	//tokkenizer(bag);
 }

@@ -12,7 +12,5 @@ int main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	char *text = "echo";
-	if (text == test)
-	printf("%s", test);
 	return 0;
 }

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 /* unset:
  *  - on va jusqu'a l'avant dernier pour unset l'element de la liste
@@ -16,7 +16,7 @@ int	unset(t_list_env *head, char *key)
 		return (0);	// err
 	hook = tmp->next;
 	free(tmp);
-	tmp = lstlast(head);
+	tmp = ft_lstlast(head);
 	tmp->next = hook;
 	return (1);
 }

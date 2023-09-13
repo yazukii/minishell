@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_list_tokken	*ft_t_lstadd_back(t_parsing *sac, t_list_tokken *new)
+t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new)
 {
 	t_list_tokken	*tmp;
 

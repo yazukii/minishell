@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 // in pretokken check:
 //					- check if you take the sep char in the string you split / DONE
@@ -15,7 +15,7 @@ void	pre_tokken(t_parsing *sac)
 	while (sac->input[sac->index])
 	{
 		state_quote(sac, sac->input[sac->index]);
-		if (pre_check_char(&(sac->input[sac->index])) == SPACE && sac->in_double)
+		if (pre_check_char(&(sac->input[sac->index])) == SPACESEP && sac->in_double)
 			wait(&i);
 		else if (pre_check_char(&(sac->input[sac->index])))
 		{
@@ -28,8 +28,8 @@ void	pre_tokken(t_parsing *sac)
 
 int	id_pretokken(t_parsing *sac)
 {
-	if (pre_check_char(&(sac->input[sac->index])) == SPACE)
-		split_pretokken(sac, SPACE);
+	if (pre_check_char(&(sac->input[sac->index])) == SPACESEP)
+		split_pretokken(sac, SPACESEP);
 	else if (pre_check_char(&(sac->input[sac->index])) == ONECHAR)
 		split_pretokken(sac, ONECHAR);
 	else if (pre_check_char(&(sac->input[sac->index])) == TWOCHAR)
@@ -47,7 +47,7 @@ void	split_pretokken(t_parsing *sac, int flag)
 	if (!current)
 		ft_error(MEMORY, sac);
 	ft_pre_lstadd_back(sac->p_head, current);
-	if (flag == SPACE)
+	if (flag == SPACESEP)
 	{
 		sac->split_index++;
 		return ;
@@ -62,7 +62,7 @@ void	split_pretokken(t_parsing *sac, int flag)
 int	pre_check_char(char const *c)
 {
 	if (*c == ' ' || !*c)
-		return (SPACE);
+		return (SPACESEP);
 	if (*c == '<' && *(c + 1) == '<')
 		return (TWOCHAR);
 	if (*c == '<' && *(c + 1) != '<')

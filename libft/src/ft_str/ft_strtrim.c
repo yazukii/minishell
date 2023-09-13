@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"../../includes/libft.h"
 
 int	is_in_set(char c, char const *set)
 {

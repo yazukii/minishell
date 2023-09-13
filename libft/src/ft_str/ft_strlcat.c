@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"../../includes/libft.h"
 
 int	ft_strlcat(char *dst, const char *src, int dstsize)
 {

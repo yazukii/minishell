@@ -50,7 +50,7 @@ enum	e_builtins{
 
 enum	e_char{
 	CHAR,
-	SPACE,
+	SPACESEP,
 	ONECHAR,
 	TWOCHAR
 };
@@ -129,7 +129,7 @@ typedef struct s_prompt
 
 typedef struct s_mini
 {
-	char	**full_cmd;			//* Self explanatory
+	char	**full_cmd;			//* Self-explanatory
 	char	*full_path;			//*
 	int		infile;				//* File descriptor to take input from
 	int		outfile;			//* File descriptor to outpout to
@@ -175,10 +175,10 @@ t_list_pre		*ft_pre_lstnew(char *pre_tokken);
 
 // UTILS_LST_TOKKEN
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
-t_list_tokken	*ft_lstadd_back_tokken(t_parsing *sac);
+t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
 
 // INIT
-void			init_parseur(t_parsing *sac, char **envp);
+void	        init_parseur(t_parsing *bag, char **envp);
 void			init_builtins(t_parsing *sac);
 void			init_cmds(t_parsing *sac);
 

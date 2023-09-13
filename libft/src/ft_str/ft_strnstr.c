@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"../../includes/libft.h"
 #include<stdio.h>
 
 char	*ft_strnstr(char *str, char *to_find, int len)

@@ -1,22 +1,5 @@
 #include "minishell.h"
 
-void	tokkenizer(t_parsing *sac)
-{
-	t_list_pre		*current;
-	t_list_tokken	*tokken;
-
-	current = *(sac->p_head);
-	while (current)
-	{
-		ft_lstadd_back_tokken(sac);
-		check_commands(current, sac);
-		check_builtins(current, sac);
-		check_redirections(current, sac);
-		check_arguments(current, sac);
-		current = current->next;
-	}
-}
-
 void	check_redirections(t_list_pre *current, t_parsing *sac)
 {
 	if (ft_strcmp(current->pre_tokken, "<", current->size))
@@ -31,13 +14,18 @@ void	check_redirections(t_list_pre *current, t_parsing *sac)
 		(ft_t_lstlast(*(sac->t_head)))->type = REDIRECTION;
 }
 
-
+void			check_arguments(t_list_pre *current, t_parsing *sac)
+{
+    (void)current;
+    (void)sac;
+}
 /*
  * how to check if command is valid?
  */
-void	check_commands(char *pre_tokken, t_parsing *sac)
+void	check_commands(t_list_pre *current, t_parsing *sac)
 {
-
+    (void)current;
+    (void)sac;
 }
 
 void	check_builtins(t_list_pre *current, t_parsing *sac)
@@ -55,5 +43,21 @@ void	check_builtins(t_list_pre *current, t_parsing *sac)
 		j++;
 	}
 }
+/*
+void	tokkenizer(t_parsing *sac)
+{
+    t_list_pre		*current;
+    t_list_tokken	*tokken;
 
-void			check_arguments(char *pre_tokken, t_parsing *sac);
+    //(void)tokken;
+    current = *(sac->p_head);
+    while (current)
+    {
+        ft_lstadd_back_token(sac);
+        check_commands(current, sac);
+        check_builtins(current, sac);
+        check_redirections(current, sac);
+        check_arguments(current, sac);
+        current = current->next;
+    }
+}*/

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 void	init_parseur(t_parsing *bag, char **envp)
 {
@@ -16,7 +16,7 @@ void	init_parseur(t_parsing *bag, char **envp)
 	bag->split = NULL;
 	bag->envp = envp;
 	init_builtins(bag);
-	init_cmds(bag);
+    //init_cmds(bag);
 }
 
 void	init_builtins(t_parsing *bag)

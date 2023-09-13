@@ -14,6 +14,8 @@
 
 int	ft_error(int ERRNUMBER, t_parsing *sac)
 {
+    (void)ERRNUMBER;
+    (void)sac;
 	if (errno == 1)
 		printf(RED"Syntax error, you need to close the quotes\n"RESET);
 	return (1);

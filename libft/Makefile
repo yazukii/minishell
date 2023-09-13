@@ -75,6 +75,8 @@ OBJSF		=	.cache_exists
 
 all: 		${NAME}
 
+${NAME}:
+
 $(NAME):	$(OBJS)
 			@$(AR) $(NAME) $(OBJS)
 			@ranlib $(NAME)
