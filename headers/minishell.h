@@ -14,13 +14,13 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-# include "../libft/libft.h"
+# include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <errno.h>
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
 # define YEL   "\x1B[33m"n
@@ -32,16 +32,46 @@
 # define RESET "\x1B[0m"
 # define PATH  "/Users/yani/Library/Python/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/yani/Library/Python/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/yani/.spicetify:/Users/yani/.spicetifytest"
 
+# define bool unsigned int
+# define TRUE 1
+# define FALSE 0
+
 int	g_status;					//* Exit status of the most-recently-executed command
 
 enum	e_builtins{
-	CD,
 	ECHO,
-	ENV,
-	EXIT,
-	EXPORT,
+	CD,
 	PWD,
-	UNSET
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+};
+
+enum	e_char{
+	CHAR,
+	SPACE,
+	ONECHAR,
+	TWOCHAR
+};
+
+enum	e_errnumber{
+	MEMORY
+};
+
+enum	e_tokken_type{
+	CMD,
+	BUILTINS,
+	ARGUMENT,
+	REDIRECTION,
+	PIPE,
+};
+
+enum e_redirections{
+	LEFT,
+	RIGHT,
+	APPEND,
+	HEREDOC
 };
 
 typedef struct s_list_env
@@ -51,19 +81,42 @@ typedef struct s_list_env
 	struct s_list_env	*next;
 }	t_list_env;
 
+typedef struct s_list_pre
+{
+	char					*pre_tokken;
+	int						size;
+	struct s_list_pre		*next;
+}	t_list_pre;
+
 typedef struct s_list_tokken
 {
-	enum e_builtins			Builtin_ID;
-	char					*PATH;
+	enum e_tokken_type		type;
+	enum e_builtins			builtin_id;
+	enum e_redirections		redir_id;
+	char					*path;
 	char					**args;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
-typedef	struct	s_args
+typedef struct s_parsing
 {
-	int		narg;
-	char	**arg;
-}	t_args;
+	bool				can_exp;
+	bool				in_double;
+	bool				in_simple;
+	int					index;
+	int					value_size;
+	int					key_size;
+	int					split_index;
+	int					i;
+	int					j;
+	char				*key;
+	char				*input;
+	char				*value;
+	char				*split;
+	char				**builtins;
+	t_list_pre			**p_head;
+	t_list_tokken		**t_head;
+}	t_parsing;
 
 typedef struct s_prompt
 {
@@ -75,37 +128,58 @@ typedef struct s_prompt
 typedef struct s_mini
 {
 	char	**full_cmd;			//* Self explanatory
-	char	*full_path;			//* 
+	char	*full_path;			//*
 	int		infile;				//* File descriptor to take input from
 	int		outfile;			//* File descriptor to outpout to
-}				t_mini;
+}	t_mini;
 
-typedef struct s_split
-{
-	char	**cmd;
-	int		b;
-	int		e;
-	int		i;
-	int		sw;
-	int		j;
-}				t_split;
+// PARSING
+void			parseur(t_parsing *bag);
+void			expand(t_parsing *sac);
+void			pre_tokken(t_parsing *sac);
+void			tokkenizer(t_parsing *sac);
 
-// Parsing
-int		splitargs(char *input);
-int		checksquotes(char c, int i);
-void	expand(char **str);
-void	tilde(char **str);
-int		ft_cmdnum(char const *s, char c);
-char	**ft_cmdsplit(char *str, char s);
-int		check_env(char* input);
-int		command(t_args args);
-int		parsing(char *input);
-char	*pwd(int ret);
-int		echo(char *input);
-int		cmdsub(char ***str);
-int		ft_add(char ***arr, char *new, int index, int pos);
+// EXPAND
+int				check_env(t_parsing *sac);
+int				check_sep(char c);
+char			*ft_trim(char const *str, int size_to_trim);
+char			*replace_key(t_parsing *sac, int key_size);
+
+// PRETOKKEN
+int				pre_check_char(char const *c);
+int				id_pretokken(t_parsing *sac);
+void			split_pretokken(t_parsing *sac, int flag);
+char			*tiny_split(t_parsing *sac);
+
+// TOKKEN
+void			check_commands(t_list_pre *current, t_parsing *sac);
+void			check_builtins(t_list_pre *current, t_parsing *sac);
+void			check_redirections(t_list_pre *current, t_parsing *sac);
+void			check_arguments(t_list_pre *current, t_parsing *sac);
+
+
+// UTILS_PARSING
+int				ft_strcmp(char const *str, char const *model, int size);
+bool			state_quote(t_parsing *sac, char c);
+t_list_env		*lst_env_new(char *key, char *value);
+void			pre_tokken_size(t_parsing *sac);
+//t_list_tokken	*lst_tokken_new(char *key, char *value);
+
+// UTILS_LST
+t_list_pre		*ft_pre_lstadd_back(t_list_pre **lst, t_list_pre *new);
+t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
+t_list_pre		*ft_pre_lstnew(char *pre_tokken);
+
+// UTILS_LST_TOKKEN
+t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
+t_list_tokken	*ft_lstadd_back_tokken(t_parsing *sac);
+
+// INIT
+void			init_parseur(t_parsing *sac, char **envp);
+void			init_builtins(t_parsing *sac);
+void			init_cmds(t_parsing *sac);
 
 // Error
-int		ft_error(int errno);
+int				ft_error(int ERRNUMBER, t_parsing *sac);
 
 #endif

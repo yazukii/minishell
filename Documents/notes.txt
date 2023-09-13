@@ -9,17 +9,19 @@
  - var_length has a malloc but no free
  - var_val has a malloc but no free
 
-3. Parthing:
-   - tokenization (arbres binaires execution gauche droite)
+3. Parsing:
    - single quote:
-       - pas de reset du static int qui aide pour les quotes sur des nouvelles lignes de commande?
-        - qu'est ce que minishell fait si un prompt contient un nombre impair de single quote
-        - segfault si juste une single quote
+                - does not expand
+   - double quote:
+                - if inside expand
+                - if inside keep the spaces and single quote
    - pipes
    - redirections:
-            - implimenter un heredoc
+                - heredoc en cas de << with first word as delimiter
+                - >> append to file after the operator
+                - < use the file name to the right of this operator as input
+                - > use the file name to the right as the output (overwrites)
    - commandes
-   - double quote
    - expand
    - $?
 
@@ -36,10 +38,13 @@
     - update
     - acces pour old_dir (cd -) etc
 
+ERROR && WORK LOG:
+    - expand, check_sep &
+    - faire guestion d'erreur
+    - nettoyage des singles_quotes avec la pre_tokkenization (attention a etre dans un double quote)
+    - verifier la taille des splits quand un espace suivit d'une redirection
+    - pre_tokken, if two spaces in a row
+    - si le pre_tokken est le premier pre_tokken ou le premier apres un pipe c'est typer comme une commande
 
 tricks pour avoir plus de variable global que 1: faire une fonction qui retourne qui retourne une adresse static, au
 premier appel de la fonction tu alloue de la memoire a cette adrese et par la suite tu appelles la fonction pour acceder a la memoire.
-
-a discuter avec el Q:
-    - utiliser des fonctions statics
-    - union

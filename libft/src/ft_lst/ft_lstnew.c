@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/19 20:49:46 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/21 17:14:15 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"libft.h"
 
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+t_list	*ft_lstnew(void *content)
 {
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	t_list	*instance;
+
+	instance = (t_list *) malloc(sizeof(t_list));
+	if (!instance)
+		exit(1);
+	instance->index = *((int *)content);
+	instance->next = NULL;
+	return (instance);
 }

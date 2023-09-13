@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/19 14:45:18 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/19 15:09:20 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"libft.h"
 
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	unsigned int	i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i])
+		{
+			(*f)(i, s + i);
+			i++;
+		}
+	}
 }

@@ -16,7 +16,7 @@ int	export(t_list_env *head, char *key, char *value)
 	t_list_env	*new;
 
 	tmp = head;
-	while (tmp->next->key != "_")
+	while (*(tmp->next->key) != '_')
 		tmp = tmp->next;
 	new = lst_env_new(key, value);
 	if (!new)

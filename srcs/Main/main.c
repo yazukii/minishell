@@ -17,24 +17,25 @@
 //	return (!ft_strncmp(str, "|", 1));
 //}
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	t_parsing	*bag;
 	char	**finput;
 
 	(void) argv;
 	(void) argc;
 	(void) finput;
+	bag = NULL;
 	rl_initialize();
+	init_parseur(bag, envp);
 	while (1)
 	{
-		input = readline(BLU"minishell$ "RESET);
-		if (input)
+		bag->input = readline(BLU"minishell$ "RESET);
+		if (bag->input)
 		{
-			add_history(input);
-			//expand(input);
-			parsing(input);
-			free(input);
+			add_history(bag->input);
+			parseur(bag);
+			free(bag->input);
 		}
 	}
 	return (0);

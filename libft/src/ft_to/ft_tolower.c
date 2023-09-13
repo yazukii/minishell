@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/11 14:02:37 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/17 13:53:50 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"libft.h"
 
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+int	ft_tolower(int c)
 {
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	if (c >= 65 && c <= 90)
+	{
+		c += 32;
+	}
+	return (c);
 }

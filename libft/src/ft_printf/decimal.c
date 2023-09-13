@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   decimal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/25 23:43:36 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/26 22:36:08 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"../includes/ft_printf.h"
 
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+int	decimal(int arg)
 {
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	char	*str;
+	int		len;
+	int		count;
+
+	str = ft_itoa(arg);
+	len = ft_strlen(str);
+	count = write(1, str, len);
+	free (str);
+	return (count);
 }
+
+//on doit free le itoa?

@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/12 13:10:03 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/19 16:34:08 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"libft.h"
 
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	unsigned char	*p;
+	size_t			i;
+
+	i = 0;
+	p = (unsigned char *)s;
+	while (i < n)
+	{
+		if (p[i] == (unsigned char) c)
+		{
+			return (p + i);
+		}
+		i++;
+	}
+	return (0);
 }

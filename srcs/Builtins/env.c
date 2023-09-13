@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 /*
- * 	env:
+ * 	envp:
  * 		-
  */
 
@@ -20,7 +20,7 @@ int	env(t_list_env *head, int fd)
 		i = 0;
 		write(fd, "=", 1);
 		while (tmp->value[i])
-			write(fd, &(tmp->value[i++], 1));
+			write(fd, &(tmp->value[i++]), 1);
 		tmp = tmp->next;
 		i = 0;
 	}
