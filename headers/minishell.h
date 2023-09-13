@@ -56,7 +56,8 @@ enum	e_char{
 };
 
 enum	e_errnumber{
-	MEMORY
+	MEMORY,
+	ENVP
 };
 
 enum	e_tokken_type{
@@ -114,6 +115,7 @@ typedef struct s_parsing
 	char				*value;
 	char				*split;
 	char				**builtins;
+	char				**envp;
 	t_list_pre			**p_head;
 	t_list_tokken		**t_head;
 }	t_parsing;
@@ -163,6 +165,7 @@ int				ft_strcmp(char const *str, char const *model, int size);
 bool			state_quote(t_parsing *sac, char c);
 t_list_env		*lst_env_new(char *key, char *value);
 void			pre_tokken_size(t_parsing *sac);
+char			*get_env(const char *key, char **envp);
 //t_list_tokken	*lst_tokken_new(char *key, char *value);
 
 // UTILS_LST

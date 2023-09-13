@@ -39,8 +39,9 @@
     - acces pour old_dir (cd -) etc
 
 ERROR && WORK LOG:
-    - expand, check_sep &
-    - faire guestion d'erreur
+    - rendre le code compilable
+    - expand, check_sep (faire un tableau avec toutes les variables d'environnement) / DONE
+    - faire gestion d'erreur (a verifier)
     - nettoyage des singles_quotes avec la pre_tokkenization (attention a etre dans un double quote)
     - verifier la taille des splits quand un espace suivit d'une redirection
     - pre_tokken, if two spaces in a row

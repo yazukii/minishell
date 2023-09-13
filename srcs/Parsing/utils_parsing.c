@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+char	*get_env(const char *key, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (envp[i] == key)
+			return (envp[i]);
+		i++;
+	}
+	return (NULL);
+}
+
 int	ft_strcmp(char const *str, char const *model, int size)
 {
 	int	i;

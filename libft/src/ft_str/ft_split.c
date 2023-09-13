@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include"libft.h"
-#include "push_swap.h"
 
 int	ft_checksep(char str)
 {

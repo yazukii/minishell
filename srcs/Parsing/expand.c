@@ -1,44 +1,46 @@
 #include "minishell.h"
 
 //pas check avec get_env
-void	expand(t_parsing *sac)
+void	expand(t_parsing *bag)
 {
-	sac->index++;
-	sac->value = getenv(sac->key);
-	sac->value_size = ft_strlen(sac->value);
-	sac->input = replace_key(sac, sac->key_size);
-	if (!sac->input)
-		ft_error(MEMORY, sac);
-	sac->index = sac->index + sac->value_size;
-	free(sac->key);
-	sac->key_size = 0;
+	bag->index++;
+	bag->value = get_env(bag->key, bag->envp);
+	if (!bag->value)
+		ft_error(ENVP, bag);
+	bag->value_size = ft_strlen(bag->value);
+	bag->input = replace_key(bag, bag->key_size);
+	if (!bag->input)
+		ft_error(MEMORY, bag);
+	bag->index = bag->index + bag->value_size;
+	free(bag->key);
+	bag->key_size = 0;
 }
 
-char	*replace_key(t_parsing *sac, int key_size)
+char	*replace_key(t_parsing *bag, int key_size)
 {
 	int		tmp_value;
 	char	*cln;
 
-	sac->i = -1;
-	sac->j = 0;
-	tmp_value = sac->value_size;
-	cln = malloc(sizeof (char) * (ft_strlen(sac->input) - \
-						key_size + sac->value_size));
+	bag->i = -1;
+	bag->j = 0;
+	tmp_value = bag->value_size;
+	cln = malloc(sizeof (char) * (ft_strlen(bag->input) - \
+						key_size + bag->value_size));
 	if (!cln)
 		return (NULL);
-	while (sac->input[++sac->i] != '$')
-		cln[sac->i] = sac->input[sac->i];
+	while (bag->input[++bag->i] != '$')
+		cln[bag->i] = bag->input[bag->i];
 	while (tmp_value--)
 	{
-		cln[sac->i + sac->j] = sac->value[sac->j];
-		sac->j++;
+		cln[bag->i + bag->j] = bag->value[bag->j];
+		bag->j++;
 	}
-	while (sac->input[sac->i + key_size])
+	while (bag->input[bag->i + key_size])
 	{
-		cln[sac->i + sac->j] = sac->input[sac->i + key_size];
-		sac->i++;
+		cln[bag->i + bag->j] = bag->input[bag->i + key_size];
+		bag->i++;
 	}
-	free(sac->input);
+	free(bag->input);
 	return (cln);
 }
 
@@ -71,22 +73,25 @@ int	check_sep(char c)
 	return (1);
 }
 
-// check_sep error avec les singlequotes dans les doublesquotes
-// faut pas check avec getenv parcequ'on pas update directement les variables d'env
-int	check_env(t_parsing *sac)
+int	check_env(t_parsing *bag)
 {
-	if (sac->input[sac->index] != '$')
+	int	i;
+	
+	i = 0;
+	if (bag->input[bag->index] != '$')
 		return (0);
-	while (check_sep(sac->input[sac->index + sac->key_size]))
-		sac->key_size++;
-	sac->key = ft_trim(&(sac->input[sac->index]), sac->key_size);
-	if (!sac->key)
-		ft_error(MEMORY, sac);
-	if (!getenv(sac->key))
+	while (check_sep(bag->input[bag->index + bag->key_size]))
+		bag->key_size++;
+	bag->key = ft_trim(&(bag->input[bag->index]), bag->key_size);
+	if (!bag->key)
+		ft_error(MEMORY, bag);
+	while (bag->envp[i])
 	{
-		sac->key_size = 0;
-		return (0);
+		if (bag->envp[i++] == bag->key)
+		{
+			bag->key_size = 0;
+			return (TRUE);
+		}
 	}
-	else
-		return (1);
+	return (FALSE);
 }

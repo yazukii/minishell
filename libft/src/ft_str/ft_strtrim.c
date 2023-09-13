@@ -24,7 +24,7 @@ int	is_in_set(char c, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t		start;
+	int			start;
 	int			end;
 	char		*trimmed;
 	char		*rtn;
