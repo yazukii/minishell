@@ -39,16 +39,28 @@
     - acces pour old_dir (cd -) etc
 
 ### ERROR && WORK LOG:
+    LES DEUX:
+        - comprendre les redirections etc
     YANI:
-    - faire gestion d'erreur (a verifier)
-    - pre_tokken, if two spaces in a row
-    - verifier la taille des splits quand un espace suivit d'une redirection
+        - faire gestion d'erreur (a verifier)
+        - pre_tokken, if two spaces in a row
+        - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
-    - nettoyage des singles_quotes avec la pre_tokkenization (attention a etre dans un double quote)
-    - si le pre_tokken est le premier pre_tokken ou le premier apres un pipe c'est typer comme une commande
-### DONE:
+        - init correctement les elements de la liste;
+        - nettoyage des singles_quotes avec la pre_tokkenization (attention a etre dans un double quote)
+        - si le pre_tokken est le premier pre_tokken ou le premier apres un pipe c'est typer comme une commande
+
+ ### DONE:
     - faire marcher le code 
     - rendre le code compilable
     - expand, check_sep (faire un tableau avec toutes les variables d'environnement)
 tricks pour avoir plus de variable global que 1: faire une fonction qui retourne qui retourne une adresse static, au
 premier appel de la fonction tu alloue de la memoire a cette adrese et par la suite tu appelles la fonction pour acceder a la memoire.
+
+t_list{
+    char *commande;
+    bool built_or_cmd;
+    char **args;
+    int fd_input;
+    int fd_output;
+}

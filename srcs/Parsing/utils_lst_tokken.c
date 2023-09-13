@@ -36,5 +36,10 @@ t_list_tokken	*ft_t_lstnew(void)
 	instance = (t_list_tokken *) malloc(sizeof(t_list_tokken));
 	if (!instance)
 		return (NULL);
+	instance->args = NULL;
+	instance->type = NULL;
+	instance->redir_id = NULL;
+	instance->builtin_id = NULL;
+
 	return (instance);
 }

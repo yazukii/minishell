@@ -7,14 +7,15 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 		ft_error(MEMORY, NULL);
 	bag->index = 0;
 	bag->input = NULL;
-	bag->can_exp = 1;
-	bag->in_double = 0;
-	bag->in_simple = 0;
+	bag->can_exp = TRUE;
+	bag->in_double = FALSE;
+	bag->in_simple = FALSE;
 	bag->key = NULL;
 	bag->key_size = 0;
 	bag->value = NULL;
 	bag->value_size = 0;
 	bag->split_index = 0;
+	bag->pipe_flag = FALSE;
 	bag->p_head = NULL;
 	bag->split = NULL;
 	bag->envp = envp;

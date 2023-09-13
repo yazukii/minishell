@@ -62,18 +62,18 @@ enum	e_errnumber{
 };
 
 enum	e_tokken_type{
-	CMD,
+	COMMAND,
 	BUILTINS,
 	ARGUMENT,
-	REDIRECTION,
-	PIPE,
+	REDIRECTION
 };
 
 enum e_redirections{
 	LEFT,
 	RIGHT,
 	APPEND,
-	HEREDOC
+	HEREDOC,
+	PIPE
 };
 
 typedef struct s_list_env
@@ -95,8 +95,8 @@ typedef struct s_list_tokken
 	enum e_tokken_type		type;
 	enum e_builtins			builtin_id;
 	enum e_redirections		redir_id;
-	char					*path;
-	char					**args;
+	char 					*cmd;
+	char					*args;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
@@ -105,6 +105,7 @@ typedef struct s_parsing
 	bool				can_exp;
 	bool				in_double;
 	bool				in_simple;
+	bool				pipe_flag;
 	int					index;
 	int					value_size;
 	int					key_size;
@@ -118,7 +119,7 @@ typedef struct s_parsing
 	char				**builtins;
 	char				**envp;
 	t_list_pre			*p_head;
-	t_list_tokken		**t_head;
+	t_list_tokken		*t_head;
 }	t_parsing;
 
 
@@ -161,6 +162,7 @@ t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
 t_list_pre		*ft_pre_lstnew(char *pre_tokken);
 
 // UTILS_LST_TOKKEN
+t_list_tokken	*ft_t_lstnew(void);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
 
