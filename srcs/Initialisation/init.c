@@ -1,7 +1,10 @@
 #include "../../headers/minishell.h"
 
-void	init_parseur(t_parsing *bag, char **envp)
+t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 {
+	bag = malloc(sizeof (t_parsing) * 1);
+	if (!bag)
+		ft_error(MEMORY, NULL);
 	bag->index = 0;
 	bag->input = NULL;
 	bag->can_exp = 1;
@@ -15,7 +18,9 @@ void	init_parseur(t_parsing *bag, char **envp)
 	bag->p_head = NULL;
 	bag->split = NULL;
 	bag->envp = envp;
-	init_builtins(bag);
+	if (flag == TRUE)
+		init_builtins(bag);
+	return (bag);
     //init_cmds(bag);
 }
 

@@ -44,7 +44,7 @@ void	pre_tokken_size(t_parsing *bag)
 	int			i;
 
 	i = 0;
-	current = *(bag->p_head);
+	current = bag->p_head;
 	while (current)
 	{
 		while (current->pre_tokken[i])
