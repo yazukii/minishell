@@ -20,23 +20,25 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_parsing	*bag;
-	char	**finput;
+	t_list_pre	*current;
 
 	(void) argv;
 	(void) argc;
-	(void) finput;
 	bag = NULL;
 	rl_initialize();
-	init_parseur(bag, envp);
+	bag = init_parseur(bag, envp, TRUE);
 	while (1)
 	{
 		bag->input = readline(BLU"minishell$ "RESET);
-		if (bag->input)
+		if (*bag->input)
 		{
 			add_history(bag->input);
 			parseur(bag);
+			current = ft_pre_lstlast(bag->p_head);
+			printf("%s\n", current->pre_tokken);
 			free(bag->input);
 		}
+		bag = init_parseur(bag, envp, FALSE);
 	}
 	return (0);
 }

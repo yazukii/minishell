@@ -52,7 +52,8 @@ enum	e_char{
 	CHAR,
 	SPACESEP,
 	ONECHAR,
-	TWOCHAR
+	TWOCHAR,
+	BACKSLASH
 };
 
 enum	e_errnumber{
@@ -116,24 +117,10 @@ typedef struct s_parsing
 	char				*split;
 	char				**builtins;
 	char				**envp;
-	t_list_pre			**p_head;
+	t_list_pre			*p_head;
 	t_list_tokken		**t_head;
 }	t_parsing;
 
-typedef struct s_prompt
-{
-	t_list	*cmds;				//* Reference to s_mini
-	char	**envp;				//* Env pointer
-	pid_t	**pid;				//* Pid of this minishell instance
-}			t_prompt;
-
-typedef struct s_mini
-{
-	char	**full_cmd;			//* Self-explanatory
-	char	*full_path;			//*
-	int		infile;				//* File descriptor to take input from
-	int		outfile;			//* File descriptor to outpout to
-}	t_mini;
 
 // PARSING
 void			parseur(t_parsing *bag);
@@ -178,7 +165,7 @@ t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
 
 // INIT
-void	        init_parseur(t_parsing *bag, char **envp);
+t_parsing		*init_parseur(t_parsing *bag, char **envp, int flag);
 void			init_builtins(t_parsing *sac);
 void			init_cmds(t_parsing *sac);
 
