@@ -145,12 +145,13 @@ void			split_pretokken(t_parsing *sac, int flag);
 char			*tiny_split(t_parsing *sac);
 
 // TOKKEN
-void			check_commands(t_list_pre *current, t_parsing *sac);
 void			check_builtins(t_list_pre *current, t_parsing *sac);
 void			check_redirections(t_list_pre *current, t_parsing *sac);
 void			check_arguments(t_list_pre *current, t_parsing *sac);
 int				allocate_args(t_list_tokken *head);
 void			fill_args(t_parsing *bag);
+void			clean_single_quote(t_parsing *bag);
+void			clean_double_quote(t_parsing *bag);
 
 
 // UTILS_PARSING

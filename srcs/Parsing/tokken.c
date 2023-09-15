@@ -9,8 +9,8 @@ void	tokkenizer(t_parsing *bag)
 	bag->can_exp = TRUE;
 	bag->in_double = FALSE;
 	bag->in_simple = FALSE;
-	if (!clean_single_quote(bag))
-		ft_error(MEMORY, bag);
+	clean_single_quote(bag);
+	clean_double_quote(bag);
 	while (current)
 	{
 		if (!ft_lstadd_back_token(bag, ft_t_lstnew()))
@@ -23,29 +23,49 @@ void	tokkenizer(t_parsing *bag)
 	fill_args(bag);
 }
 
-int	clean_single_quote(t_parsing *bag)
+void	clean_double_quote(t_parsing *bag)
 {
 	t_list_pre	*current;
-	char		*new;
 	int			i;
-	int			j;
 
 	i = 0;
-	j = 0;
 	current = bag->p_head;
 	while (current)
 	{
-		new = malloc(sizeof (char) * ft_strlen(current->pre_tokken) + 1);
 		while (current->pre_tokken[i])
 		{
-			if (current->pre_tokken[i] == '\'' && \
-					!state_quote(bag, current->pre_tokken[i]))
+			if (current->pre_tokken[i] == '\"')
+			{
+				while (current->pre_tokken[i + 1])
+					current->pre_tokken[i] = current->pre_tokken[i + 1];
 				i++;
-			new[j++] = current->pre_tokken[i];
-			i++;
+			}
 		}
-		new[j] = 0;
-		j = 0;
+		i = 0;
+		current = current->next;
+	}
+}
+
+
+void	clean_single_quote(t_parsing *bag)
+{
+	t_list_pre	*current;
+	int			i;
+
+	i = 0;
+	current = bag->p_head;
+	while (current)
+	{
+		while (current->pre_tokken[++i])
+		{
+			state_quote(bag, current->pre_tokken[i]);
+			if (current->pre_tokken[i] == '\'' && !bag->in_double)
+			{
+				while (current->pre_tokken[i + 1])
+					current->pre_tokken[i] = current->pre_tokken[i + 1];
+				i++;
+			}
+		}
 		i = 0;
 		current = current->next;
 	}
