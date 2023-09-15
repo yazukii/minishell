@@ -5,10 +5,14 @@ char	*get_env(const char *key, char **envp)
 	int	i;
 
 	i = 0;
+    if (!key)
+    {
+        return (NULL);
+    }
 	while (envp[i])
 	{
-		if (envp[i] == key)
-			return (envp[i]);
+		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
+            return (ft_strtrim(ft_strtrim(envp[i], key), "="));
 		i++;
 	}
 	return (NULL);
