@@ -41,14 +41,16 @@
 ### ERROR && WORK LOG:
     LES DEUX:
         - comprendre les redirections etc
+        - voir comment push sur l'intra
     YANI:
         - faire gestion d'erreur (a verifier)
         - pre_tokken, if two spaces in a row
         - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
-        - init correctement les elements de la liste;
+        - comment on gere 
         - nettoyage des singles_quotes avec la pre_tokkenization (attention a etre dans un double quote)
         - si le pre_tokken est le premier pre_tokken ou le premier apres un pipe c'est typer comme une commande
+        - comprendre append
 
  ### DONE:
     - faire marcher le code 

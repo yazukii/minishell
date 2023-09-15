@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+int	ft_t_arglstsize(t_list_tokken *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst->type == ARGUMENT)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new)
 {
 	t_list_tokken	*tmp;
@@ -8,7 +21,7 @@ t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new)
 		return (NULL);
 	if (*(sac->t_head))
 	{
-		tmp = ft_t_lstlast(*(sac->t_head));
+		tmp = ft_t_lstlast(sac->t_head);
 		tmp->next = new;
 	}
 	else
@@ -36,10 +49,13 @@ t_list_tokken	*ft_t_lstnew(void)
 	instance = (t_list_tokken *) malloc(sizeof(t_list_tokken));
 	if (!instance)
 		return (NULL);
-	instance->args = NULL;
-	instance->type = NULL;
-	instance->redir_id = NULL;
-	instance->builtin_id = NULL;
-
+	instance->arg = NULL;
+	instance->cmd = NULL;
+	instance->type = -1;
+	instance->redir_id = -1;
+	instance->builtin_id = -1;
+	instance->next = NULL;
+	instance->input = 0;
+	instance->output = 1;
 	return (instance);
 }

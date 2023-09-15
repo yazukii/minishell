@@ -6,6 +6,11 @@ void	tokkenizer(t_parsing *bag)
 	t_list_tokken	*tokken;
 
 	current = bag->p_head;
+	bag->can_exp = TRUE;
+	bag->in_double = FALSE;
+	bag->in_simple = FALSE;
+	if (!clean_single_quote(bag))
+		ft_error(MEMORY, bag);
 	while (current)
 	{
 		if (!ft_lstadd_back_token(bag, ft_t_lstnew()))
@@ -15,13 +20,94 @@ void	tokkenizer(t_parsing *bag)
 		check_arguments(current, bag);
 		current = current->next;
 	}
-	if (!clean_single_quote(bag))
-		ft_error(MEMORY, bag);
+	fill_args(bag);
 }
 
 int	clean_single_quote(t_parsing *bag)
 {
+	t_list_pre	*current;
+	char		*new;
+	int			i;
+	int			j;
 
+	i = 0;
+	j = 0;
+	current = bag->p_head;
+	while (current)
+	{
+		new = malloc(sizeof (char) * ft_strlen(current->pre_tokken) + 1);
+		while (current->pre_tokken[i])
+		{
+			if (current->pre_tokken[i] == '\'' && \
+					!state_quote(bag, current->pre_tokken[i]))
+				i++;
+			new[j++] = current->pre_tokken[i];
+			i++;
+		}
+		new[j] = 0;
+		j = 0;
+		i = 0;
+		current = current->next;
+	}
+}
+
+void	fill_args(t_parsing *bag)
+{
+	t_list_tokken	*current;
+
+	current = bag->t_head;
+	while (current)
+	{
+		if (current->type == COMMAND || current->type == BUILTINS)
+		{
+			if (allocate_args(current) == FALSE)
+				ft_error(MEMORY, bag);
+		}
+		current = current->next;
+	}
+	clean_lst(bag->t_head);
+}
+
+void	clean_lst(t_list_tokken *head)
+{
+	t_list_tokken	*current;
+	t_list_tokken	*hook;
+	t_list_tokken	*tmp;
+
+	current = head;
+	while (current)
+	{
+		if (current->type == COMMAND || current->type == BUILTINS)
+			hook = current;
+		if (current->type == ARGUMENT)
+		{
+			tmp = current;
+			current = current->next;
+			free(tmp);
+			hook->next = current;
+		}
+		else
+			current = current->next;
+	}
+}
+
+int	allocate_args(t_list_tokken *head)
+{
+	t_list_tokken	*current;
+	int				i;
+
+	i = 0;
+	head->args = malloc(sizeof (char *) * ft_t_arglstsize(current));
+	if (!head->args)
+		return (FALSE);
+	current = head->next;
+	while (current->type == ARGUMENT)
+	{
+		head->args[i] = current->arg;
+		current = current->next;
+		i++;
+	}
+	return (TRUE);
 }
 
 void	check_redirections(t_list_pre *current, t_parsing *bag)
@@ -54,7 +140,7 @@ void	check_arguments(t_list_pre *current, t_parsing *bag)
 	else
 	{
 		ft_t_lstlast(bag->t_head)->type = ARGUMENT;
-		ft_t_lstlast(bag->t_head)->args = current->pre_tokken;
+		ft_t_lstlast(bag->t_head)->arg = current->pre_tokken;
 	}
 }
 

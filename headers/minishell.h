@@ -95,8 +95,11 @@ typedef struct s_list_tokken
 	enum e_tokken_type		type;
 	enum e_builtins			builtin_id;
 	enum e_redirections		redir_id;
-	char 					*cmd;
-	char					*args;
+	char					*cmd;
+	char					*arg;
+	char					**args;
+	int						output;
+	int						input;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
@@ -146,6 +149,8 @@ void			check_commands(t_list_pre *current, t_parsing *sac);
 void			check_builtins(t_list_pre *current, t_parsing *sac);
 void			check_redirections(t_list_pre *current, t_parsing *sac);
 void			check_arguments(t_list_pre *current, t_parsing *sac);
+int				allocate_args(t_list_tokken *head);
+void			fill_args(t_parsing *bag);
 
 
 // UTILS_PARSING
@@ -154,7 +159,7 @@ bool			state_quote(t_parsing *sac, char c);
 t_list_env		*lst_env_new(char *key, char *value);
 void			pre_tokken_size(t_parsing *sac);
 char			*get_env(const char *key, char **envp);
-//t_list_tokken	*lst_tokken_new(char *key, char *value);
+void			clean_lst(t_list_tokken *head);
 
 // UTILS_LST
 t_list_pre		*ft_pre_lstadd_back(t_list_pre **lst, t_list_pre *new);
@@ -162,6 +167,7 @@ t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
 t_list_pre		*ft_pre_lstnew(char *pre_tokken);
 
 // UTILS_LST_TOKKEN
+int				ft_t_arglstsize(t_list_tokken *lst);
 t_list_tokken	*ft_t_lstnew(void);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
