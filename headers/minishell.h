@@ -21,6 +21,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
 # define YEL   "\x1B[33m"n
@@ -36,7 +39,7 @@
 # define TRUE 1
 # define FALSE 0
 
-int	g_status;					//* Exit status of the most-recently-executed command
+//int	g_status;					//* Exit status of the most-recently-executed command
 
 enum	e_builtins{
 	ECHO,
@@ -58,7 +61,8 @@ enum	e_char{
 
 enum	e_errnumber{
 	MEMORY,
-	ENVP
+	ENVP,
+    FD
 };
 
 enum	e_tokken_type{
@@ -113,6 +117,7 @@ typedef struct s_parsing
 	int					value_size;
 	int					key_size;
 	int					split_index;
+    int                 fd;
 	int					i;
 	int					j;
 	char				*key;
@@ -148,7 +153,7 @@ char			*tiny_split(t_parsing *sac);
 void			check_builtins(t_list_pre *current, t_parsing *sac);
 void			check_redirections(t_list_pre *current, t_parsing *sac);
 void			check_arguments(t_list_pre *current, t_parsing *sac);
-int				allocate_args(t_list_tokken *head);
+int				allocate_args(t_list_tokken *node);
 void			fill_args(t_parsing *bag);
 void			clean_single_quote(t_parsing *bag);
 void			clean_double_quote(t_parsing *bag);

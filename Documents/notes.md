@@ -1,13 +1,7 @@
 ### 1. Structure
-    - approche top-> down
-    - faire une grosse structure?
-    - Faire des Enums et des defines
     - apprendre a utiliser errno
-    - var explicite
 
-### technical:
-    - var_length has a malloc but no free
-    - var_val has a malloc but no free
+### 2. technical:
 
 ### 3. Parsing:
     - single quote:
@@ -51,10 +45,10 @@
         - les redirections: check le prochain tokken
         - stdout redir : creer le fichier avant de le remplir
         - stdin redir : 
-        - nettoyer aussi les doubles quotes
         - comprendre append
 
- ### DONE:
+### DONE:
+    - nettoyer aussi les doubles quotes
     - voir comment push sur l'intra
     - faire marcher le code 
     - rendre le code compilable

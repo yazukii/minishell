@@ -3,7 +3,6 @@
 void	tokkenizer(t_parsing *bag)
 {
 	t_list_pre		*current;
-	t_list_tokken	*tokken;
 
 	current = bag->p_head;
 	bag->can_exp = TRUE;
@@ -20,7 +19,30 @@ void	tokkenizer(t_parsing *bag)
 		check_arguments(current, bag);
 		current = current->next;
 	}
+    check_std(bag);
 	fill_args(bag);
+}
+
+void check_std(t_parsing *bag)
+{
+    t_list_tokken *current;
+
+    current = bag->t_head;
+    while (current)
+    {
+        if (current->redir_id == LEFT || current->redir_id == RIGHT)
+        {
+            if (current->redir_id == RIGHT)
+                bag->fd = open(current->next->arg, O_WRONLY);
+            if (current->redir_id == LEFT )
+                bag->fd = open(current->next->arg, O_RDONLY);
+            if (bag->fd == -1)
+                ft_error(FD, bag);
+            current->input = bag->fd;
+            close(bag->fd);
+        }
+        if (current->redir_id == APPEND)
+    }
 }
 
 void	clean_double_quote(t_parsing *bag)
@@ -74,15 +96,17 @@ void	clean_single_quote(t_parsing *bag)
 void	fill_args(t_parsing *bag)
 {
 	t_list_tokken	*current;
+    int              fd;
 
 	current = bag->t_head;
 	while (current)
 	{
 		if (current->type == COMMAND || current->type == BUILTINS)
 		{
-			if (allocate_args(current) == FALSE)
-				ft_error(MEMORY, bag);
-		}
+			if (allocate_args(current) == FALSE) {
+                ft_error(MEMORY, bag);
+            }
+        }
 		current = current->next;
 	}
 	clean_lst(bag->t_head);
@@ -111,19 +135,19 @@ void	clean_lst(t_list_tokken *head)
 	}
 }
 
-int	allocate_args(t_list_tokken *head)
+int	allocate_args(t_list_tokken *node)
 {
 	t_list_tokken	*current;
 	int				i;
 
 	i = 0;
-	head->args = malloc(sizeof (char *) * ft_t_arglstsize(current));
-	if (!head->args)
+    node->args = malloc(sizeof (char *) * ft_t_arglstsize(node));
+	if (!node->args)
 		return (FALSE);
-	current = head->next;
+	current = node->next;
 	while (current->type == ARGUMENT)
 	{
-		head->args[i] = current->arg;
+        node->args[i] = current->arg;
 		current = current->next;
 		i++;
 	}

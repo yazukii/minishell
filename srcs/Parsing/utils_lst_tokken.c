@@ -19,13 +19,13 @@ t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new)
 
 	if (!new)
 		return (NULL);
-	if (*(sac->t_head))
+	if (sac->t_head)
 	{
 		tmp = ft_t_lstlast(sac->t_head);
 		tmp->next = new;
 	}
 	else
-		*(sac->t_head) = new;
+		sac->t_head = new;
 	return (new);
 }
 
