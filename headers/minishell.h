@@ -62,7 +62,8 @@ enum	e_char{
 enum	e_errnumber{
 	MEMORY,
 	ENVP,
-    FD
+    FD,
+    FORK
 };
 
 enum	e_tokken_type{
@@ -73,8 +74,8 @@ enum	e_tokken_type{
 };
 
 enum e_redirections{
-	LEFT,
-	RIGHT,
+	INPUT,
+	OUTPUT,
 	APPEND,
 	HEREDOC,
 	PIPE
@@ -120,6 +121,7 @@ typedef struct s_parsing
     int                 fd;
 	int					i;
 	int					j;
+    pid_t               child;
 	char				*key;
 	char				*input;
 	char				*value;
@@ -157,7 +159,8 @@ int				allocate_args(t_list_tokken *node);
 void			fill_args(t_parsing *bag);
 void			clean_single_quote(t_parsing *bag);
 void			clean_double_quote(t_parsing *bag);
-
+void            check_std(t_parsing *bag);
+void            heredoc(t_list_tokken *current, t_parsing *bag);
 
 // UTILS_PARSING
 int				ft_strcmp(char const *str, char const *model, int size);

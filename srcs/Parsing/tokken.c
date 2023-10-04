@@ -2,25 +2,38 @@
 
 void	tokkenizer(t_parsing *bag)
 {
-	t_list_pre		*current;
+t_list_pre		*current;
 
-	current = bag->p_head;
-	bag->can_exp = TRUE;
-	bag->in_double = FALSE;
-	bag->in_simple = FALSE;
-	clean_single_quote(bag);
-	clean_double_quote(bag);
-	while (current)
-	{
-		if (!ft_lstadd_back_token(bag, ft_t_lstnew()))
-			ft_error(MEMORY, bag);
-		check_builtins(current, bag);
-		check_redirections(current, bag);
-		check_arguments(current, bag);
-		current = current->next;
-	}
-    check_std(bag);
-	fill_args(bag);
+current = bag->p_head;
+bag->can_exp = TRUE;
+bag->in_double = FALSE;
+bag->in_simple = FALSE;
+clean_single_quote(bag);
+clean_double_quote(bag);
+while (current)
+{
+    if (!ft_lstadd_back_token(bag, ft_t_lstnew()))
+        ft_error(MEMORY, bag);
+    check_builtins(current, bag);
+    check_redirections(current, bag);
+    check_arguments(current, bag);
+    current = current->next;
+}
+check_std(bag);
+fill_args(bag);
+}
+
+void heredoc(t_list_tokken *current, t_parsing *bag)
+{
+    pid_t child;
+
+   child = fork();
+   if (child == -1)
+       ft_error(FORK, bag);
+   if (child == 0)
+   {
+       while ()
+   }
 }
 
 void check_std(t_parsing *bag)
@@ -30,18 +43,22 @@ void check_std(t_parsing *bag)
     current = bag->t_head;
     while (current)
     {
-        if (current->redir_id == LEFT || current->redir_id == RIGHT)
+        if (current->redir_id == INPUT || current->redir_id == OUTPUT || current->redir_id == APPEND)
         {
-            if (current->redir_id == RIGHT)
+            if (current->redir_id == OUTPUT || current->redir_id == APPEND)
                 bag->fd = open(current->next->arg, O_WRONLY);
-            if (current->redir_id == LEFT )
+            if (current->redir_id == INPUT)
                 bag->fd = open(current->next->arg, O_RDONLY);
             if (bag->fd == -1)
                 ft_error(FD, bag);
-            current->input = bag->fd;
-            close(bag->fd);
+            if (current->redir_id == OUTPUT || current->redir_id == APPEND)
+                current->output = bag->fd;
+            if (current->redir_id == INPUT)
+                current->input = bag->fd;
         }
-        if (current->redir_id == APPEND)
+        if (current->redir_id == HEREDOC)
+            heredoc(current, bag);
+        current = current->next;
     }
 }
 
@@ -157,9 +174,9 @@ int	allocate_args(t_list_tokken *node)
 void	check_redirections(t_list_pre *current, t_parsing *bag)
 {
 	if (ft_strcmp(current->pre_tokken, "<", current->size))
-		(ft_t_lstlast(bag->t_head))->redir_id = LEFT;
+		(ft_t_lstlast(bag->t_head))->redir_id = INPUT;
 	if (ft_strcmp(current->pre_tokken, ">", current->size))
-		(ft_t_lstlast(bag->t_head))->redir_id = RIGHT;
+		(ft_t_lstlast(bag->t_head))->redir_id = OUTPUT;
 	if (ft_strcmp(current->pre_tokken, ">>", current->size))
 		(ft_t_lstlast(bag->t_head))->redir_id = APPEND;
 	if (ft_strcmp(current->pre_tokken, "<<", current->size))

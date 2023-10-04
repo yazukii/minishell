@@ -41,11 +41,14 @@
         - pre_tokken, if two spaces in a row
         - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
-        - verifier les heredoc: garde les singles et les double quotes donc changer le nettoyeur de quotes
-        - les redirections: check le prochain tokken
-        - stdout redir : creer le fichier avant de le remplir
-        - stdin redir : 
-        - comprendre append
+        - heredoc: 
+            - clean les simple et double du EOF
+            - garde les simples et double de l'input
+            - on met tout dans un seul char *heredoc
+            - pendant l'execution on le feed à travers un pipe
+        - les redirections: le fd modifié doit etre associe a une command en particulier
+        - stdout redir : creer le fichier avant de le remplir donc revoir condition erreur 
+        - append: comme stdout redir
 
 ### DONE:
     - nettoyer aussi les doubles quotes
