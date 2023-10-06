@@ -25,15 +25,20 @@ fill_args(bag);
 
 void heredoc(t_list_tokken *current, t_parsing *bag)
 {
-    pid_t child;
+    char    *str;
+    char    *tmp;
+    char    *eof;
 
-   child = fork();
-   if (child == -1)
-       ft_error(FORK, bag);
-   if (child == 0)
-   {
-       while ()
-   }
+    eof = current->next->arg;
+    tmp = NULL;
+    str = NULL;
+    while (tmp != eof)
+    {
+        str = ft_strjoin(str, tmp);
+        tmp = readline(BLU"heredoc$ "RESET);
+    }
+    bag->heredoc = str;
+	ft_t_relink(current);
 }
 
 void check_std(t_parsing *bag)
@@ -45,14 +50,17 @@ void check_std(t_parsing *bag)
     {
         if (current->redir_id == INPUT || current->redir_id == OUTPUT || current->redir_id == APPEND)
         {
-            if (current->redir_id == OUTPUT || current->redir_id == APPEND)
-                bag->fd = open(current->next->arg, O_WRONLY);
             if (current->redir_id == INPUT)
                 bag->fd = open(current->next->arg, O_RDONLY);
-            if (bag->fd == -1)
+            if (bag->fd == -1 && current->redir_id == INPUT)
                 ft_error(FD, bag);
-            if (current->redir_id == OUTPUT || current->redir_id == APPEND)
-                current->output = bag->fd;
+			if (current->redir_id == OUTPUT || current->redir_id == APPEND)
+			{
+				bag->fd = open(current->next->arg, O_WRONLY | O_CREAT, 777);
+				if (bag->fd == -1)
+					ft_error(FILE_CREATIION, bag);
+				current->output[0] = bag->fd;
+			}
             if (current->redir_id == INPUT)
                 current->input = bag->fd;
         }
@@ -120,9 +128,8 @@ void	fill_args(t_parsing *bag)
 	{
 		if (current->type == COMMAND || current->type == BUILTINS)
 		{
-			if (allocate_args(current) == FALSE) {
+			if (allocate_args(current) == FALSE)
                 ft_error(MEMORY, bag);
-            }
         }
 		current = current->next;
 	}
@@ -155,15 +162,22 @@ void	clean_lst(t_list_tokken *head)
 int	allocate_args(t_list_tokken *node)
 {
 	t_list_tokken	*current;
+	t_list_tokken	*cmd;
 	int				i;
+	int 			tab[256];
 
 	i = 0;
+	cmd->output = tab;
     node->args = malloc(sizeof (char *) * ft_t_arglstsize(node));
 	if (!node->args)
 		return (FALSE);
 	current = node->next;
 	while (current->type == ARGUMENT)
 	{
+		if (current->input != 0)
+			cmd->input = current->input;
+		if (current->output[0] != 1)
+			cmd->output[cmd->output_nbr++] = current->output[0];
         node->args[i] = current->arg;
 		current = current->next;
 		i++;

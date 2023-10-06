@@ -42,15 +42,19 @@
         - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
         - heredoc: 
-            - clean les simple et double du EOF
-            - garde les simples et double de l'input
-            - on met tout dans un seul char *heredoc
             - pendant l'execution on le feed à travers un pipe
-        - les redirections: le fd modifié doit etre associe a une command en particulier
-        - stdout redir : creer le fichier avant de le remplir donc revoir condition erreur 
-        - append: comme stdout redir
+        - gerer qu'il ai bien le bon nombre de redirection
+        - verifier que les arg qui sont free disparaissent pas du tableau d'args quand on free les instances
 
 ### DONE:
+
+    - stdout redir : creer le fichier avant de le remplir donc revoir condition erreur 
+    - append: comme stdout redir
+    - les redirections: le fd modifié doit etre associe a une command en particulier
+    - heredoc: 
+        - clean les simple et double du EOF
+        - garde les simples et double de l'input
+        - on met tout dans un seul char *heredoc
     - nettoyer aussi les doubles quotes
     - voir comment push sur l'intra
     - faire marcher le code 

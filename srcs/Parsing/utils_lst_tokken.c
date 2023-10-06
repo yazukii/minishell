@@ -1,5 +1,28 @@
 #include "minishell.h"
 
+void	ft_t_relink(t_list_tokken *node)
+{
+	t_list_tokken	*tmp;
+	int 			i;
+
+	i = 0;
+	tmp = node->next;
+	node->next = node->next->next;
+	if (tmp->arg)
+		free(tmp->arg);
+	if (tmp->cmd)
+		free(tmp>cmd);
+	if (tmp->args)
+	{
+		while (tmp->args[i])
+		{
+			free(tmp->args[i]);
+			i++;
+		}
+	}
+	free(tmp);
+}
+
 int	ft_t_arglstsize(t_list_tokken *lst)
 {
 	int	i;
@@ -56,6 +79,7 @@ t_list_tokken	*ft_t_lstnew(void)
 	instance->builtin_id = -1;
 	instance->next = NULL;
 	instance->input = 0;
-	instance->output = 1;
+	instance->output[0] = 1;
+	instance->output_nbr = 1;
 	return (instance);
 }

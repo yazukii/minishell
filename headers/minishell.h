@@ -63,7 +63,8 @@ enum	e_errnumber{
 	MEMORY,
 	ENVP,
     FD,
-    FORK
+    FORK,
+	FILE_CREATIION
 };
 
 enum	e_tokken_type{
@@ -103,8 +104,10 @@ typedef struct s_list_tokken
 	char					*cmd;
 	char					*arg;
 	char					**args;
-	int						output;
-	int						input;
+	int						*output;
+	int 					output_nbr;
+	int						*input;
+	int 					input_nbr;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
@@ -121,7 +124,7 @@ typedef struct s_parsing
     int                 fd;
 	int					i;
 	int					j;
-    pid_t               child;
+    char                *heredoc;
 	char				*key;
 	char				*input;
 	char				*value;
@@ -169,6 +172,7 @@ t_list_env		*lst_env_new(char *key, char *value);
 void			pre_tokken_size(t_parsing *sac);
 char			*get_env(const char *key, char **envp);
 void			clean_lst(t_list_tokken *head);
+void			ft_t_relink(t_list_tokken *node);
 
 // UTILS_LST
 t_list_pre		*ft_pre_lstadd_back(t_list_pre **lst, t_list_pre *new);
