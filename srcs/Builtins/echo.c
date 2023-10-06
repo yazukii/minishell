@@ -50,7 +50,6 @@ void	gestion_echapement(char *str, int i, int fd)
 	else
 		write(fd, &str[i], 1);
 }
-<<<<<<< HEAD
 /*
 =======
 

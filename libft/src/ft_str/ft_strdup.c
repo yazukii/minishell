@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/18 15:29:52 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/18 15:35:41 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"../../includes/libft.h"
 
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+char	*ft_strdup(const char *s1)
 {
-    (void)ERRNUMBER;
-    (void)sac;
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	int		len;
+	char	*strdup;
+
+	len = ft_strlen(s1) + 1;
+	strdup = malloc(sizeof(char) * len);
+	if (!strdup)
+		return (0);
+	strdup = ft_memcpy(strdup, s1, len);
+	return (strdup);
 }

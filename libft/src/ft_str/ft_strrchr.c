@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jmorcom- <jmorcom-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Created: 2022/10/11 14:41:12 by jmorcom-          #+#    #+#             */
+/*   Updated: 2022/10/21 16:24:21 by jmorcom-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	ft_error(int ERRNUMBER, t_parsing *sac)
+char	*ft_strrchr(const char *s, int c)
 {
-    (void)ERRNUMBER;
-    (void)sac;
-	if (errno == 1)
-		printf(RED"Syntax error, you need to close the quotes\n"RESET);
-	return (1);
+	int		i;
+	char	*t;
+
+	t = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+		{
+			t = (char *)(s + i);
+		}
+		i++;
+	}
+	if (s[i] == (char)c)
+		t = (char *)(s + i);
+	return (t);
 }

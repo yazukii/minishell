@@ -1,134 +1,97 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 17:50:46 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/08/08 18:42:34 by yidouiss         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-/*	Returns the length the string would be after replacing the env var.
-	This is done to be able to dinamically allocate memory later*/
-int	var_length(char *str, int i)
+//pas check avec get_env
+void	expand(t_parsing *bag)
 {
-	char	*var;
-	int		j;
-	int		size;
-
-	i++;
-	j = i;
-	size = 0;
-	while (str[j] != ' ' && str[j] != '\0' && str[j] != '\"')
-		j++;
-	var = malloc(sizeof(char) * (j - i));
-	while (str[i] != ' ' && str[i] != '\0' && str[i] != '\"')
-	{
-		var[size] = str[i];
-		size++;
-		i++;
-	}
-	if (getenv(var) == 0)
-		return (1);
-	return (ft_strlen(getenv(var)) - (size - 1));
+	bag->index++;
+	bag->value = get_env(bag->key, bag->envp);
+	if (!bag->value)
+		ft_error(ENVP, bag);
+	bag->value_size = ft_strlen(bag->value);
+	bag->input = replace_key(bag, bag->key_size);
+	if (!bag->input)
+		ft_error(MEMORY, bag);
+	bag->index = bag->index + bag->value_size;
+	free(bag->key);
+	bag->key_size = 0;
 }
 
-/*	When a '$' sign is found we call this function in order to get the value of
-	the variable. The said value is returned as 'var'*/
-char	*var_val(char *str, int i)
+char	*replace_key(t_parsing *bag, int key_size)
 {
-	char	*var;
-	int		j;
-	int		size;
+	int		tmp_value;
+	char	*cln;
 
-	i++;
-	j = i;
-	size = 0;
-	while (str[j] != ' ' && str[j] != '\0' && str[j] != '\"')
-		j++;
-	var = malloc(sizeof(char) * (j - i));
-	while (str[i] != ' ' && str[i] != '\0' && str[i] != '\"')
+	bag->i = -1;
+	bag->j = 0;
+	tmp_value = bag->value_size;
+	cln = malloc(sizeof (char) * (ft_strlen(bag->input) - \
+						key_size + bag->value_size));
+	if (!cln)
+		return (NULL);
+	while (bag->input[++bag->i] != '$')
+		cln[bag->i] = bag->input[bag->i];
+	while (tmp_value--)
 	{
-		var[size] = str[i];
-		size++;
-		i++;
+		cln[bag->i + bag->j] = bag->value[bag->j];
+		bag->j++;
 	}
-	return (getenv(var));
+	while (bag->input[bag->i + key_size])
+	{
+		cln[bag->i + bag->j] = bag->input[bag->i + key_size];
+		bag->i++;
+	}
+	free(bag->input);
+	return (cln);
 }
 
-/*	Replace the name of the variable by it's value */
-int	var_replace(int j, char *var, char **fstr)
-{
-	int		k;
-	char	*tmp;
-
-	k = 0;
-	tmp = *fstr;
-	while (var[k])
-	{
-		tmp[j] = var[k];
-		k++;
-		j++;
-	}
-	*fstr = tmp;
-	return (j);
-}
-
-/*	Dynamically allocate the right amount of byte to the final str and then
-	browse the string and whenever a var name is encountered, replace it
-	by it's value with the function 'var_replace()' */
-char	*var_alloc(char *str, int size)
+char	*ft_trim(char const *str, int size_to_trim)
 {
 	int		i;
-	int		j;
-	char	*fstr;
-	char	*var;
+	char	*r_str;
 
-	i = 0;
-	j = 0;
-	fstr = malloc(sizeof(char) * size);
-	while (str[i])
+	i = -1;
+	r_str = malloc(sizeof(char) * size_to_trim + 1);
+	if (!r_str)
+		return (NULL);
+	while (++i < size_to_trim)
+		r_str[i] = str[i];
+	r_str[i] = '\0';
+	return (r_str);
+}
+
+int	check_sep(char c)
+{
+	char	*seps;
+
+	seps = " \"\'\\\0$";
+	while (*seps)
 	{
-		if (!checksquotes(str[i], i) && str[i] == '$')
+		if (c == *seps)
+			return (0);
+		seps++;
+	}
+	return (1);
+}
+
+int	check_env(t_parsing *bag)
+{
+	int	i;
+	
+	i = 0;
+	if (bag->input[bag->index] != '$')
+		return (0);
+	while (check_sep(bag->input[bag->index + bag->key_size]))
+		bag->key_size++;
+	bag->key = ft_trim(&(bag->input[bag->index]), bag->key_size);
+	if (!bag->key)
+		ft_error(MEMORY, bag);
+	while (bag->envp[i])
+	{
+		if (bag->envp[i++] == bag->key)
 		{
-			var = var_val(str, i);
-			while (str[i] != ' ' && str[i] != '\0' && str[i] != '\"')
-				i++;
-			if (var)
-				j = var_replace(j, var, &fstr);
-			else
-				i = j;
+			bag->key_size = 0;
+			return (TRUE);
 		}
-		fstr[j++] = str[i++];
 	}
-	checksquotes(str[i], i);
-	return (fstr);
-}
-
-/*	Get the size of the expanded string with the function var_length() and
-	then call the function var_alloc() to actually expand the string */
-void	expand(char **str)
-{
-	int		i;
-//	char	*var;
-	char	*tmp;
-	int		strsize;
-
-	i = 0;
-	tmp = *str;
-	strsize = 0;
-	while (tmp[i])
-	{
-		if (tmp[i] == '$' && !checksquotes(tmp[i], i))
-			strsize += var_length(tmp, i);
-		else
-			strsize++;
-		i++;
-	}
-	checksquotes(tmp[i], -1);
-	*str = var_alloc(tmp, strsize);
+	return (FALSE);
 }

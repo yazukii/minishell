@@ -17,25 +17,36 @@
 //	return (!ft_strncmp(str, "|", 1));
 //}
 
-int	main(int argc, char **argv)
+void printlist(t_parsing bag)
 {
-	char	*input;
-	char	**finput;
+    printf("%s\n", bag.p_head->pre_tokken);
+    while (bag.p_head->next)
+    {
+        bag.p_head = bag.p_head->next;
+        printf("%s\n", bag.p_head->pre_tokken);
+    }
+}
 
-	(void) argv;
-	(void) argc;
-	(void) finput;
-	rl_initialize();
-	while (1)
-	{
-		input = readline(BLU"minishell$ "RESET);
-		if (input)
-		{
-			add_history(input);
-			//expand(input);
-			parsing(input);
-			free(input);
-		}
-	}
-	return (0);
+int	main(int argc, char **argv, char **envp)
+{
+    t_parsing	*bag;
+
+    (void) argv;
+    (void) argc;
+    bag = NULL;
+    rl_initialize();
+    bag = init_parseur(bag, envp, TRUE);
+    while (1)
+    {
+        bag->input = readline(BLU"minishell$ "RESET);
+        if (*bag->input)
+        {
+            add_history(bag->input);
+            parseur(bag);
+            printlist(*bag);
+            free(bag->input);
+        }
+        bag = init_parseur(bag, envp, FALSE);
+    }
+    return (0);
 }
