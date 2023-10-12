@@ -42,9 +42,11 @@ int	main(int argc, char **argv, char **envp)
         if (*bag->input)
         {
             add_history(bag->input);
-            parseur(bag);
-            printlist(*bag);
-            free(bag->input);
+            if(!parseur(bag))
+            {
+                printlist(*bag);
+                free(bag->input);
+            }
         }
         bag = init_parseur(bag, envp, FALSE);
     }

@@ -1,19 +1,20 @@
 #include "minishell.h"
 
 //pas check avec get_env
-void	expand(t_parsing *bag)
+int	expand(t_parsing *bag)
 {
 	bag->index++;
 	bag->value = get_env(bag->key, bag->envp);
 	if (!bag->value)
-		ft_error(ENVP, bag);
+		return(ft_error(ENVP, bag));
 	bag->value_size = ft_strlen(bag->value);
 	bag->input = replace_key(bag, bag->key_size);
 	if (!bag->input)
-		ft_error(MEMORY, bag);
+		return(ft_error(MEMORY, bag));
 	bag->index = bag->index + bag->value_size;
 	free(bag->key);
 	bag->key_size = 0;
+    return (0);
 }
 
 char	*replace_key(t_parsing *bag, int key_size)
@@ -50,11 +51,11 @@ char	*ft_trim(char const *str, int size_to_trim)
 	char	*r_str;
 
 	i = -1;
-	r_str = malloc(sizeof(char) * size_to_trim + 1);
+	r_str = malloc(sizeof(char) * size_to_trim);
 	if (!r_str)
 		return (NULL);
 	while (++i < size_to_trim)
-		r_str[i] = str[i];
+		r_str[i] = str[i + 1];
 	r_str[i] = '\0';
 	return (r_str);
 }
@@ -62,29 +63,30 @@ char	*ft_trim(char const *str, int size_to_trim)
 int	check_sep(char c)
 {
 	char	*seps;
+    int     i;
 
 	seps = " \"\'\\\0$";
-	while (*seps)
+    i = 0;
+	while (i < 6)
 	{
-		if (c == *seps)
+		if (c == seps[i])
 			return (0);
-		seps++;
+		i++;
 	}
 	return (1);
 }
 
 int	check_env(t_parsing *bag)
 {
-	int	i;
-	
-	i = 0;
 	if (bag->input[bag->index] != '$')
-		return (0);
+		return (FALSE);
+    bag->key_size++;
 	while (check_sep(bag->input[bag->index + bag->key_size]))
 		bag->key_size++;
 	bag->key = ft_trim(&(bag->input[bag->index]), bag->key_size);
 	if (!bag->key)
-		ft_error(MEMORY, bag);
+        return(ft_error(MEMORY, bag));
+    /*
 	while (bag->envp[i])
 	{
 		if (bag->envp[i++] == bag->key)
@@ -92,6 +94,6 @@ int	check_env(t_parsing *bag)
 			bag->key_size = 0;
 			return (TRUE);
 		}
-	}
-	return (FALSE);
+	}*/
+	return (TRUE);
 }
