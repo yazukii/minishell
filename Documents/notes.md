@@ -1,37 +1,3 @@
-### 1. Structure
-    - apprendre a utiliser errno
-
-### 2. technical:
-
-### 3. Parsing:
-    - single quote:
-             - does not expand
-    - double quote:
-             - if inside expand
-             - if inside keep the spaces and single quote
-    - pipes
-    - redirections:
-             - heredoc en cas de << with first word as delimiter
-             - >> append to file after the operator
-             - < use the file name to the right of this operator as input
-             - > use the file name to the right as the output (overwrites)
-    - commandes
-    - expand
-    - $?
-
-### 4. Execution:
-    - avoir une gestion d'erreur pour tout les builtins
-    - Coder les builtins
-    - gerer les signaux (pipe?) (ctrl-*)
-    - Regarder le path des executables
-    - redirections
-    - pipes
-
-### 5. Historique:
-    - Setup
-    - update
-    - acces pour old_dir (cd -) etc
-
 ### ERROR && WORK LOG:
     LES DEUX:
         - comprendre les redirections etc
@@ -41,6 +7,8 @@
         - pre_tokken, if two spaces in a row
         - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
+        - si on a deux redirections de suite ca casse
+        - qu'est ce qu'il se passe si on a deux args / ou deux commandes de suite etc
         - heredoc: 
             - pendant l'execution on le feed à travers un pipe
         - gerer qu'il ai bien le bon nombre de redirection

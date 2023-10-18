@@ -84,9 +84,12 @@ void	clean_double_quote(t_parsing *bag)
 			if (current->pre_tokken[i] == '\"')
 			{
 				while (current->pre_tokken[i + 1])
-					current->pre_tokken[i] = current->pre_tokken[i + 1];
-				i++;
+                {
+                    current->pre_tokken[i] = current->pre_tokken[i + 1];
+                    i++;
+                }
 			}
+            i++;
 		}
 		i = 0;
 		current = current->next;
@@ -165,10 +168,10 @@ int	allocate_args(t_list_tokken *node)
 
 	i = 0;
     node->args = malloc(sizeof (char *) * ft_t_arglstsize(node));
-	if (!node->args)
+	if (!(node->args))
 		return (FALSE);
 	current = node->next;
-	while (current->type == ARGUMENT)
+	while (current && current->type == ARGUMENT)
 	{
 		if (current->input != 0)
 			node->input[node->input_nbr++] = current->input[0];
