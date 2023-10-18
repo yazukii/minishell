@@ -17,13 +17,16 @@
 //	return (!ft_strncmp(str, "|", 1));
 //}
 
-void printlist(t_parsing bag)
+void printlist(t_parsing *bag)
 {
-    printf("%s\n", bag.p_head->pre_tokken);
-    while (bag.p_head->next)
+    printf("%s\n", bag->t_head);
+    while (bag->t_head->next)
     {
-        bag.p_head = bag.p_head->next;
-        printf("%s\n", bag.p_head->pre_tokken);
+        bag->t_head = bag->t_head->next;
+        while(bag->t_head->output[bag->t_head->output_nbr--])
+            printf("%d\n", bag->t_head->output[bag->t_head->output_nbr]);
+        while(bag->t_head->input[bag->t_head->input_nbr--])
+            printf("%")
     }
 }
 
@@ -43,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
         {
             add_history(bag->input);
             parseur(bag);
-            printlist(*bag);
+            printlist(bag);
             free(bag->input);
         }
         bag = init_parseur(bag, envp, FALSE);

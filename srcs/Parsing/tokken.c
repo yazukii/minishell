@@ -62,7 +62,7 @@ void check_std(t_parsing *bag)
 				current->output[0] = bag->fd;
 			}
             if (current->redir_id == INPUT)
-                current->input = bag->fd;
+                current->input[0] = bag->fd;
         }
         if (current->redir_id == HEREDOC)
             heredoc(current, bag);
@@ -121,7 +121,6 @@ void	clean_single_quote(t_parsing *bag)
 void	fill_args(t_parsing *bag)
 {
 	t_list_tokken	*current;
-    int              fd;
 
 	current = bag->t_head;
 	while (current)
@@ -162,12 +161,9 @@ void	clean_lst(t_list_tokken *head)
 int	allocate_args(t_list_tokken *node)
 {
 	t_list_tokken	*current;
-	t_list_tokken	*cmd;
 	int				i;
-	int 			tab[256];
 
 	i = 0;
-	cmd->output = tab;
     node->args = malloc(sizeof (char *) * ft_t_arglstsize(node));
 	if (!node->args)
 		return (FALSE);
@@ -175,9 +171,9 @@ int	allocate_args(t_list_tokken *node)
 	while (current->type == ARGUMENT)
 	{
 		if (current->input != 0)
-			cmd->input = current->input;
+			node->input[node->input_nbr++] = current->input[0];
 		if (current->output[0] != 1)
-			cmd->output[cmd->output_nbr++] = current->output[0];
+			node->output[node->output_nbr++] = current->output[0];
         node->args[i] = current->arg;
 		current = current->next;
 		i++;

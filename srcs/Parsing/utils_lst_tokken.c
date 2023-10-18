@@ -11,7 +11,7 @@ void	ft_t_relink(t_list_tokken *node)
 	if (tmp->arg)
 		free(tmp->arg);
 	if (tmp->cmd)
-		free(tmp>cmd);
+		free(tmp->cmd);
 	if (tmp->args)
 	{
 		while (tmp->args[i])
@@ -68,6 +68,8 @@ t_list_tokken	*ft_t_lstlast(t_list_tokken *lst)
 t_list_tokken	*ft_t_lstnew(void)
 {
 	t_list_tokken	*instance;
+    static int      input[256];
+    static int      output[256];
 
 	instance = (t_list_tokken *) malloc(sizeof(t_list_tokken));
 	if (!instance)
@@ -78,8 +80,11 @@ t_list_tokken	*ft_t_lstnew(void)
 	instance->redir_id = -1;
 	instance->builtin_id = -1;
 	instance->next = NULL;
-	instance->input = 0;
+    instance->input = input;
+	instance->input[0] = 0;
+    instance->input_nbr = 0;
+    instance->output = output;
 	instance->output[0] = 1;
-	instance->output_nbr = 1;
+	instance->output_nbr = 0;
 	return (instance);
 }
