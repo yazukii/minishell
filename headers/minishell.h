@@ -64,7 +64,8 @@ enum	e_errnumber{
 	ENVP,
     FD,
     FORK,
-	FILE_CREATIION
+	FILE_CREATIION,
+	SYNTAX
 };
 
 enum	e_tokken_type{
@@ -164,6 +165,7 @@ void			clean_single_quote(t_parsing *bag);
 void			clean_double_quote(t_parsing *bag);
 void            check_std(t_parsing *bag);
 void            heredoc(t_list_tokken *current, t_parsing *bag);
+void			std_check(t_parsing *bag, t_list_tokken *current);
 
 // UTILS_PARSING
 int				ft_strcmp(char const *str, char const *model, int size);

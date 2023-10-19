@@ -55,6 +55,7 @@ void	split_pretokken(t_parsing *bag, int flag)
 	if (flag == SPACESEP)
 	{
 		bag->split_index++;
+        bag->index++;
 		return ;
 	}
 	bag->index += flag - 1;
@@ -97,6 +98,6 @@ char	*tiny_split(t_parsing *bag)
 		local_index++;
 		bag->split_index++;
 	}
-	bag->split[bag->split_index] = '\0';
+	bag->split[local_index] = '\0';
 	return (bag->split);
 }

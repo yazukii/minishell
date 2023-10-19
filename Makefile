@@ -11,6 +11,8 @@ SRCS = ./main.c \
 		./expand.c \
 		./pre_tokken.c \
 		./tokken.c \
+		./clean_tokken.c \
+		./check_tokken.c \
 		./utils_parsing.c \
 		./utils_lst.c \
 		./utils_lst_tokken.c \
@@ -43,6 +45,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(LIBS) -o $@ $^ -L$(LIBFT_DIR) -lft
+	rm -rf objs
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)

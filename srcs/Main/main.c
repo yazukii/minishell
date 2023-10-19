@@ -19,12 +19,14 @@
 
 void printlist(t_parsing *bag)
 {
-    while (bag->t_head)
+    while ((bag->t_head))
     {
-        while(bag->t_head->output[bag->t_head->output_nbr--])
-            printf("%d\n", bag->t_head->output[bag->t_head->output_nbr]);
-        while(bag->t_head->input[bag->t_head->input_nbr--])
-            printf("%d\n", bag->t_head->input[bag->t_head->input_nbr]);
+        static int i;
+        while(i < bag->t_head->output_nbr)
+            printf("%d\n", bag->t_head->output[i++]);
+        i = 0;
+        while(i <bag->t_head->input_nbr)
+            printf("%d\n", bag->t_head->input[i++]);
         bag->t_head = bag->t_head->next;
     }
 }
