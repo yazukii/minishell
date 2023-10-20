@@ -20,6 +20,11 @@ SRCS = ./main.c \
 		./pwd.c \
 		./env.c \
 		./export.c \
+		./builtin.c \
+		./cd.c \
+		./pwd.c \
+		./echo.c \
+		./env.c
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft

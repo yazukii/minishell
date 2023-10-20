@@ -1,5 +1,4 @@
-//#include "minishell.h"
-#include "unistd.h"
+#include "../../headers/minishell.h"
 
 /*pour echo:
  * - faire des test
@@ -11,6 +10,21 @@
  *		- Double quotes allow variable expansion and interpretation of escape sequences.
 		- Single quotes treat the enclosed text as a literal string, preserving it exactly as written without variable or escape sequence expansion.
 */
+
+void echo(char **output)
+{
+    int i;
+
+    i = 0;
+    while(output[i])
+    {
+        printf("%s ", output[i]);
+        i++;
+    }
+    printf("\n");
+}
+
+/*
 void	gestion_echapement(char *str, int i, int fd);
 void	echo(char *str, int option_flag, int fd);
 
@@ -50,7 +64,7 @@ void	gestion_echapement(char *str, int i, int fd)
 	else
 		write(fd, &str[i], 1);
 }
-/*
+
 =======
 
 >>>>>>> main

@@ -24,10 +24,7 @@ int	parseur(t_parsing *bag)
 	}
 	pre_tokken(bag);
 	pre_tokken_size(bag);
-<<<<<<< HEAD
 	tokkenizer(bag);
-=======
     return (0);
 	//tokkenizer(bag);
->>>>>>> origin/yani
 }

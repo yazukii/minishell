@@ -26,7 +26,7 @@
 #include <sys/wait.h>
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
-# define YEL   "\x1B[33m"n
+# define YEL   "\x1B[33m"
 
 # define BLU   "\x1B[34m"
 # define MAG   "\x1B[35m"
@@ -41,6 +41,7 @@
 # define ERR -1
 
 //int	g_status;					//* Exit status of the most-recently-executed command
+extern char	**environ;
 
 enum	e_builtins{
 	ECHO,
@@ -105,7 +106,7 @@ typedef struct s_list_tokken
 	char					*cmd;
 	char					*arg;
 	char					**args;
-	int						*output;
+	int						*output;        //Chaque element du tablean
 	int 					output_nbr;
 	int						*input;
 	int 					input_nbr;
@@ -132,6 +133,8 @@ typedef struct s_parsing
 	char				*split;
 	char				**builtins;
 	char				**envp;
+    char                cwd[1024];
+	char				**env;
 	t_list_pre			*p_head;
 	t_list_tokken		*t_head;
 }	t_parsing;
@@ -190,6 +193,13 @@ t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
 t_parsing		*init_parseur(t_parsing *bag, char **envp, int flag);
 void			init_builtins(t_parsing *sac);
 void			init_cmds(t_parsing *sac);
+
+//BUILTIN
+void            choose_builtin(t_list_tokken tokken, t_parsing *bag);
+int             cd(t_list_tokken tokken, t_parsing *bag);
+int             pwd(t_list_tokken tokken, t_parsing *bag);
+void            echo(char **output);
+int             env(t_list_tokken tokken, t_parsing bag);
 
 // Error
 int				ft_error(int ERRNUMBER, t_parsing *sac);

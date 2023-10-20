@@ -19,6 +19,8 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->p_head = NULL;
 	bag->split = NULL;
 	bag->envp = envp;
+	bag->env = environ;
+    getcwd(bag->cwd, 1024);
 	if (flag == TRUE)
 		init_builtins(bag);
 	return (bag);

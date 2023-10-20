@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 /*pour cd:
  * change the current dir
@@ -9,4 +9,16 @@
  * error management
  */
 
-int	cd()
+int cd(t_list_tokken tokken, t_parsing *bag)
+{
+    if (!tokken.args)
+        chdir(getenv("HOME"));
+    else
+    {
+        if (tokken.args[0][0] != '/')
+            tokken.args[0] = ft_strjoin("/", tokken.args[0]);
+        if (chdir(ft_strjoin(bag->cwd, tokken.args[0])) == -1)
+            printf("This directory does not exist\n");
+    }
+    return (0);
+}

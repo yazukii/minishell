@@ -1,10 +1,20 @@
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 /* pwd:
  *		- getcwd
  *		- guestion d'erreur (set errno a quelque chose si on peut pas acceder le path)
  */
-
+int pwd(t_list_tokken tokken, t_parsing *bag)
+{
+    if (tokken.args)
+    {
+        printf("Too many arguments\n");
+        return (1);
+    }
+    printf("%s\n", bag->cwd);
+    return (0);
+}
+/*
 int	pwd(int fd)
 {
 	char	*str;
@@ -25,7 +35,7 @@ int	pwd(int fd)
 	else
 		return 0; //err
 }
-
+*/
 /*
 int	main(void)
 {

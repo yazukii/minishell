@@ -10,8 +10,8 @@ void	ft_t_relink(t_list_tokken *node)
 	node->next = node->next->next;
 	if (tmp->arg)
 		free(tmp->arg);
-	if (tmp->cmd)
-		free(tmp>cmd);
+	//if (tmp->cmd)
+		//free(tmp>cmd);
 	if (tmp->args)
 	{
 		while (tmp->args[i])
