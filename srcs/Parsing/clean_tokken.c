@@ -32,12 +32,17 @@ void clean_std(t_parsing *bag, t_list_tokken *current)
 	while (current)
 	{
 		tmp = current->next;
-		if (current->redir_id >= 0)
+		if (current->redir_id != NO_REDIR)
 		{
+			if (current->next->redir_id != NO_REDIR)
+				ft_error(SYNTAX, bag);
 			ft_t_relink(current);
 			current = tmp;
 		}
-		current = current->next;
+		if (current && current->next)
+			current = current->next;
+		else
+			break;
 	}
 }
 

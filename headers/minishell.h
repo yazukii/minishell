@@ -42,6 +42,7 @@
 //int	g_status;					//* Exit status of the most-recently-executed command
 
 enum	e_builtins{
+	NO_BUILTIN,
 	ECHO,
 	CD,
 	PWD,
@@ -69,6 +70,7 @@ enum	e_errnumber{
 };
 
 enum	e_tokken_type{
+	NO_TYPE,
 	COMMAND,
 	BUILTINS,
 	ARGUMENT,
@@ -76,6 +78,7 @@ enum	e_tokken_type{
 };
 
 enum e_redirections{
+	NO_REDIR,
 	INPUT,
 	OUTPUT,
 	APPEND,
@@ -96,6 +99,14 @@ typedef struct s_list_pre
 	int						size;
 	struct s_list_pre		*next;
 }	t_list_pre;
+
+typedef struct s_list_arg
+{
+	char 					*arg;
+	int 					output;
+	int 					input;
+	struct s_list_arg		*next;
+}	t_list_arg;
 
 typedef struct s_list_tokken
 {
@@ -163,9 +174,10 @@ int				allocate_args(t_list_tokken *node);
 void			fill_args(t_parsing *bag);
 void			clean_single_quote(t_parsing *bag);
 void			clean_double_quote(t_parsing *bag);
-void            check_std(t_parsing *bag);
+void            clean_std(t_parsing *bag, t_list_tokken *current);
 void            heredoc(t_list_tokken *current, t_parsing *bag);
 void			std_check(t_parsing *bag, t_list_tokken *current);
+void 			check_std(t_parsing *bag);
 
 // UTILS_PARSING
 int				ft_strcmp(char const *str, char const *model, int size);

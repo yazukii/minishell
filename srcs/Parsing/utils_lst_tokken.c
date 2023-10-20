@@ -6,8 +6,9 @@ void	ft_t_relink(t_list_tokken *node)
 	int 			i;
 
 	i = 0;
-	tmp = node->next;
-	node->next = node->next->next;
+	tmp = node;
+	if (node->next)
+		node = node->next;
 	if (tmp->arg)
 		free(tmp->arg);
 	if (tmp->cmd)
@@ -76,9 +77,9 @@ t_list_tokken	*ft_t_lstnew(void)
 		return (NULL);
 	instance->arg = NULL;
 	instance->cmd = NULL;
-	instance->type = -1;
-	instance->redir_id = -1;
-	instance->builtin_id = -1;
+	instance->type = NO_TYPE;
+	instance->redir_id = NO_REDIR;
+	instance->builtin_id = NO_BUILTIN;
 	instance->next = NULL;
     instance->input = input;
 	instance->input[0] = 0;

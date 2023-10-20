@@ -16,7 +16,7 @@ void check_std(t_parsing *bag)
 	current = bag->t_head;
 	while (current->next)
 	{
-		if (current->redir_id >= 0 && current->next->redir_id >= 0)
+		if (current->redir_id != NO_REDIR && current->next->redir_id != NO_REDIR)
 			ft_error(SYNTAX, bag);
 		current = current->next;
 	}
@@ -56,7 +56,7 @@ void	check_redirections(t_list_pre *current, t_parsing *bag)
         (ft_t_lstlast(bag->t_head))->redir_id = PIPE;
         bag->pipe_flag = TRUE;
     }
-    if ((ft_t_lstlast(bag->t_head))->redir_id >= 0)
+    if ((ft_t_lstlast(bag->t_head))->redir_id != NO_REDIR)
         (ft_t_lstlast(bag->t_head))->type = REDIRECTION;
 }
 
@@ -68,7 +68,7 @@ void	check_arguments(t_list_pre *current, t_parsing *bag)
         ft_t_lstlast(bag->t_head)->cmd = current->pre_tokken;
         bag->pipe_flag = FALSE;
     }
-    else
+    else if (ft_t_lstlast(bag->t_head)->type == NO_TYPE)
     {
         ft_t_lstlast(bag->t_head)->type = ARGUMENT;
         ft_t_lstlast(bag->t_head)->arg = current->pre_tokken;
@@ -80,6 +80,8 @@ void	check_builtins(t_list_pre *current, t_parsing *bag)
     int			j;
 
     j = 0;
+	if (ft_t_lstlast(bag->t_head)->type != NO_TYPE)
+		return ;
     while (bag->builtins[j])
     {
         if (ft_strcmp(current->pre_tokken, bag->builtins[j], current->size))
