@@ -8,17 +8,24 @@
  * 			- split les elements
  */
 
-void	parseur(t_parsing *bag)
+int	parseur(t_parsing *bag)
 {
 	while (bag->input[bag->index])
 	{
-		if (state_quote(bag, bag->input[bag->index]) && check_env(bag))
-			expand(bag);
-		bag->index++;
+		if (state_quote(bag, bag->input[bag->index]))
+        {
+            if (check_env(bag) == ERR)
+                return (1);
+            else if (check_env(bag))
+                if (expand(bag) == ERR)
+                    return (1);
+        }
+        bag->index++;
 	}
 	pre_tokken(bag);
 	pre_tokken_size(bag);
 	tokkenizer(bag);
+    return (0);
 }
 
 void	tokkenizer(t_parsing *bag)
@@ -30,3 +37,4 @@ void	tokkenizer(t_parsing *bag)
 	clean_double_quote(bag);
 	fill_tokken(bag);
 }
+

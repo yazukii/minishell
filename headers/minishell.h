@@ -38,6 +38,7 @@
 # define bool unsigned int
 # define TRUE 1
 # define FALSE 0
+# define ERR -1
 
 //int	g_status;					//* Exit status of the most-recently-executed command
 
@@ -143,8 +144,8 @@ typedef struct s_parsing
 
 
 // PARSING
-void			parseur(t_parsing *bag);
-void			expand(t_parsing *sac);
+int			    parseur(t_parsing *bag);
+int 			expand(t_parsing *sac);
 void			pre_tokken(t_parsing *sac);
 void			tokkenizer(t_parsing *sac);
 
