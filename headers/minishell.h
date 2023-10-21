@@ -65,7 +65,7 @@ enum	e_errnumber{
 	ENVP,
     FD,
     FORK,
-	FILE_CREATIION,
+	FILE_CREATION,
 	SYNTAX
 };
 
@@ -105,21 +105,16 @@ typedef struct s_list_arg
 	char 					*arg;
 	int 					output;
 	int 					input;
+	int 					append;
 	struct s_list_arg		*next;
 }	t_list_arg;
 
 typedef struct s_list_tokken
 {
-	enum e_tokken_type		type;
 	enum e_builtins			builtin_id;
-	enum e_redirections		redir_id;
 	char					*cmd;
-	char					*arg;
-	char					**args;
-	int						*output;
-	int 					output_nbr;
-	int						*input;
-	int 					input_nbr;
+	struct s_list_arg		*a_head;
+	bool					pipe_status;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
@@ -133,7 +128,6 @@ typedef struct s_parsing
 	int					value_size;
 	int					key_size;
 	int					split_index;
-    int                 fd;
 	int					i;
 	int					j;
     char                *heredoc;
@@ -168,16 +162,14 @@ char			*tiny_split(t_parsing *sac);
 
 // TOKKEN
 void			check_builtins(t_list_pre *current, t_parsing *sac);
-void			check_redirections(t_list_pre *current, t_parsing *sac);
-void			check_arguments(t_list_pre *current, t_parsing *sac);
-int				allocate_args(t_list_tokken *node);
-void			fill_args(t_parsing *bag);
+int				check_redirections(t_list_pre *current, t_parsing *bag);
+void			fill_tokken(t_parsing *bag);
+void 			fill_cmd(t_parsing *bag, t_list_pre *tmp, enum e_redirections redir_type);
+void			management_redir(t_list_arg *arg_node, enum e_redirections redir_type, t_parsing *bag);
+void			create_cmd(t_parsing *bag, t_list_pre **tmp);
 void			clean_single_quote(t_parsing *bag);
 void			clean_double_quote(t_parsing *bag);
-void            clean_std(t_parsing *bag, t_list_tokken *current);
-void            heredoc(t_list_tokken *current, t_parsing *bag);
-void			std_check(t_parsing *bag, t_list_tokken *current);
-void 			check_std(t_parsing *bag);
+int				redir(t_parsing *bag, t_list_pre **tmp);
 
 // UTILS_PARSING
 int				ft_strcmp(char const *str, char const *model, int size);
@@ -185,8 +177,6 @@ bool			state_quote(t_parsing *sac, char c);
 t_list_env		*lst_env_new(char *key, char *value);
 void			pre_tokken_size(t_parsing *sac);
 char			*get_env(const char *key, char **envp);
-void			clean_lst(t_list_tokken *head);
-void			ft_t_relink(t_list_tokken *node);
 
 // UTILS_LST
 t_list_pre		*ft_pre_lstadd_back(t_list_pre **lst, t_list_pre *new);
@@ -199,10 +189,21 @@ t_list_tokken	*ft_t_lstnew(void);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
 
+// UTILS_LST_ARG
+t_list_arg		*ft_lstadd_back_arg(t_parsing *bag, t_list_arg *new);
+t_list_arg		*ft_a_lstlast(t_list_arg *lst);
+t_list_arg		*ft_a_lstnew(void);
+
+
 // INIT
 t_parsing		*init_parseur(t_parsing *bag, char **envp, int flag);
 void			init_builtins(t_parsing *sac);
-void			init_cmds(t_parsing *sac);
+
+// FREE
+void			free_all(t_parsing *bag);
+void			free_p(t_list_pre *head);
+void			free_t(t_list_tokken *head);
+void			free_a(t_list_arg *head);
 
 // Error
 int				ft_error(int ERRNUMBER, t_parsing *sac);

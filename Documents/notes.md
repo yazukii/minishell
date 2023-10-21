@@ -1,23 +1,17 @@
 ### ERROR && WORK LOG:
-    LES DEUX:
-        - comprendre les redirections etc
-        - expand $?
-    YANI:
-        - faire gestion d'erreur (a verifier)
-        - pre_tokken, if two spaces in a row
-        - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
-        - lesquels sont input ou output
-        - ajouter liste chainée pour env
-        - qu'est ce qu'il se passe si on a deux fois le même type de suite ou meme cmd/builtin puis pipe
-                - probleme typique, certaine command et builtin prenne pas d'argument d'autre oui (doit être géré à l'execution)
-        - catégorisation des type eclaté
-        - verifier que les arg qui sont free disparaissent pas du tableau d'args quand on free les instances
+        - gestion d'erreur lié à la mémoire toutes les listes
+        - dans la nouvelle config de liste comment on gère le heredoc    - ajouter liste chainée pour env
         - heredoc:  
             - pendant l'execution on le feed à travers un pipe
         - gestion des signaux
         - gestion des signaux pendant le heredoc aussi
 ### DONE:
+        - Free:
+            - free les listes / ok
+            - free les splits / ok
+            - free les key /ok
+    - refactor avec nouvelles listes (good?)
     - gerer qu'il ai bien le bon nombre de redirection
     - fill_args doit clean les redirections 
     - si on a deux redirections de suite ca casse

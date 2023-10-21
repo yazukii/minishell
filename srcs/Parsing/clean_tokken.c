@@ -26,26 +26,6 @@ void	clean_double_quote(t_parsing *bag)
     }
 }
 
-void clean_std(t_parsing *bag, t_list_tokken *current)
-{
-	t_list_tokken	*tmp;
-	while (current)
-	{
-		tmp = current->next;
-		if (current->redir_id != NO_REDIR)
-		{
-			if (current->next->redir_id != NO_REDIR)
-				ft_error(SYNTAX, bag);
-			ft_t_relink(current);
-			current = tmp;
-		}
-		if (current && current->next)
-			current = current->next;
-		else
-			break;
-	}
-}
-
 void	clean_single_quote(t_parsing *bag)
 {
     t_list_pre	*current;
@@ -67,28 +47,5 @@ void	clean_single_quote(t_parsing *bag)
         }
         i = 0;
         current = current->next;
-    }
-}
-
-void	clean_lst(t_list_tokken *head)
-{
-    t_list_tokken	*current;
-    t_list_tokken	*hook;
-    t_list_tokken	*tmp;
-
-    current = head;
-    while (current)
-    {
-        if (current->type == COMMAND || current->type == BUILTINS)
-            hook = current;
-        if (current->type == ARGUMENT)
-        {
-            tmp = current;
-            current = current->next;
-            free(tmp);
-            hook->next = current;
-        }
-        else
-            current = current->next;
     }
 }
