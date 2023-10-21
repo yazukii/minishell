@@ -46,9 +46,17 @@ int	main(int argc, char **argv, char **envp)
 		if (*bag->input)
         {
             add_history(bag->input);
+<<<<<<< HEAD
             parseur(bag);
 //            printlist(bag);
             free_all(bag);
+=======
+            if(!parseur(bag))
+            {
+                printlist(*bag);
+                free(bag->input);
+            }
+>>>>>>> yani
         }
     }
     return (0);
