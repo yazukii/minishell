@@ -28,9 +28,12 @@ void init_envp(t_parsing *bag, char **envp)
 {
 	int i;
 
-	i = -1;
-	while (*envp[++i])
+	i = 0;
+	while (envp[i] != NULL)
+	{
 		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i]));
+		i++;
+	}
 }
 
 void	init_builtins(t_parsing *bag)

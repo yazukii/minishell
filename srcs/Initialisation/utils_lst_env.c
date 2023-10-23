@@ -41,6 +41,8 @@ char *ft_value(char *str, t_parsing *bag)
 		i++;
 	while (str[j] != 0)
 		j++;
+	if (j - i == 1)
+		return (NULL);
 	retstr = malloc(sizeof (char) * j - i);
 	if (!retstr)
 		ft_error(MEMORY, bag);
