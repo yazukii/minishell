@@ -18,7 +18,7 @@ void printlist(t_list_tokken tk, t_list_arg ar, int st)
 	t_list_arg		arg = ar;
 	if (st == 0)
 	{
-		while (tokken.cmd)
+		while (tokken.a_head)
 		{
 			printf("builtin = %d\ncmd = %s\npipe status = %d\n", tokken.builtin_id, tokken.cmd, tokken.pipe_status);
 			printlist(tokken, arg, 1);
