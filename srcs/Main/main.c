@@ -12,24 +12,32 @@
 
 #include "minishell.h"
 
-//static int	is_pipe(char *str)
-//{
-//	return (!ft_strncmp(str, "|", 1));
-//}
-/*
-void printlist(t_parsing *bag)
+void printlist(t_list_tokken tk, t_list_arg ar, int st)
 {
-    while ((bag->t_head))
-    {
-        static int i;
-        while(bag->)
-            printf("%d\n", bag->t_head->output[i++]);
-        i = 0;
-        while(i <bag->t_head->input_nbr)
-            printf("%d\n", bag->t_head->input[i++]);
-        bag->t_head = bag->t_head->next;
-    }
-}*/
+	t_list_tokken	tokken = tk;
+	t_list_arg		arg = ar;
+	if (st == 0)
+	{
+		while (tokken.cmd)
+		{
+			printf("builtin = %d\ncmd = %s\npipe status = %d\n", tokken.builtin_id, tokken.cmd, tokken.pipe_status);
+			printlist(tokken, arg, 1);
+			if (!tokken.next)
+				break;
+			tokken = *tokken.next;
+		}
+	}
+	if (st == 1)
+	{
+		while (arg.arg)
+		{
+			printf("%sarg = %s\noutput = %d\ninput = %d\nappend = %d\n%s", RED, arg.arg, arg.output, arg.input, arg.append, RESET);
+			if (!arg.next)
+				break;
+			arg = *arg.next;
+		}
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -47,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
         {
             add_history(bag->input);
             parseur(bag);
-//            printlist(bag);
+			printlist(*bag->t_head, *bag->t_head->a_head, 0);
             free_all(bag);
         }
 		bag = init_parseur(bag, envp, TRUE);

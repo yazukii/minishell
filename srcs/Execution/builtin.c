@@ -1,6 +1,6 @@
 #include "../../headers/minishell.h"
 
-void	changeout(t_list_tokken tokken)
+/*void	changeout(t_list_tokken tokken)
 {
 
 }
@@ -18,8 +18,8 @@ void	fd_redir(t_list_tokken tokken, t_parsing *bag)
 	if (tokken.output_nbr)
 		changeout(tokken);
 	choose_builtin(tokken, bag);
-}
-
+}*/
+/*
 void    choose_builtin(t_list_tokken tokken, t_parsing *bag)
 {
     switch (tokken.builtin_id) {
@@ -43,4 +43,4 @@ void    choose_builtin(t_list_tokken tokken, t_parsing *bag)
             exit(0);
             break;
     }
-}
+}*/

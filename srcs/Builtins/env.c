@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+/*
 int printenv(char **envi)
 {
     int i;
@@ -16,4 +17,4 @@ int printenv(char **envi)
 int env(t_list_tokken tokken, t_parsing bag)
 {
 	return (printenv(bag.env));
-}
+}*/

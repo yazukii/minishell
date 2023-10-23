@@ -8,6 +8,7 @@
  * implement -  to go directly to the last dir you were at (use oldpwd)
  * error management
  */
+/*
 
 int cd(t_list_tokken tokken, t_parsing *bag)
 {
@@ -21,4 +22,4 @@ int cd(t_list_tokken tokken, t_parsing *bag)
             printf("This directory does not exist\n");
     }
     return (0);
-}
+}*/

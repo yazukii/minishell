@@ -25,7 +25,12 @@ SRCS = ./main.c \
 		./cd.c \
 		./pwd.c \
 		./echo.c \
-		./env.c
+		./env.c \
+		./check_tokken.c \
+		./clean_tokken.c \
+		./heredoc.c \
+		./utils_lst_args.c \
+		./free_all.c
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -39,6 +44,7 @@ SRCS_DIR = srcs/Main \
 		   srcs/Builtins \
 		   srcs/Execution \
 		   srcs/Initialisation \
+		   srcs/Free
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
