@@ -39,25 +39,18 @@ int	main(int argc, char **argv, char **envp)
     (void) argc;
     bag = NULL;
     rl_initialize();
+	bag = init_parseur(bag, envp, TRUE);
     while (1)
     {
-		bag = init_parseur(bag, envp, TRUE);
 		bag->input = readline(BLU"minishell$ "RESET);
 		if (*bag->input)
         {
             add_history(bag->input);
-<<<<<<< HEAD
             parseur(bag);
 //            printlist(bag);
             free_all(bag);
-=======
-            if(!parseur(bag))
-            {
-                printlist(*bag);
-                free(bag->input);
-            }
->>>>>>> yani
         }
+		bag = init_parseur(bag, envp, TRUE);
     }
     return (0);
 }

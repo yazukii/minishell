@@ -1,19 +1,14 @@
 #include "minishell.h"
 
-char	*get_env(const char *key, char **envp)
+char	*get_env(const char *key, t_list_env **envp)
 {
-	int	i;
-
-	i = 0;
-    if (!key)
-    {
-        return (NULL);
-    }
-	while (envp[i])
+	if (!key)
+        return(NULL);
+	while (*envp)
 	{
-		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
-            return (ft_strtrim(ft_strtrim(envp[i], key), "="));
-		i++;
+		if (!ft_strncmp((*envp)->key, key, ft_strlen(key)))
+            return (ft_strtrim(ft_strtrim((*envp)->key, key), "="));
+		*envp = (*envp)->next;
 	}
 	return (NULL);
 }
@@ -30,13 +25,13 @@ int	ft_strcmp(char const *str, char const *model, int size)
 	return (FALSE);
 }
 
-t_list_env	*lst_env_new(char *key, char *value)
+t_list_env *lst_env_new(char *key, char *value, t_parsing *bag)
 {
 	t_list_env	*new;
 
 	new = malloc(sizeof (t_list_env));
 	if (!new)
-		return (NULL);
+		ft_error(MEMORY, bag);
 	new->key = key;
 	new->value = value;
 	return (new);

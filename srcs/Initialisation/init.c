@@ -18,15 +18,26 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->pipe_flag = FALSE;
 	bag->p_head = NULL;
 	bag->split = NULL;
-	bag->envp = envp;
+	init_envp(bag, envp);
 	if (flag == TRUE)
 		init_builtins(bag);
 	return (bag);
 }
 
+void init_envp(t_parsing *bag, char **envp)
+{
+	int i;
+
+	i = -1;
+	while (*envp[++i])
+		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i]));
+}
+
 void	init_builtins(t_parsing *bag)
 {
 	bag->builtins = malloc(sizeof (char *) * 8);
+	if (!bag->builtins)
+		ft_error(MEMORY, bag);
 	bag->builtins[0] = "echo";
 	bag->builtins[1] = "cd";
 	bag->builtins[2] = "pwd";

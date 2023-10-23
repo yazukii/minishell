@@ -20,7 +20,7 @@ void fill_cmd(t_parsing *bag, t_list_pre *tmp, enum e_redirections redir_type)
 {
 	t_list_arg *arg_node;
 
-	ft_lstadd_back_arg(bag, ft_a_lstnew());
+	ft_lstadd_back_arg(bag, ft_a_lstnew(bag));
 	arg_node = ft_a_lstlast(ft_t_lstlast(bag->t_head)->a_head);
 	arg_node->arg = malloc(sizeof (char) * tmp->size);
 	if (!arg_node->arg)
@@ -75,12 +75,14 @@ void	create_cmd(t_parsing *bag, t_list_pre **tmp)
 {
 	t_list_tokken *last;
 
-	ft_lstadd_back_token(bag, ft_t_lstnew());
+	ft_lstadd_back_token(bag, ft_t_lstnew(bag));
 	last = ft_t_lstlast(bag->t_head);
 	check_builtins(*tmp, bag);
 	if (last->builtin_id == NO_BUILTIN)
 	{
 		last->cmd = malloc(sizeof (char) * (*tmp)->size);
+		if (!last->cmd)
+			ft_error(MEMORY, bag);
 		ft_strlcpy(last->cmd, (*tmp)->pre_tokken, (*tmp)->size + 1);
 	}
 	bag->pipe_flag = FALSE;

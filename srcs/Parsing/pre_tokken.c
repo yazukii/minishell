@@ -48,7 +48,7 @@ void	split_pretokken(t_parsing *bag, int flag)
 {
 	t_list_pre	*current;
 
-	current = ft_pre_lstnew(tiny_split(bag));
+	current = ft_pre_lstnew(tiny_split(bag), bag);
 	if (!current)
 		ft_error(MEMORY, bag);
 	ft_pre_lstadd_back(&(bag->p_head), current);
@@ -59,7 +59,7 @@ void	split_pretokken(t_parsing *bag, int flag)
 		return ;
 	}
 	bag->index += flag - 1;
-	current = ft_pre_lstnew(tiny_split(bag));
+	current = ft_pre_lstnew(tiny_split(bag), bag);
 	if (!current)
 		ft_error(MEMORY, bag);
 	ft_pre_lstadd_back(&(bag->p_head), current);

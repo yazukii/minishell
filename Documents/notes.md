@@ -1,13 +1,17 @@
 ### ERROR && WORK LOG:
     JOSHUA:
-        - gestion d'erreur lié à la mémoire toutes les listes
-        - dans la nouvelle config de liste comment on gère le heredoc    - ajouter liste chainée pour env
+        - ajouter liste chainée pour env
+        - dans la nouvelle config de liste comment on gère le heredoc    
         - heredoc:  
             - pendant l'execution on le feed à travers un pipe
-        - gestion des signaux
+        - gestion des signaux:
+            - ctrl-c: free tout et retourne le prompt
+            - ctrl-d: ferme tout
+            - ctrl-\: fait rien
         - gestion des signaux pendant le heredoc aussi
 ### DONE:
-        - Free:
+    - gestion d'erreur lié à la mémoire toutes les listes 
+    - Free:
             - free les listes / ok
             - free les splits / ok
             - free les key /ok
