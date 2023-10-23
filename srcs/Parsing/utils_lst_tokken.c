@@ -41,13 +41,13 @@ t_list_tokken	*ft_t_lstlast(t_list_tokken *lst)
 	return (tmp);
 }
 
-t_list_tokken	*ft_t_lstnew(void)
+t_list_tokken *ft_t_lstnew(t_parsing *bag)
 {
 	t_list_tokken	*instance;
 
 	instance = (t_list_tokken *) malloc(sizeof(t_list_tokken));
 	if (!instance)
-		return (NULL);
+		ft_error(MEMORY, bag);
 	instance->cmd = NULL;
 	instance->builtin_id = NO_BUILTIN;
 	instance->next = NULL;

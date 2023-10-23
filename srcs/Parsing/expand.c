@@ -4,7 +4,7 @@
 int	expand(t_parsing *bag)
 {
 	bag->index++;
-	bag->value = get_env(bag->key, bag->envp);
+	bag->value = get_env(bag->key, &(bag->env_head));
 	if (!bag->value)
 		return(ft_error(ENVP, bag));
 	bag->value_size = ft_strlen(bag->value);
@@ -28,7 +28,7 @@ char	*replace_key(t_parsing *bag, int key_size)
 	cln = malloc(sizeof (char) * (ft_strlen(bag->input) - \
 						key_size + bag->value_size));
 	if (!cln)
-		return (NULL);
+		ft_error(MEMORY, bag);
 	while (bag->input[++bag->i] != '$')
 		cln[bag->i] = bag->input[bag->i];
 	while (tmp_value--)
@@ -45,7 +45,7 @@ char	*replace_key(t_parsing *bag, int key_size)
 	return (cln);
 }
 
-char	*ft_trim(char const *str, int size_to_trim)
+char *ft_trim(char const *str, int size_to_trim, t_parsing *bag)
 {
 	int		i;
 	char	*r_str;
@@ -53,7 +53,7 @@ char	*ft_trim(char const *str, int size_to_trim)
 	i = -1;
 	r_str = malloc(sizeof(char) * size_to_trim);
 	if (!r_str)
-		return (NULL);
+		ft_error(MEMORY, bag);
 	while (++i < size_to_trim)
 		r_str[i] = str[i + 1];
 	r_str[i] = '\0';
@@ -78,22 +78,25 @@ int	check_sep(char c)
 
 int	check_env(t_parsing *bag)
 {
+	t_list_env	*tmp;
+
+	tmp = bag->env_head;
 	if (bag->input[bag->index] != '$')
 		return (FALSE);
     bag->key_size++;
 	while (check_sep(bag->input[bag->index + bag->key_size]))
 		bag->key_size++;
-	bag->key = ft_trim(&(bag->input[bag->index]), bag->key_size);
+	bag->key = ft_trim(&(bag->input[bag->index]), bag->key_size, bag);
 	if (!bag->key)
         return(ft_error(MEMORY, bag));
-    /*
-	while (bag->envp[i])
+	while (tmp)
 	{
-		if (bag->envp[i++] == bag->key)
+		if (tmp->key == bag->key)
 		{
 			bag->key_size = 0;
 			return (TRUE);
 		}
-	}*/
-	return (TRUE);
+		tmp = tmp->next;
+	}
+	return (FALSE);
 }

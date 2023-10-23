@@ -14,23 +14,15 @@ int	parseur(t_parsing *bag)
 	{
 		if (state_quote(bag, bag->input[bag->index]))
         {
-            if (check_env(bag) == ERR)
-                return (1);
-            else if (check_env(bag))
-                if (expand(bag) == ERR)
-                    return (1);
+            if (check_env(bag))
+                expand(bag);
         }
         bag->index++;
 	}
 	pre_tokken(bag);
 	pre_tokken_size(bag);
-<<<<<<< HEAD
 	tokkenizer(bag);
     return (0);
-=======
-    return (0);
-	//tokkenizer(bag);
->>>>>>> yani
 }
 
 void	tokkenizer(t_parsing *bag)

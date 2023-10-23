@@ -9,7 +9,7 @@
  */
 
 
-int	export(t_list_env *head, char *key, char *value)
+int export(t_list_env *head, char *key, char *value, t_parsing *bag)
 {
 	t_list_env	*tmp;
 	t_list_env	*hook;
@@ -18,7 +18,7 @@ int	export(t_list_env *head, char *key, char *value)
 	tmp = head;
 	while (*(tmp->next->key) != '_')
 		tmp = tmp->next;
-	new = lst_env_new(key, value);
+	new = lst_env_new(key, value, bag);
 	if (!new)
 		return (1);
 	hook = tmp->next;

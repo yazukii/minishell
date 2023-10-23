@@ -7,6 +7,7 @@ LIBS = -lreadline
 
 SRCS = ./main.c \
 		./init.c \
+		./utils_lst_env.c \
 		./parseur.c \
 		./expand.c \
 		./pre_tokken.c \

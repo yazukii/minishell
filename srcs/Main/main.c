@@ -16,22 +16,20 @@
 //{
 //	return (!ft_strncmp(str, "|", 1));
 //}
-
+/*
 void printlist(t_parsing *bag)
 {
     while ((bag->t_head))
     {
-        /*static int i;
-        while(bag)
+        static int i;
+        while(bag->)
             printf("%d\n", bag->t_head->output[i++]);
         i = 0;
         while(i <bag->t_head->input_nbr)
             printf("%d\n", bag->t_head->input[i++]);
-            */
-		printf("%s\n", bag->input);
         bag->t_head = bag->t_head->next;
     }
-}
+}*/
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -41,22 +39,18 @@ int	main(int argc, char **argv, char **envp)
     (void) argc;
     bag = NULL;
     rl_initialize();
+	bag = init_parseur(bag, envp, TRUE);
     while (1)
     {
-		bag = init_parseur(bag, envp, TRUE);
 		bag->input = readline(BLU"minishell$ "RESET);
 		if (*bag->input)
         {
             add_history(bag->input);
             parseur(bag);
-//          printlist(bag);
+//            printlist(bag);
             free_all(bag);
-            if(!parseur(bag))
-            {
-                printlist(bag);
-                free(bag->input);
-            }
         }
+		bag = init_parseur(bag, envp, TRUE);
     }
     return (0);
 }
