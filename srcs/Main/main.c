@@ -17,31 +17,20 @@
 //	return (!ft_strncmp(str, "|", 1));
 //}
 
-void printlist(t_parsing bag)
+void printlist(t_parsing *bag)
 {
-    printf("%s\n", bag.p_head->pre_tokken);
-    while (bag.p_head->next)
+    while ((bag->t_head))
     {
-        bag.p_head = bag.p_head->next;
-        printf("%s\n", bag.p_head->pre_tokken);
+        /*static int i;
+        while(bag)
+            printf("%d\n", bag->t_head->output[i++]);
+        i = 0;
+        while(i <bag->t_head->input_nbr)
+            printf("%d\n", bag->t_head->input[i++]);
+            */
+		printf("%s\n", bag->input);
+        bag->t_head = bag->t_head->next;
     }
-}
-
-void    test(t_parsing *bag)
-{
-    t_list_tokken tokken;
-    tokken.type = BUILTINS;
-    tokken.builtin_id = ENV;
-    tokken.redir_id = PIPE;
-    tokken.cmd = "cd";
-    tokken.arg = "";
-    tokken.args = NULL;/*
-    tokken.args[0] = "test";
-    tokken.args[1] = "test2";
-    tokken.args[2] = NULL;
-    tokken.output = 0;
-    tokken.input = 1;*/
-    choose_builtin(tokken, bag);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -52,21 +41,23 @@ int	main(int argc, char **argv, char **envp)
     (void) argc;
     bag = NULL;
     rl_initialize();
-    bag = init_parseur(bag, envp, TRUE);
-	system("clear");
     while (1)
     {
-        printf("%s%s | %s", RED, bag->cwd, RESET);
-        bag->input = readline(BLU"minishell$ "RESET);
-        if (*bag->input)
+		bag = init_parseur(bag, envp, TRUE);
+		bag->input = readline(BLU"minishell$ "RESET);
+		if (*bag->input)
         {
             add_history(bag->input);
-            test(bag);
-            //parseur(bag);
-            //printlist(*bag);
-            //free(bag->input);
+            parseur(bag);
+//          printlist(bag);
+            free_all(bag);
+            if(!parseur(bag))
+            {
+                printlist(bag);
+                free(bag->input);
+            }
         }
-        bag = init_parseur(bag, envp, FALSE);
     }
     return (0);
 }
+

@@ -1,53 +1,20 @@
-### 1. Structure
-    - apprendre a utiliser errno
-
-### 2. technical:
-
-### 3. Parsing:
-    - single quote:
-             - does not expand
-    - double quote:
-             - if inside expand
-             - if inside keep the spaces and single quote
-    - pipes
-    - redirections:
-             - heredoc en cas de << with first word as delimiter
-             - >> append to file after the operator
-             - < use the file name to the right of this operator as input
-             - > use the file name to the right as the output (overwrites)
-    - commandes
-    - expand
-    - $?
-
-### 4. Execution:
-    - avoir une gestion d'erreur pour tout les builtins
-    - Coder les builtins
-    - gerer les signaux (pipe?) (ctrl-*)
-    - Regarder le path des executables
-    - redirections
-    - pipes
-
-### 5. Historique:
-    - Setup
-    - update
-    - acces pour old_dir (cd -) etc
-
 ### ERROR && WORK LOG:
-    LES DEUX:
-        - comprendre les redirections etc
-        - expand $?
-    YANI:
-        - faire gestion d'erreur (a verifier)
-        - pre_tokken, if two spaces in a row
-        - verifier la taille des splits quand un espace suivit d'une redirection
     JOSHUA:
-        - heredoc: 
+        - gestion d'erreur lié à la mémoire toutes les listes
+        - dans la nouvelle config de liste comment on gère le heredoc    - ajouter liste chainée pour env
+        - heredoc:  
             - pendant l'execution on le feed à travers un pipe
-        - gerer qu'il ai bien le bon nombre de redirection
-        - verifier que les arg qui sont free disparaissent pas du tableau d'args quand on free les instances
-
+        - gestion des signaux
+        - gestion des signaux pendant le heredoc aussi
 ### DONE:
-
+        - Free:
+            - free les listes / ok
+            - free les splits / ok
+            - free les key /ok
+    - refactor avec nouvelles listes (good?)
+    - gerer qu'il ai bien le bon nombre de redirection
+    - fill_args doit clean les redirections 
+    - si on a deux redirections de suite ca casse
     - stdout redir : creer le fichier avant de le remplir donc revoir condition erreur 
     - append: comme stdout redir
     - les redirections: le fd modifié doit etre associe a une command en particulier

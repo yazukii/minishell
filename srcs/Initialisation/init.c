@@ -24,7 +24,6 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	if (flag == TRUE)
 		init_builtins(bag);
 	return (bag);
-    //init_cmds(bag);
 }
 
 void	init_builtins(t_parsing *bag)

@@ -3,37 +3,13 @@
 void	ft_t_relink(t_list_tokken *node)
 {
 	t_list_tokken	*tmp;
-	int 			i;
 
-	i = 0;
-	tmp = node->next;
-	node->next = node->next->next;
-	if (tmp->arg)
-		free(tmp->arg);
-	//if (tmp->cmd)
-		//free(tmp>cmd);
-	if (tmp->args)
-	{
-		while (tmp->args[i])
-		{
-			free(tmp->args[i]);
-			i++;
-		}
-	}
+	tmp = node;
+	if (node->next)
+		node = node->next;
+	if (tmp->cmd)
+		free(tmp->cmd);
 	free(tmp);
-}
-
-int	ft_t_arglstsize(t_list_tokken *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst->type == ARGUMENT)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
 }
 
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new)
@@ -72,14 +48,8 @@ t_list_tokken	*ft_t_lstnew(void)
 	instance = (t_list_tokken *) malloc(sizeof(t_list_tokken));
 	if (!instance)
 		return (NULL);
-	instance->arg = NULL;
 	instance->cmd = NULL;
-	instance->type = -1;
-	instance->redir_id = -1;
-	instance->builtin_id = -1;
+	instance->builtin_id = NO_BUILTIN;
 	instance->next = NULL;
-	instance->input = 0;
-	instance->output[0] = 1;
-	instance->output_nbr = 1;
 	return (instance);
 }
