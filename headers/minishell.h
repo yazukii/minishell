@@ -157,7 +157,7 @@ char			*replace_key(t_parsing *sac, int key_size);
 
 // PRETOKKEN
 int				pre_check_char(char const *c);
-int				id_pretokken(t_parsing *sac);
+void id_pretokken(t_parsing *bag);
 void			split_pretokken(t_parsing *sac, int flag);
 char			*tiny_split(t_parsing *sac);
 
