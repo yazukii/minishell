@@ -49,7 +49,9 @@ t_list_tokken *ft_t_lstnew(t_parsing *bag)
 	if (!instance)
 		ft_error(MEMORY, bag);
 	instance->cmd = NULL;
-	instance->builtin_id = NO_BUILTIN;
+	instance->builtin_id = 7;
+	instance->pipe_status = FALSE;
+	instance->a_head = NULL;
 	instance->next = NULL;
 	return (instance);
 }

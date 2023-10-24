@@ -58,8 +58,9 @@ int	main(int argc, char **argv, char **envp)
 			printlist(*bag->t_head, *bag->t_head->a_head, 0);
             free_all(bag);
         }
-		bag = init_parseur(bag, envp, TRUE);
+		bag = init_parseur(bag, envp, FALSE);
     }
+	free_env(bag);
     return (0);
 }
 

@@ -11,8 +11,11 @@ void	fill_tokken(t_parsing *bag)
 		if (tmp == bag->p_head || bag->pipe_flag)
 			create_cmd(bag, &tmp);
 		redir_type = redir(bag, &tmp);
-		fill_cmd(bag, tmp, redir_type);
-		tmp = tmp->next;
+		if (!bag->pipe_flag)
+		{
+			fill_cmd(bag, tmp, redir_type);
+			tmp = tmp->next;
+		}
 	}
 }
 
@@ -22,7 +25,7 @@ void fill_cmd(t_parsing *bag, t_list_pre *tmp, enum e_redirections redir_type)
 
 	ft_lstadd_back_arg(bag, ft_a_lstnew(bag));
 	arg_node = ft_a_lstlast(ft_t_lstlast(bag->t_head)->a_head);
-	arg_node->arg = malloc(sizeof (char) * tmp->size);
+	arg_node->arg = malloc(sizeof (char) * tmp->size + 1);
 	if (!arg_node->arg)
 		ft_error(MEMORY, bag);
 	ft_strlcpy(arg_node->arg, tmp->pre_tokken, tmp->size + 1);
