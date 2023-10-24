@@ -1,6 +1,5 @@
 ### ERROR && WORK LOG:
     JOSHUA:
-        - if only builtin why stuff in arg
         - check if there is a redir but nothing behind syntax error
         - dans la nouvelle config de liste comment on gère le heredoc    
         - heredoc:  
@@ -12,6 +11,7 @@
         - gestion des signaux pendant le heredoc aussi
         - gestion d'erreur
 ### DONE:
+        - if only builtin why stuff in arg
         - segfault avec les env
         - arg cassés avec pipe
         - free les lst_env

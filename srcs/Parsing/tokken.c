@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	fill_tokken(t_parsing *bag)
+void	 fill_tokken(t_parsing *bag)
 {
 	t_list_pre			*tmp;
 	enum e_redirections	redir_type;
@@ -9,9 +9,10 @@ void	fill_tokken(t_parsing *bag)
 	while (tmp)
 	{
 		if (tmp == bag->p_head || bag->pipe_flag)
-			create_cmd(bag, &tmp);
-		if (!tmp->next)
-			break;
+		{
+			if (!create_cmd(bag, &tmp))
+				break;
+		}
 		redir_type = redir(bag, &tmp);
 		if (!bag->pipe_flag)
 		{
@@ -76,7 +77,7 @@ int	redir(t_parsing *bag, t_list_pre **tmp)
 	return (redir_id);
 }
 
-void	create_cmd(t_parsing *bag, t_list_pre **tmp)
+int create_cmd(t_parsing *bag, t_list_pre **tmp)
 {
 	t_list_tokken *last;
 
@@ -93,4 +94,7 @@ void	create_cmd(t_parsing *bag, t_list_pre **tmp)
 	bag->pipe_flag = FALSE;
 	if ((*tmp)->next)
 		*tmp = (*tmp)->next;
+	else
+		return (FALSE);
+	return (TRUE);
 }
