@@ -17,20 +17,17 @@ void	pre_tokken(t_parsing *bag)
 		if (pre_check_char(&(bag->input[bag->index])) == SPACESEP && bag->in_double)
 			wait(&i);
 		else if (pre_check_char(&(bag->input[bag->index])))
-		{
-			if (!id_pretokken(bag))
-				ft_error(MEMORY, bag);
-		}
+			id_pretokken(bag);
 		bag->index++;
 		if (pre_check_char(&(bag->input[bag->index])) == BACKSLASH)
 		{
-			if (!id_pretokken(bag))
-				ft_error(MEMORY, bag);
+			id_pretokken(bag);
+			return ;
 		}
 	}
 }
 
-int	id_pretokken(t_parsing *bag)
+void id_pretokken(t_parsing *bag)
 {
 	if (pre_check_char(&(bag->input[bag->index])) == SPACESEP || \
 			pre_check_char(&(bag->input[bag->index])) == BACKSLASH)
@@ -39,9 +36,6 @@ int	id_pretokken(t_parsing *bag)
 		split_pretokken(bag, ONECHAR);
 	else if (pre_check_char(&(bag->input[bag->index])) == TWOCHAR)
 		split_pretokken(bag, TWOCHAR);
-	if (!bag->split)
-		return (FALSE);
-	return (TRUE);
 }
 
 void	split_pretokken(t_parsing *bag, int flag)
@@ -86,18 +80,19 @@ int	pre_check_char(char const *c)
 
 char	*tiny_split(t_parsing *bag)
 {
-	int	local_index;
+	int		local_index;
+	char	*split;
 
 	local_index = 0;
-	bag->split = malloc(sizeof (char) * bag->index - bag->split_index + 1);
-	if (!bag->split)
-		return (NULL);
+	split = malloc(sizeof (char) * bag->index - bag->split_index + 1);
+	if (!split)
+		ft_error(MEMORY, bag);
 	while (bag->split_index != bag->index && bag->input[bag->split_index])
 	{
-		bag->split[local_index] = bag->input[bag->split_index];
+		split[local_index] = bag->input[bag->split_index];
 		local_index++;
 		bag->split_index++;
 	}
-	bag->split[local_index] = '\0';
-	return (bag->split);
+	split[local_index] = '\0';
+	return (split);
 }

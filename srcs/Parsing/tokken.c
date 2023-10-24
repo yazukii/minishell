@@ -10,6 +10,8 @@ void	fill_tokken(t_parsing *bag)
 	{
 		if (tmp == bag->p_head || bag->pipe_flag)
 			create_cmd(bag, &tmp);
+		if (!tmp->next)
+			break;
 		redir_type = redir(bag, &tmp);
 		if (!bag->pipe_flag)
 		{

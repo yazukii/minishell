@@ -37,16 +37,14 @@ void    freelist(t_list_pre **p_head)
 
 void    freebag(t_parsing *bag)
 {
-    //if (bag->input)
-       // free(bag->input);
+    if (bag->input)
+       free(bag->input);
     if (bag->key)
         free(bag->key);
     if (bag->value)
         free(bag->value);
     if (bag->p_head)
         freelist(&bag->p_head);
-    if (bag->split)
-        free(bag->split);
 }
 
 int	ft_error(int ERRNUMBER, t_parsing *bag)
