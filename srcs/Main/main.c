@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
         {
             add_history(bag->input);
             parseur(bag);
+			check_builtins()
 			printlist(*bag->t_head, *bag->t_head->a_head, 0);
             free_all(bag);
         }
