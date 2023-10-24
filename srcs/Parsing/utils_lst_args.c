@@ -4,13 +4,13 @@ t_list_arg	*ft_lstadd_back_arg(t_parsing *bag, t_list_arg *new)
 {
 	t_list_arg	*tmp;
 
-	if (bag->t_head->a_head)
+	if (ft_t_lstlast(bag->t_head)->a_head)
 	{
 		tmp = ft_a_lstlast(ft_t_lstlast(bag->t_head)->a_head);
 		tmp->next = new;
 	}
 	else
-		bag->t_head->a_head = new;
+		ft_t_lstlast(bag->t_head)->a_head = new;
 	return (new);
 }
 

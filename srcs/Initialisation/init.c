@@ -2,7 +2,12 @@
 
 t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 {
-	bag = malloc(sizeof (t_parsing) * 1);
+	if (flag == TRUE)
+	{
+		bag = malloc(sizeof (t_parsing) * 1);
+		init_envp(bag, envp);
+		init_builtins(bag);
+	}
 	if (!bag)
 		ft_error(MEMORY, NULL);
 	bag->index = 0;
@@ -18,9 +23,6 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->pipe_flag = FALSE;
 	bag->p_head = NULL;
 	bag->split = NULL;
-	init_envp(bag, envp);
-	if (flag == TRUE)
-		init_builtins(bag);
 	return (bag);
 }
 

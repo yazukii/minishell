@@ -43,14 +43,14 @@
 //int	g_status;					//* Exit status of the most-recently-executed command
 
 enum	e_builtins{
-	NO_BUILTIN,
 	ECHO,
 	CD,
 	PWD,
 	EXPORT,
 	UNSET,
 	ENV,
-	EXIT
+	EXIT,
+	NO_BUILTIN
 };
 
 enum	e_char{
@@ -152,7 +152,7 @@ void			tokkenizer(t_parsing *sac);
 // EXPAND
 int				check_env(t_parsing *sac);
 int				check_sep(char c);
-char *ft_trim(char const *str, int size_to_trim, t_parsing *bag);
+char			*ft_trim(char const *str, int size_to_trim, t_parsing *bag);
 char			*replace_key(t_parsing *sac, int key_size);
 
 // PRETOKKEN
@@ -175,25 +175,25 @@ int				redir(t_parsing *bag, t_list_pre **tmp);
 // UTILS_PARSING
 int				ft_strcmp(char const *str, char const *model, int size);
 bool			state_quote(t_parsing *sac, char c);
-t_list_env *lst_env_new(char *key, char *value, t_parsing *bag);
+t_list_env		*lst_env_new(char *key, char *value, t_parsing *bag);
 void			pre_tokken_size(t_parsing *sac);
 char			*get_env(const char *key, t_list_env **envp);
 
 // UTILS_LST
 t_list_pre		*ft_pre_lstadd_back(t_list_pre **lst, t_list_pre *new);
 t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
-t_list_pre *ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
+t_list_pre		*ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
 
 // UTILS_LST_TOKKEN
 int				ft_t_arglstsize(t_list_tokken *lst);
-t_list_tokken *ft_t_lstnew(t_parsing *bag);
+t_list_tokken	*ft_t_lstnew(t_parsing *bag);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
 t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
 
 // UTILS_LST_ARG
 t_list_arg		*ft_lstadd_back_arg(t_parsing *bag, t_list_arg *new);
 t_list_arg		*ft_a_lstlast(t_list_arg *lst);
-t_list_arg *ft_a_lstnew(t_parsing *bag);
+t_list_arg		*ft_a_lstnew(t_parsing *bag);
 
 
 // INIT
@@ -202,17 +202,18 @@ void			init_builtins(t_parsing *sac);
 void			init_envp(t_parsing *bag, char **envp);
 
 // UTILS_LST_ENV
-t_list_env * ft_env_lstnew(t_parsing *bag, char *envstr);
+t_list_env 		*ft_env_lstnew(t_parsing *bag, char *envstr);
 char			*ft_key(char *str, t_parsing *bag);
 char			*ft_value(char *str, t_parsing *bag);
 t_list_env		*ft_env_lstlast(t_list_env *lst);
-void ft_lstadd_back_envp(t_parsing *bag, t_list_env *new);
+void			ft_lstadd_back_envp(t_parsing *bag, t_list_env *new);
 
 // FREE
 void			free_all(t_parsing *bag);
 void			free_p(t_list_pre *head);
 void			free_t(t_list_tokken *head);
 void			free_a(t_list_arg *head);
+void			free_env(t_parsing *bag);
 
 // Error
 int				ft_error(int ERRNUMBER, t_parsing *sac);

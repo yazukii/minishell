@@ -50,8 +50,9 @@ int	main(int argc, char **argv, char **envp)
 //            printlist(bag);
             free_all(bag);
         }
-		bag = init_parseur(bag, envp, TRUE);
+		bag = init_parseur(bag, envp, FALSE);
     }
+	free_env(bag);
     return (0);
 }
 
