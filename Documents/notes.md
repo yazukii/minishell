@@ -1,8 +1,7 @@
 ### ERROR && WORK LOG:
     JOSHUA:
-        - double free avec pipe
+        - if only builtin why stuff in arg
         - check if there is a redir but nothing behind syntax error
-        - segfault avec les env
         - dans la nouvelle config de liste comment on gère le heredoc    
         - heredoc:  
             - pendant l'execution on le feed à travers un pipe
@@ -13,6 +12,7 @@
         - gestion des signaux pendant le heredoc aussi
         - gestion d'erreur
 ### DONE:
+        - segfault avec les env
         - arg cassés avec pipe
         - free les lst_env
     - check builtin id (set builtins id at 7, but not sur if code needs refactoring)
