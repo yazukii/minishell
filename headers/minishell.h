@@ -138,6 +138,7 @@ typedef struct s_parsing
 	char				*value;
 	char				*split;
 	char				**builtins;
+	char 				*cwd;
 	t_list_env			*env_head;
 	t_list_pre			*p_head;
 	t_list_tokken		*t_head;
