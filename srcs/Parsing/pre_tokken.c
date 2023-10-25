@@ -19,7 +19,8 @@ void	pre_tokken(t_parsing *bag)
 			wait(&i);
 		else if (pre_check_char(&(bag->input[bag->index])))
 			id_pretokken(bag);
-		bag->index++;
+		if(pre_check_char(&(bag->input[bag->index])) != BACKSLASH && pre_check_char(&(bag->input[bag->index])) != SPACESEP)
+			bag->index++;
 		if (pre_check_char(&(bag->input[bag->index])) == BACKSLASH)
 		{
 			id_pretokken(bag);

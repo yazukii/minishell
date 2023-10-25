@@ -1,7 +1,6 @@
 ### ERROR && WORK LOG:
     JOSHUA:
-        - redir with nothing breaks
-        - check the double free (problem de gestion d'erreur pas de parsing)
+        - commande with only space
         - dans la nouvelle config de liste comment on gère le heredoc    
         - heredoc:  
             - pendant l'execution on le feed à travers un pipe
@@ -12,6 +11,8 @@
         - gestion des signaux pendant le heredoc aussi
         - gestion d'erreur
 ### DONE:
+        - check the double free (problem de gestion d'erreur pas de parsing)
+        - redir with nothing breaks
         - check if there is a redir but nothing behind syntax error
         - if only builtin why stuff in arg
         - segfault avec les env

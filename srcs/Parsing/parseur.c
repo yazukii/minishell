@@ -19,10 +19,37 @@ int	parseur(t_parsing *bag)
         }
         bag->index++;
 	}
+	clean_end_space(bag);
 	pre_tokken(bag);
 	pre_tokken_size(bag);
 	tokkenizer(bag);
     return (0);
+}
+
+void clean_end_space(t_parsing *bag)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	while (bag->input[i])
+	{
+		i++;
+		j++;
+	}
+	i--;
+	while (bag->input[i] == ' ')
+		i--;
+	if (i + 1 == j)
+		return ;
+	tmp = malloc(sizeof (char) * i + 2);
+	if (!tmp)
+		ft_error(MEMORY, bag);
+	ft_strlcpy(tmp, bag->input, i + 2);
+	free(bag->input);
+	bag->input = tmp;
 }
 
 void	tokkenizer(t_parsing *bag)

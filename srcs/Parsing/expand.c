@@ -6,11 +6,11 @@ int	expand(t_parsing *bag)
 	bag->index++;
 	bag->value = get_env(bag->key, &(bag->env_head));
 	if (!bag->value)
-		return(ft_error(ENVP, bag));
+		ft_error(ENVP, bag);
 	bag->value_size = ft_strlen(bag->value);
 	bag->input = replace_key(bag, bag->key_size);
 	if (!bag->input)
-		return(ft_error(MEMORY, bag));
+		ft_error(MEMORY, bag);
 	bag->index = bag->index + bag->value_size;
 	free(bag->key);
 	bag->key_size = 0;
@@ -89,7 +89,7 @@ int	check_env(t_parsing *bag)
 		bag->key_size++;
 	bag->key = ft_trim(&(bag->input[bag->index]), bag->key_size, bag);
 	if (!bag->key)
-        return(ft_error(MEMORY, bag));
+        ft_error(MEMORY, bag);
 	while (tmp)
 	{
 		if (tmp->key == bag->key)

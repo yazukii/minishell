@@ -149,6 +149,7 @@ int			    parseur(t_parsing *bag);
 int 			expand(t_parsing *sac);
 void			pre_tokken(t_parsing *sac);
 void			tokkenizer(t_parsing *sac);
+void			clean_end_space(t_parsing *bag);
 
 // EXPAND
 int				check_env(t_parsing *sac);
