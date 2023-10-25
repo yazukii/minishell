@@ -168,7 +168,7 @@ int				check_redirections(t_list_pre *current, t_parsing *bag);
 void			fill_tokken(t_parsing *bag);
 void 			fill_cmd(t_parsing *bag, t_list_pre *tmp, enum e_redirections redir_type);
 void			management_redir(t_list_arg *arg_node, enum e_redirections redir_type, t_parsing *bag);
-void			create_cmd(t_parsing *bag, t_list_pre **tmp);
+int create_cmd(t_parsing *bag, t_list_pre **tmp);
 void			clean_single_quote(t_parsing *bag);
 void			clean_double_quote(t_parsing *bag);
 int				redir(t_parsing *bag, t_list_pre **tmp);
