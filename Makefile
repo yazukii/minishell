@@ -6,6 +6,7 @@ LIBS = -lreadline
 
 
 SRCS = ./main.c \
+		./signal.c \
 		./init.c \
 		./utils_lst_env.c \
 		./parseur.c \
@@ -44,7 +45,8 @@ SRCS_DIR = srcs/Main \
 		   srcs/Builtins \
 		   srcs/Execution \
 		   srcs/Initialisation \
-		   srcs/Free
+		   srcs/Free \
+		   srcs/Signals
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 

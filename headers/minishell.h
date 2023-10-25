@@ -66,6 +66,7 @@ enum	e_errnumber{
 	MEMORY,
 	ENVP,
     FD,
+	SIGNAL,
     FORK,
 	FILE_CREATION,
 	SYNTAX
@@ -143,6 +144,12 @@ typedef struct s_parsing
 	t_list_tokken		*t_head;
 }	t_parsing;
 
+// MAIN
+void			input_handling(t_parsing *bag);
+
+// SIGNAL HANDLING
+void 			sigset(sigset_t *mySignalSet, t_parsing *bag);
+void			sig_handler(int SIG);
 
 // PARSING
 int			    parseur(t_parsing *bag);
