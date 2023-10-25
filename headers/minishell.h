@@ -158,9 +158,10 @@ char			*replace_key(t_parsing *sac, int key_size);
 
 // PRETOKKEN
 int				pre_check_char(char const *c);
-void id_pretokken(t_parsing *bag);
+void			id_pretokken(t_parsing *bag);
 void			split_pretokken(t_parsing *sac, int flag);
 char			*tiny_split(t_parsing *sac);
+void			check_first_char(t_parsing *bag);
 
 // TOKKEN
 void			check_builtins(t_list_pre *current, t_parsing *sac);
@@ -217,6 +218,6 @@ void			free_a(t_list_arg *head);
 void			free_env(t_parsing *bag);
 
 // Error
-int				ft_error(int ERRNUMBER, t_parsing *sac);
+void ft_error(int ERRNUMBER, t_parsing *bag);
 
 #endif

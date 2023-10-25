@@ -11,6 +11,7 @@ void	pre_tokken(t_parsing *bag)
 
 	i = 1;
 	bag->index = 0;
+	check_first_char(bag);
 	while (bag->input[bag->index])
 	{
 		state_quote(bag, bag->input[bag->index]);
@@ -25,6 +26,16 @@ void	pre_tokken(t_parsing *bag)
 			return ;
 		}
 	}
+}
+
+void check_first_char(t_parsing *bag)
+{
+	if (bag->input[0] == '<')
+		ft_error(SYNTAX, bag);
+	if (bag->input[0] == '>')
+		ft_error(SYNTAX, bag);
+	if (bag->input[0] == '|')
+		ft_error(SYNTAX, bag);
 }
 
 void id_pretokken(t_parsing *bag)

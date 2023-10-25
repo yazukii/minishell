@@ -14,6 +14,8 @@ void	 fill_tokken(t_parsing *bag)
 				break;
 		}
 		redir_type = redir(bag, &tmp);
+/*		if (redir_type != NO_REDIR && redir_type != PIPE)
+			ft_error(SYNTAX, bag);*/
 		if (!bag->pipe_flag)
 		{
 			fill_cmd(bag, tmp, redir_type);
@@ -70,6 +72,8 @@ int	redir(t_parsing *bag, t_list_pre **tmp)
 		if (check_redirections(*tmp, bag) !=  NO_REDIR)
 			ft_error(SYNTAX, bag);
 	}
+	else if (redir_id != NO_REDIR && !(*tmp)->next)
+		ft_error(SYNTAX, bag);
 	if (redir_id == PIPE && last->pipe_status == TRUE)
 		ft_error(SYNTAX, bag);
 	else if (redir_id == PIPE && last->pipe_status != TRUE)

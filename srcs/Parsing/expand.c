@@ -41,6 +41,7 @@ char	*replace_key(t_parsing *bag, int key_size)
 		cln[bag->i + bag->j] = bag->input[bag->i + key_size];
 		bag->i++;
 	}
+	bag->input = NULL;
 	free(bag->input);
 	return (cln);
 }
