@@ -21,7 +21,7 @@ void printlist(t_parsing bag, int st)
 	{
 		while (tokken)
 		{
-			printf("builtin = %d\ncmd = %s\npipe status = %d\narg = %s", tokken->builtin_id, tokken->cmd, tokken->pipe_status, arg->arg);
+			printf("builtin = %d\ncmd = %s\npipe status = %d\n", tokken->builtin_id, tokken->cmd, tokken->pipe_status);
 			printlist(bag, 1);
 			tokken = tokken->next;
 		}
@@ -47,13 +47,15 @@ int	main(int argc, char **argv, char **envp)
 	bag = init_parseur(bag, envp, TRUE);
     while (1)
     {
+		getcwd(bag->cwd, 1024);
+		printf("%s%s | %s", RED,bag->cwd ,RESET);
 		bag->input = readline(BLU"minishell$ "RESET);
 		if (*bag->input)
         {
             add_history(bag->input);
             parseur(bag);
-			printf("%d\n", bag->t_head->builtin_id);
-			printlist(*bag, 0);
+			choose_builtin(bag);
+			//printlist(*bag, 0);
             free_all(bag);
         }
 		bag = init_parseur(bag, envp, FALSE);

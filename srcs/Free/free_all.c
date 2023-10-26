@@ -17,6 +17,7 @@ void free_all(t_parsing *bag)
 		free_t(bag->t_head);
 		bag->t_head = NULL;
 	}
+	free(bag->cwd);
 }
 
 void free_env(t_parsing *bag)

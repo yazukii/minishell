@@ -220,4 +220,8 @@ void			free_env(t_parsing *bag);
 // Error
 int				ft_error(int ERRNUMBER, t_parsing *sac);
 
+// Builtins
+void    		choose_builtin(t_parsing *bag);
+int 			cd(t_parsing *bag);
+
 #endif
