@@ -138,6 +138,7 @@ typedef struct s_parsing
 	char				*value;
 	char				*split;
 	char				**builtins;
+	char 				*cwd;
 	t_list_env			*env_head;
 	t_list_pre			*p_head;
 	t_list_tokken		*t_head;
@@ -220,5 +221,9 @@ void			free_env(t_parsing *bag);
 
 // Error
 void ft_error(int ERRNUMBER, t_parsing *bag);
+
+// Builtins
+void    		choose_builtin(t_parsing *bag);
+int 			cd(t_parsing *bag);
 
 #endif

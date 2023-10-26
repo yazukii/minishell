@@ -10,6 +10,7 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	}
 	if (!bag)
 		ft_error(MEMORY, NULL);
+	bag->cwd = malloc(sizeof(char) * 1024);
 	bag->index = 0;
 	bag->input = NULL;
 	bag->can_exp = TRUE;

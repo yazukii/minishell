@@ -8,18 +8,18 @@
  * implement -  to go directly to the last dir you were at (use oldpwd)
  * error management
  */
-/*
 
-int cd(t_list_tokken tokken, t_parsing *bag)
+int cd(t_parsing *bag)
 {
-    if (!tokken.args)
+    if (!bag->t_head->a_head)
         chdir(getenv("HOME"));
     else
     {
-        if (tokken.args[0][0] != '/')
-            tokken.args[0] = ft_strjoin("/", tokken.args[0]);
-        if (chdir(ft_strjoin(bag->cwd, tokken.args[0])) == -1)
+        if (bag->t_head->a_head->arg[0] != '/')
+            bag->t_head->a_head->arg = ft_strjoin("/", bag->t_head->a_head->arg);
+        if (chdir(ft_strjoin(bag->cwd, bag->t_head->a_head->arg)) == -1)
             printf("This directory does not exist\n");
     }
     return (0);
-}*/
+}
+
