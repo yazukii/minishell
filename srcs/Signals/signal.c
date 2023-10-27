@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 void sigset(sigset_t *mySignalSet, t_parsing *bag) {
 	struct sigaction new_action;
 
@@ -13,7 +13,7 @@ void sigset(sigset_t *mySignalSet, t_parsing *bag) {
 		ft_error(SIGNAL, bag);
 }
 
-
+utiliser la variable global;
 void sig_handler(int SIG)
 {
 	if (SIG == SIGINT)
@@ -23,6 +23,6 @@ void sig_handler(int SIG)
 	if (SIG == SIGQUIT)
 	{
 		ft_printf("\n%s", "exit");
-
+		capté avec le readline?
 	}
-}
+}*/

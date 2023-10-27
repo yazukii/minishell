@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	mySignalSet = NULL;
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
-	sigset(mySignalSet, bag);
+//	sigset(mySignalSet, bag);
     while (1)
     {
 		bag->input = readline(BLU"minishell$ "RESET);
