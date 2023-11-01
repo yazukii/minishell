@@ -30,7 +30,9 @@ SRCS = ./main.c \
 		./clean_tokken.c \
 		./heredoc.c \
 		./utils_lst_args.c \
-		./free_all.c
+		./free_all.c \
+		./env_utils.c \
+		./unset.c
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft

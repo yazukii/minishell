@@ -1,20 +1,14 @@
 #include "minishell.h"
 
-/*
-int printenv(char **envi)
+int env(t_parsing bag)
 {
-    int i;
+	t_list_env *tmp;
 
-    i = 0;
-    while (envi[i])
-    {
-        printf("%s\n", envi[i]);
-        i++;
-    }
-    return (0);
+	tmp = bag.env_head;
+	while (tmp)
+	{
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	return (0);
 }
-
-int env(t_list_tokken tokken, t_parsing bag)
-{
-	return (printenv(bag.env));
-}*/

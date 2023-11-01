@@ -1,28 +1,21 @@
 #include "minishell.h"
-/*
- * export:
- * 		- doesn't interact with signle quotes to be careful in parthing
- * 		- new values are put at the next to last element in the list
- * 		todo:
- * 		- code here lst_env_new
- * 		- separer l'input en key et value
- */
 
 
-int export(t_list_env *head, char *key, char *value, t_parsing *bag)
+
+void	export(t_parsing *bag)
 {
-	t_list_env	*tmp;
-	t_list_env	*hook;
+	char		**arg;
 	t_list_env	*new;
 
-	tmp = head;
-	while (*(tmp->next->key) != '_')
-		tmp = tmp->next;
-	new = lst_env_new(key, value, bag);
-	if (!new)
-		return (1);
-	hook = tmp->next;
-	tmp->next = new;
-	new->next = hook;
-	return (0);
+	if (!bag->t_head->a_head)
+	{
+		env(*bag);
+		return ;
+	}
+	new = malloc(sizeof(t_list_env));
+	new->next = NULL;
+	arg = ft_splitt(bag->t_head->a_head->arg, '=');
+	new->value = arg[1];
+	new->key = arg[0];
+	ft_lstadd_back_envp(bag, new);
 }

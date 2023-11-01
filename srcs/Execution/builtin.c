@@ -26,20 +26,22 @@ void    choose_builtin(t_parsing *bag)
 		case (NO_BUILTIN):
 			break;
         case (ECHO):
-            //echo(tokken.args);
+            echo(*bag);
             break;
         case (CD):
             cd(bag);
             break;
         case (PWD):
-            //pwd(tokken, bag);
+            pwd(bag);
             break;
         case (EXPORT):
+			export(bag);
             break;
         case (UNSET):
+			unset(*bag);
             break;
         case (ENV):
-            //env(tokken, *bag);
+            env(*bag);
             break;
         case (EXIT):
             exit(0);

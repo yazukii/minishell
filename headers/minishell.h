@@ -211,6 +211,8 @@ char			*ft_key(char *str, t_parsing *bag);
 char			*ft_value(char *str, t_parsing *bag);
 t_list_env		*ft_env_lstlast(t_list_env *lst);
 void			ft_lstadd_back_envp(t_parsing *bag, t_list_env *new);
+void			env_add_back(t_list_env **env, t_list_env *new);
+t_list_env		*env_lstlast(t_list_env *lst);
 
 // FREE
 void			free_all(t_parsing *bag);
@@ -225,5 +227,10 @@ void ft_error(int ERRNUMBER, t_parsing *bag);
 // Builtins
 void    		choose_builtin(t_parsing *bag);
 int 			cd(t_parsing *bag);
+void			echo(t_parsing bag);
+int				pwd(t_parsing *bag);
+int				env(t_parsing bag);
+void 			export(t_parsing *bag);
+void			unset(t_parsing bag);
 
 #endif
