@@ -1,7 +1,14 @@
 #include "../../headers/minishell.h"
 
+void	init_status()
+{
+	g_status.child_pid = -1;
+	g_status.quit = 0;
+}
+
 t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 {
+	init_status();
 	if (flag == TRUE)
 	{
 		bag = malloc(sizeof (t_parsing) * 1);

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+t_status g_status;
+
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;
@@ -36,6 +38,16 @@ void printlist(t_parsing bag, int st)
 	}
 }
 
+char	*create_out(t_parsing *bag)
+{
+	char *out;
+
+	getcwd(bag->cwd, 1024);
+	out = ft_strjoin(RED, bag->cwd);
+	out = ft_strjoin(out, BLU" | Minishell$ "RESET);
+	return (out);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
     t_parsing	*bag;
@@ -43,23 +55,24 @@ int	main(int argc, char **argv, char **envp)
     (void) argv;
     (void) argc;
     bag = NULL;
+	handle_signal(bag);
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
     while (1)
     {
-		getcwd(bag->cwd, 1024);
-		printf("%s%s | %s", RED,bag->cwd ,RESET);
-		bag->input = readline(BLU"minishell$ "RESET);
-		if (*bag->input)
-        {
+		bag->input = readline(create_out(bag));
+		if (bag->input == NULL)
+			break;
+		else
+		{
             add_history(bag->input);
             parseur(bag);
-			choose_builtin(bag);
-			//printlist(*bag, 0);
+			execution(bag);
             free_all(bag);
         }
 		bag = init_parseur(bag, envp, FALSE);
     }
+	free_all(bag);
 	free_env(bag);
     return (0);
 }

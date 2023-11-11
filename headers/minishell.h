@@ -22,8 +22,11 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
+
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
 # define YEL   "\x1B[33m"n
@@ -39,8 +42,7 @@
 # define TRUE 1
 # define FALSE 0
 # define ERR -1
-
-//int	g_status;					//* Exit status of the most-recently-executed command
+				//* Exit status of the most-recently-executed command
 
 
 enum	e_builtins{
@@ -88,6 +90,13 @@ enum e_redirections{
 	PIPE
 };
 
+typedef struct s_status
+{
+	int	status;
+	int	child_pid;
+	int quit;
+}	t_status;
+
 typedef struct s_list_env
 {
 	char				*key;
@@ -104,19 +113,19 @@ typedef struct s_list_pre
 
 typedef struct s_list_arg
 {
-	char 					*arg;
-	int 					output;
-	int 					input;
+	char 					*arg;			// The argument
+	int 					output;			// What his output should be
+	int 					input;			// What his input should be
 	int 					append;
 	struct s_list_arg		*next;
 }	t_list_arg;
 
 typedef struct s_list_tokken
 {
-	enum e_builtins			builtin_id;
-	char					*cmd;
-	struct s_list_arg		*a_head;
-	bool					pipe_status;
+	enum e_builtins			builtin_id;		// Which builtin is it or is it not a builtin
+	char					*cmd;			// Command name if not a builtin
+	struct s_list_arg		*a_head;		// Linked list that contain all the arguments of that command
+	bool					pipe_status;	// Is there a pipe
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
@@ -189,6 +198,7 @@ t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
 t_list_pre		*ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
 
 // UTILS_LST_TOKKEN
+
 int				ft_t_arglstsize(t_list_tokken *lst);
 t_list_tokken	*ft_t_lstnew(t_parsing *bag);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
@@ -224,6 +234,10 @@ void			free_env(t_parsing *bag);
 // Error
 void ft_error(int ERRNUMBER, t_parsing *bag);
 
+// Execution
+int 			execution(t_parsing *bag);
+void			exec_cmd(t_parsing *bag);
+
 // Builtins
 void    		choose_builtin(t_parsing *bag);
 int 			cd(t_parsing *bag);
@@ -233,4 +247,8 @@ int				env(t_parsing bag);
 void 			export(t_parsing *bag);
 void			unset(t_parsing bag);
 
+// Signals
+void			handle_signal(t_parsing *bag);
+
+extern t_status g_status;
 #endif

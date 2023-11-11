@@ -28,8 +28,8 @@ void free_env(t_parsing *bag)
 	while (tmp)
 	{
 		bag->env_head = bag->env_head->next;
-		free(tmp->key);
-		free(tmp->key);
+		if (tmp->key)
+			free(tmp->key);
 		tmp = bag->env_head;
 	}
 }
