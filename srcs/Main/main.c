@@ -65,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
     while (1)
     {
 		bag->input = readline("minishell$ ");
+//		bag->t_head = ft_t_lstnew(bag);
 		bag->hook_input = bag->input;
 		if (*bag->input)
         	input_handling(bag);

@@ -12,12 +12,12 @@ void	ft_t_relink(t_list_tokken *node)
 	free(tmp);
 }
 
-void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new)
+void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new, t_parsing *bag)
 {
 	if (node)
 		node->next = new;
 	else
-		return ;
+		bag->t_head = new;
 }
 
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst)
@@ -37,7 +37,7 @@ t_list_tokken *ft_t_lstnew(t_parsing *bag)
 {
 	t_list_tokken	*instance;
 
-	instance = malloc(sizeof(t_list_tokken *));
+	instance = (t_list_tokken *)malloc(sizeof(t_list_tokken));
 	if (!instance)
 		ft_error(MEMORY, bag);
 	instance->cmd = NULL;

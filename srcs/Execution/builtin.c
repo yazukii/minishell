@@ -2,7 +2,7 @@
 
 void    choose_builtin(t_parsing *bag)
 {
-    switch ((*bag->t_head)->builtin_id) {
+    switch ((bag->t_head)->builtin_id) {
 		case (NO_BUILTIN):
 			exec_cmd(bag);
 			break;
