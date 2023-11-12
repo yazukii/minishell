@@ -20,19 +20,19 @@ void	delone(t_list_pre *lst)
     free(lst);
 }
 
-void    freelist(t_list_pre **p_head)
+void    freelist(t_list_pre *p_head)
 {
     t_list_pre	*tmp;
     t_list_pre	*t;
 
-    t = *p_head;
+    t = p_head;
     while (t)
     {
         tmp = t->next;
         delone(t);
         t = tmp;
     }
-    *p_head = NULL;
+    p_head = NULL;
 }
 
 void    freebag(t_parsing *bag)
@@ -41,7 +41,7 @@ void    freebag(t_parsing *bag)
        free(bag->input);
     if (bag->key)
         free(bag->key);
-    if (*bag->p_head)
+    if (bag->p_head)
         freelist(bag->p_head);
 }
 

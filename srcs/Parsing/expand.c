@@ -56,7 +56,7 @@ bool check_env(t_parsing *bag)
 	int			tmp;
 	t_list_env	*current;
 
-	current = *bag->env_head;
+	current = bag->env_head;
 	tmp = bag->index + 1;
 	while (current)
 	{

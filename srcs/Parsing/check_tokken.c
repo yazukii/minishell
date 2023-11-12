@@ -23,7 +23,7 @@ void	check_builtins(t_list_pre *current, t_parsing *bag)
     while (bag->builtins[j])
     {
         if (ft_strcmp(current->pre_tokken, bag->builtins[j], current->size))
-            (ft_t_lstlast(*bag->t_head))->builtin_id = j;
+            (ft_t_lstlast(bag->t_head))->builtin_id = j;
         j++;
     }
 }
