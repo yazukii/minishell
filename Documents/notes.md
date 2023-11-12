@@ -1,16 +1,16 @@
 ### ERROR && WORK LOG:
     JOSHUA:
-        - commande with only space
-        - dans la nouvelle config de liste comment on gère le heredoc    
-        - heredoc:  
+        - heredoc:
             - pendant l'execution on le feed à travers un pipe
         - gestion des signaux:
-            - ctrl-c: free tout et retourne le prompt
-            - ctrl-d: ferme tout
+            - ctrl-c: free tout et retourne le prompt: print ^C
+            - ctrl-d: ferme tout: print: '\n'exit
             - ctrl-\: fait rien
+        - dans la nouvelle config de liste comment on gère le heredoc    
         - gestion des signaux pendant le heredoc aussi
         - gestion d'erreur
 ### DONE:
+        - commande with only space
         - check the double free (problem de gestion d'erreur pas de parsing)
         - redir with nothing breaks
         - check if there is a redir but nothing behind syntax error

@@ -2,25 +2,15 @@
 
 
 /*
- * Parseur:
- * 		En suivant les etapes decrites sur le schema on a:
- * 			- expand les keys / DONE
- * 			- split les elements
+ * Parsing:
+ * - 4
  */
 
 int	parseur(t_parsing *bag)
 {
-	while (bag->input[bag->index])
-	{
-		if (state_quote(bag, bag->input[bag->index]))
-        {
-            if (check_env(bag))
-                expand(bag);
-        }
-        bag->index++;
-	}
+	expand(bag);
 	clean_end_space(bag);
-	pre_tokken(bag);
+	pre_tokken(bag, bag->input);
 	pre_tokken_size(bag);
 	tokkenizer(bag);
     return (0);
@@ -57,8 +47,9 @@ void	tokkenizer(t_parsing *bag)
 	bag->can_exp = TRUE;
 	bag->in_double = FALSE;
 	bag->in_simple = FALSE;
-	clean_single_quote(bag);
-	clean_double_quote(bag);
-	fill_tokken(bag);
+	bag->t_head = malloc(sizeof (t_list_tokken **));
+	(*bag->t_head) = ft_t_lstnew(bag);
+	fill_tokkens_recursive(bag);
+	//clean_in_out_put(bag);
 }
 

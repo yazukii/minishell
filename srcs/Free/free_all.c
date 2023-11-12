@@ -9,28 +9,33 @@ void free_all(t_parsing *bag)
 	}
 	if (bag->p_head)
 	{
-		free_p(bag->p_head);
+		free_p(*bag->p_head);
 		bag->p_head = NULL;
 	}
-	if (bag->t_head)
+/*	if (bag->t_head)
 	{
 		free_t(bag->t_head);
 		bag->t_head = NULL;
 	}
 	free(bag->cwd);
+	}*/
 }
 
 void free_env(t_parsing *bag)
 {
 	t_list_env	*tmp;
 
-	tmp = bag->env_head;
+	tmp = *bag->env_head;
 	while (tmp)
 	{
-		bag->env_head = bag->env_head->next;
+		*bag->env_head = (*bag->env_head)->next;
 		if (tmp->key)
 			free(tmp->key);
-		tmp = bag->env_head;
+		tmp = *bag->env_head;
+		(*bag->env_head) = (*bag->env_head)->next;
+		free(tmp->key);
+		free(tmp->key);
+		tmp = (*bag->env_head);
 	}
 }
 

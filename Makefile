@@ -6,11 +6,14 @@ LIBS = -lreadline
 
 
 SRCS = ./main.c \
+		./signal.c \
 		./init.c \
 		./utils_lst_env.c \
 		./parseur.c \
 		./expand.c \
 		./pre_tokken.c \
+		./get_redir.c \
+		./get_word.c \
 		./tokken.c \
 		./utils_parsing.c \
 		./utils_lst.c \
@@ -21,20 +24,18 @@ SRCS = ./main.c \
 		./pwd.c \
 		./env.c \
 		./export.c \
-		./builtin.c \
 		./cd.c \
-		./pwd.c \
-		./echo.c \
-		./env.c \
+		./builtin.c \
 		./check_tokken.c \
-		./clean_tokken.c \
 		./heredoc.c \
 		./utils_lst_args.c \
 		./free_all.c \
 		./env_utils.c \
 		./unset.c \
 		./execution.c \
-		./handle_signal.c
+		./handle_signal.c \
+		./get_quote.c \
+		./redir_utils.c \
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -49,7 +50,8 @@ SRCS_DIR = srcs/Main \
 		   srcs/Execution \
 		   srcs/Initialisation \
 		   srcs/Free \
-		   srcs/Signals
+		   srcs/Signals \
+		   srcs/utils \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 

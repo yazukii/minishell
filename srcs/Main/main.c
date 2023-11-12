@@ -14,6 +14,7 @@
 
 t_status g_status;
 
+/*
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;
@@ -36,7 +37,7 @@ void printlist(t_parsing bag, int st)
 			arg = arg->next;
 		}
 	}
-}
+}*/
 
 char	*create_out(t_parsing *bag)
 {
@@ -51,29 +52,33 @@ char	*create_out(t_parsing *bag)
 int	main(int argc, char **argv, char **envp)
 {
     t_parsing	*bag;
+//	sigset_t	*mySignalSet;
 
     (void) argv;
     (void) argc;
     bag = NULL;
+	//mySignalSet = NULL;
 	handle_signal(bag);
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
+//	sigset(mySignalSet, bag);
     while (1)
     {
-		bag->input = readline(create_out(bag));
-		if (bag->input == NULL)
-			break;
-		else
-		{
-            add_history(bag->input);
-            parseur(bag);
-			execution(bag);
-            free_all(bag);
-        }
-		bag = init_parseur(bag, envp, FALSE);
+		bag->input = readline("minishell$ ");
+		bag->hook_input = bag->input;
+		if (*bag->input)
+        	input_handling(bag);
     }
 	free_all(bag);
 	free_env(bag);
     return (0);
 }
 
+void input_handling(t_parsing *bag)
+{
+	add_history(bag->input);
+	parseur(bag);
+//	printf("%d\n", bag->t_head->builtin_id);
+//	printlist(*bag, 0);
+	free_all(bag);
+}

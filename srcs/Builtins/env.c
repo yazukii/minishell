@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-int env(t_parsing bag)
+int env(t_parsing *bag)
 {
 	t_list_env *tmp;
 
-	tmp = bag.env_head;
+	tmp = *bag->env_head;
 	while (tmp)
 	{
 		printf("%s=%s\n", tmp->key, tmp->value);

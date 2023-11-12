@@ -55,16 +55,13 @@ char *ft_value(char *str, t_parsing *bag)
 	return (retstr);
 }
 
-t_list_env	*ft_env_lstlast(t_list_env *lst)
+t_list_env	*ft_envp_lstlast(t_list_env **lst)
 {
 	t_list_env	*tmp;
 
-	tmp = lst;
-	while (lst)
-	{
-		tmp = lst;
-		lst = lst->next;
-	}
+	tmp = *lst;
+	while (tmp->next)
+		tmp = tmp->next;
 	return (tmp);
 }
 
@@ -74,9 +71,12 @@ void ft_lstadd_back_envp(t_parsing *bag, t_list_env *new)
 
 	if (bag->env_head)
 	{
-		tmp = ft_env_lstlast(bag->env_head);
+		tmp = ft_envp_lstlast(bag->env_head);
 		tmp->next = new;
 	}
 	else
-		bag->env_head = new;
+	{
+		bag->env_head = malloc(sizeof (t_list_env **));
+		(*bag->env_head) = new;
+	}
 }

@@ -7,10 +7,21 @@
 #include <stdlib.h>
 #include <errno.h>
 
-int main(int argc, char **argv, char **envp)
-{
-	(void) argc;
-	(void) argv;
-	char *text = "echo";
+#include <stdio.h>
+#include <stdlib.h>
+
+void incrementStringPointer(char **str) {
+		(*str)++; // Increment the pointer, but don't modify the content
+}
+
+int main() {
+	char *str;
+
+	str = malloc(sizeof (char) * 2);
+	if (str != NULL)
+	{
+		str[0] = '0';
+		printf("Modified string: %s\n", str);
+	}
 	return 0;
 }

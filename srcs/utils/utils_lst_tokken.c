@@ -18,13 +18,13 @@ t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new)
 
 	if (!new)
 		return (NULL);
-	if (sac->t_head)
+	if (*sac->t_head)
 	{
-		tmp = ft_t_lstlast(sac->t_head);
+		tmp = ft_t_lstlast(*sac->t_head);
 		tmp->next = new;
 	}
 	else
-		sac->t_head = new;
+		*sac->t_head = new;
 	return (new);
 }
 
@@ -45,11 +45,16 @@ t_list_tokken *ft_t_lstnew(t_parsing *bag)
 {
 	t_list_tokken	*instance;
 
-	instance = (t_list_tokken *) malloc(sizeof(t_list_tokken));
+	instance = malloc(sizeof(t_list_tokken *));
 	if (!instance)
 		ft_error(MEMORY, bag);
 	instance->cmd = NULL;
 	instance->builtin_id = 7;
+	instance->pipe_status = FALSE;
+	instance->heredoc = NULL;
+	instance->output = STDOUT_FILENO;
+	instance->input = STDIN_FILENO;
+	instance->append = -1;
 	instance->pipe_status = FALSE;
 	instance->a_head = NULL;
 	instance->next = NULL;
