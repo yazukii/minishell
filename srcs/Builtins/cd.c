@@ -11,13 +11,13 @@
 
 int cd(t_parsing *bag)
 {
-    if (!(*bag->t_head)->a_head)
+    if (!(bag->t_head)->a_head)
         chdir(getenv("HOME"));
     else
     {
-        if ((*bag->t_head)->a_head->arg[0] != '/')
-            (*bag->t_head)->a_head->arg = ft_strjoin("/", (*bag->t_head)->a_head->arg);
-        if (chdir(ft_strjoin(bag->cwd, (*bag->t_head)->a_head->arg)) == -1)
+        if ((bag->t_head)->a_head->arg[0] != '/')
+            (bag->t_head)->a_head->arg = ft_strjoin("/", (bag->t_head)->a_head->arg);
+        if (chdir(ft_strjoin(bag->cwd, (bag->t_head)->a_head->arg)) == -1)
             printf("This directory does not exist\n");
     }
     return (0);

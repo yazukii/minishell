@@ -146,9 +146,9 @@ typedef struct s_parsing
 	char				*cwd;
 	t_list_env			*key;
 	char				**builtins;
-	t_list_env			**env_head;
-	t_list_pre			**p_head;
-	t_list_tokken		**t_head;
+	t_list_env			*env_head;
+	t_list_pre			*p_head;
+	t_list_tokken		*t_head;
 }	t_parsing;
 
 // MAIN
@@ -206,7 +206,7 @@ void			pre_tokken_size(t_parsing *sac);
 
 // UTILS_LST
 void			ft_pre_lstadd_back(t_list_pre *node, t_list_pre *new, t_parsing *bag);
-t_list_pre		*ft_pre_lstlast(t_list_pre **lst);
+t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
 t_list_pre		*ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
 
 // UTILS_LST_TOKKEN
@@ -214,7 +214,7 @@ t_list_pre		*ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
 int				ft_t_arglstsize(t_list_tokken *lst);
 t_list_tokken	*ft_t_lstnew(t_parsing *bag);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
-void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new);
+void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new, t_parsing *bag);
 
 // UTILS_LST_ARG
 t_list_arg		*ft_lstadd_back_arg(t_parsing *bag, t_list_arg *new);
@@ -226,7 +226,7 @@ void free_p_args(t_parsing *bag);
 t_list_env 		*ft_env_lstnew(t_parsing *bag, char *envstr);
 char			*ft_key(char *str, t_parsing *bag);
 char			*ft_value(char *str, t_parsing *bag);
-t_list_env		*ft_envp_lstlast(t_list_env **lst);
+t_list_env		*ft_envp_lstlast(t_list_env *lst);
 void			ft_lstadd_back_envp(t_parsing *bag, t_list_env *new);
 void			env_add_back(t_list_env **env, t_list_env *new);
 t_list_env		*env_lstlast(t_list_env *lst);

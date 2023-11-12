@@ -28,6 +28,7 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->first_cmd = TRUE;
 	bag->key = NULL;
 	bag->p_head = NULL;
+	bag->t_head = NULL;
 	return (bag);
 }
 
@@ -42,7 +43,7 @@ void init_envp(t_parsing *bag, char **envp)
 		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i]));
 		i++;
 	}
-	current = *bag->env_head;
+	current = bag->env_head;
 	while (current)
 	{
 		(current)->k_size = ft_strlen((current)->key);

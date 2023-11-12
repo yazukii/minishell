@@ -42,14 +42,14 @@ void clean_redir(t_parsing *bag)
 	if (before)
 		before->next = next;
 	else
-		*bag->p_head = next;
+		bag->p_head = next;
 }
 
 t_list_pre *find_before_redir(t_parsing *bag)
 {
 	t_list_pre *current;
 
-	current = *bag->p_head;
+	current = bag->p_head;
 	while (current->next && check_redir(current->next->pre_tokken) != PIPE)
 	{
 		if (check_redir(current->next->pre_tokken))
@@ -69,7 +69,7 @@ void cmd_redir(t_list_pre *current, t_parsing *bag)
 	int	redir_type;
 	t_list_tokken	*cmd_node;
 
-	cmd_node = ft_t_lstlast(*bag->t_head);
+	cmd_node = ft_t_lstlast(bag->t_head);
 	redir_type = check_redir(current->pre_tokken);
 	if (redir_type && !current->next->pre_tokken)
 		ft_error(SYNTAX, bag);
@@ -97,7 +97,7 @@ t_list_pre *find_redir(t_parsing *bag)
 {
 	t_list_pre *current;
 
-	current = *bag->p_head;
+	current = bag->p_head;
 	while (current && check_redir(current->pre_tokken) != PIPE)
 	{
 		if (check_redir(current->pre_tokken) != -1)
