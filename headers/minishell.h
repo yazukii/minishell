@@ -159,10 +159,6 @@ t_parsing		*init_parseur(t_parsing *bag, char **envp, int flag);
 void			init_builtins(t_parsing *sac);
 void			init_envp(t_parsing *bag, char **envp);
 
-// SIGNAL HANDLING
-void 			sigset(sigset_t *mySignalSet, t_parsing *bag);
-void			sig_handler(int SIG);
-
 // PARSING
 int			    parseur(t_parsing *bag);
 void expand(t_parsing *bag);

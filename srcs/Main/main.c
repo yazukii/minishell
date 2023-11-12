@@ -33,7 +33,7 @@ void printlist(t_parsing bag, int st)
 	{
 		while (arg)
 		{
-			printf("%sarg = %s\noutput = %d\ninput = %d\nappend = %d\n%s", RED, arg->arg, arg->output, arg->input, arg->append, RESET);
+			printf("%sarg = %s\n%s", RED, arg->arg, RESET);
 			arg = arg->next;
 		}
 	}
@@ -52,19 +52,16 @@ char	*create_out(t_parsing *bag)
 int	main(int argc, char **argv, char **envp)
 {
     t_parsing	*bag;
-//	sigset_t	*mySignalSet;
 
     (void) argv;
     (void) argc;
     bag = NULL;
-	//mySignalSet = NULL;
 	handle_signal(bag);
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
-//	sigset(mySignalSet, bag);
     while (1)
     {
-		bag->input = readline("minishell$ ");
+		bag->input = readline(create_out(bag));
 		bag->hook_input = bag->input;
 		if (*bag->input)
         	input_handling(bag);
