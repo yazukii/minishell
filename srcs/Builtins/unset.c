@@ -1,22 +1,26 @@
 #include "../../headers/minishell.h"
 
-/* unset:
- *  - on va jusqu'a l'avant dernier pour unset l'element de la liste
- */
-
-int	unset(t_list_env *head, char *key)
+void env_delone(t_list_env *env)
 {
-	t_list_env	*tmp;
-	t_list_env	*hook;
-
-	tmp = head;
-	while (tmp->key != key && tmp)
-		tmp = tmp->next;
-	if (!tmp)
-		return (0);	// err
-	hook = tmp->next;
+	if (env == NULL || env->next == NULL)
+		return; // Nothing to delete
+	t_list_env *tmp = env->next;
+	env->next = tmp->next;
 	free(tmp);
-	tmp = ft_lstlast(head);
-	tmp->next = hook;
-	return (1);
+}
+
+void unset(t_parsing bag)
+{
+	char *key = bag.t_head->a_head->arg;
+	t_list_env *tmp = bag.env_head;
+
+	while (tmp && tmp->next)
+	{
+		if (ft_strncmp(tmp->next->key, key, 1024) == 0)
+		{
+			env_delone(tmp);
+			return;
+		}
+		tmp = tmp->next;
+	}
 }

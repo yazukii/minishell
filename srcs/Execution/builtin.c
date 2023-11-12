@@ -1,46 +1,33 @@
 #include "../../headers/minishell.h"
 
-/*void	changeout(t_list_tokken tokken)
+void    choose_builtin(t_parsing *bag)
 {
-
-}
-
-void	changein(t_list_tokken tokken)
-{
-
-}
-
-void	fd_redir(t_list_tokken tokken, t_parsing *bag)
-{
-	while ()
-	if (tokken.input_nbr)
-		changein(tokken);
-	if (tokken.output_nbr)
-		changeout(tokken);
-	choose_builtin(tokken, bag);
-}*/
-/*
-void    choose_builtin(t_list_tokken tokken, t_parsing *bag)
-{
-    switch (tokken.builtin_id) {
+    switch (bag->t_head->builtin_id) {
+		case (NO_BUILTIN):
+			exec_cmd(bag);
+			break;
         case (ECHO):
-            echo(tokken.args);
+            echo(*bag);
             break;
         case (CD):
-            cd(tokken, bag);
+            cd(bag);
             break;
         case (PWD):
-            pwd(tokken, bag);
+            pwd(bag);
             break;
         case (EXPORT):
+			export(bag);
             break;
         case (UNSET):
+			unset(*bag);
             break;
         case (ENV):
-            env(tokken, *bag);
+            env(*bag);
             break;
         case (EXIT):
+			free_all(bag);
+			free_env(bag);
             exit(0);
             break;
     }
-}*/
+}

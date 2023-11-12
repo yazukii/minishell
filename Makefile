@@ -31,7 +31,11 @@ SRCS = ./main.c \
 		./clean_tokken.c \
 		./heredoc.c \
 		./utils_lst_args.c \
-		./free_all.c
+		./free_all.c \
+		./env_utils.c \
+		./unset.c \
+		./execution.c \
+		./handle_signal.c
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
@@ -62,7 +66,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -o $@ -I$(INC_DIR1) -I$(INC_DIR2) -I$(LIBFT_DIR) -c $^
+	@$(CC) $(CFLAGS) -g -o $@ -I$(INC_DIR1) -I$(INC_DIR2) -I$(LIBFT_DIR) -c $^
 
 debug:
 	@$(MAKE) -n $(NAME)

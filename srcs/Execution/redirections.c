@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-/*
- * 		< && >:
- * 				-
- *
- */
-
 PLACE_HOLDERS:"path_to_file"
 
 int	redirection_left(PLACE_HOLDER:"path_to_file")

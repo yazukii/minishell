@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+t_status g_status;
+
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;
@@ -21,7 +23,7 @@ void printlist(t_parsing bag, int st)
 	{
 		while (tokken)
 		{
-			printf("builtin = %d\ncmd = %s\npipe status = %d\narg = %s", tokken->builtin_id, tokken->cmd, tokken->pipe_status, arg->arg);
+			printf("builtin = %d\ncmd = %s\npipe status = %d\n", tokken->builtin_id, tokken->cmd, tokken->pipe_status);
 			printlist(bag, 1);
 			tokken = tokken->next;
 		}
@@ -36,6 +38,16 @@ void printlist(t_parsing bag, int st)
 	}
 }
 
+char	*create_out(t_parsing *bag)
+{
+	char *out;
+
+	getcwd(bag->cwd, 1024);
+	out = ft_strjoin(RED, bag->cwd);
+	out = ft_strjoin(out, BLU" | Minishell$ "RESET);
+	return (out);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
     t_parsing	*bag;
@@ -45,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
     (void) argc;
     bag = NULL;
 	mySignalSet = NULL;
+	handle_signal(bag);
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
 	sigset(mySignalSet, bag);
@@ -53,8 +66,8 @@ int	main(int argc, char **argv, char **envp)
 		bag->input = readline(BLU"minishell$ "RESET);
 		if (*bag->input)
         	input_handling(bag);
-		bag = init_parseur(bag, envp, FALSE);
     }
+	free_all(bag);
 	free_env(bag);
     return (0);
 }

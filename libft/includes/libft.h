@@ -70,6 +70,7 @@ char	*ft_substr(char const *s, unsigned int start, int len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char *str);
+char	**ft_splitt(char const *s, char c);
 int		ft_wordcount(char *str);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
