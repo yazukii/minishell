@@ -193,7 +193,6 @@ bool fill_pipe(t_parsing *bag);
 // REDIR && HEREDOC
 void write_missing(char *delimiter);
 bool is_eof(char *input, char *delimiter);
-
 unsigned int endoffile(char *input, char *delimiter);
 char *get_heredoc_input(char *delimiter, t_parsing *bag);
 void get_heredoc(t_list_pre *current, t_parsing *bag);
@@ -253,11 +252,11 @@ void			exec_cmd(t_parsing *bag);
 // Builtins
 void    		choose_builtin(t_parsing *bag);
 int 			cd(t_parsing *bag);
-void			echo(t_parsing bag);
+void			echo(t_parsing *bag);
 int				pwd(t_parsing *bag);
-int				env(t_parsing bag);
+int				env(t_parsing *bag);
 void 			export(t_parsing *bag);
-void			unset(t_parsing bag);
+void			unset(t_parsing *bag);
 
 // Signals
 void			handle_signal(t_parsing *bag);

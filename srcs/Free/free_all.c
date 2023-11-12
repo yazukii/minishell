@@ -28,17 +28,14 @@ void free_env(t_parsing *bag)
 	tmp = *bag->env_head;
 	while (tmp)
 	{
-<<<<<<< HEAD
-		bag->env_head = bag->env_head->next;
+		*bag->env_head = (*bag->env_head)->next;
 		if (tmp->key)
 			free(tmp->key);
-		tmp = bag->env_head;
-=======
+		tmp = *bag->env_head;
 		(*bag->env_head) = (*bag->env_head)->next;
 		free(tmp->key);
 		free(tmp->key);
 		tmp = (*bag->env_head);
->>>>>>> jmorcom-
 	}
 }
 

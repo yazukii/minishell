@@ -11,13 +11,10 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-<<<<<<< HEAD
 
 t_status g_status;
 
-=======
 /*
->>>>>>> jmorcom-
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;

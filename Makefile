@@ -24,6 +24,7 @@ SRCS = ./main.c \
 		./pwd.c \
 		./env.c \
 		./export.c \
+		./cd.c \
 		./builtin.c \
 		./check_tokken.c \
 		./heredoc.c \
@@ -32,7 +33,7 @@ SRCS = ./main.c \
 		./env_utils.c \
 		./unset.c \
 		./execution.c \
-		./handle_signal.c
+		./handle_signal.c \
 		./get_quote.c \
 		./redir_utils.c \
 

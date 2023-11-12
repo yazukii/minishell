@@ -9,10 +9,10 @@ void env_delone(t_list_env *env)
 	free(tmp);
 }
 
-void unset(t_parsing bag)
+void unset(t_parsing *bag)
 {
-	char *key = bag.t_head->a_head->arg;
-	t_list_env *tmp = bag.env_head;
+	char *key = (*bag->t_head)->a_head->arg;
+	t_list_env *tmp = (*bag->env_head);
 
 	while (tmp && tmp->next)
 	{

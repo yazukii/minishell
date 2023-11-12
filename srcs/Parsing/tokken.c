@@ -37,6 +37,7 @@ bool fill_pipe(t_parsing *bag)
  * first arg is the cmd
  * the following are args*/
 void 	fill_cmd(t_parsing *bag)
+{
 	if (bag->first_cmd == TRUE)
 		bag->first_cmd = FALSE;
 	else
