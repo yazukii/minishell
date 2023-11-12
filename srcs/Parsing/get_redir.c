@@ -75,19 +75,19 @@ void cmd_redir(t_list_pre *current, t_parsing *bag)
 		ft_error(SYNTAX, bag);
 	if (redir_type == INPUT)
 	{
-		cmd_node->input = open(current->pre_tokken, O_RDONLY);
+		cmd_node->input = open(current->next->pre_tokken, O_RDONLY);
 		if (cmd_node->input == -1)
 			ft_error(FD, bag);
 	}
 	else if (redir_type == OUTPUT)
 	{
-		cmd_node->output = open(current->pre_tokken, O_WRONLY | O_CREAT, 0777);
+		cmd_node->output = open(current->next->pre_tokken, O_WRONLY | O_CREAT, 0777);
 		if (cmd_node->output == -1)
 			ft_error(FILE_CREATION, bag);
 	}
 	else if (redir_type == APPEND)
 	{
-		cmd_node->append = open(current->pre_tokken, O_WRONLY | O_CREAT, 0777);
+		cmd_node->append = open(current->next->pre_tokken, O_WRONLY | O_CREAT, 0777);
 		if (cmd_node->append == -1)
 			ft_error(FILE_CREATION, bag);
 	}
