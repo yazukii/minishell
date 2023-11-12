@@ -4,13 +4,13 @@ t_list_arg	*ft_lstadd_back_arg(t_parsing *bag, t_list_arg *new)
 {
 	t_list_arg	*tmp;
 
-	if (ft_t_lstlast(bag->t_head)->a_head)
+	if (ft_t_lstlast(*bag->t_head)->a_head)
 	{
-		tmp = ft_a_lstlast(ft_t_lstlast(bag->t_head)->a_head);
+		tmp = ft_a_lstlast(ft_t_lstlast(*bag->t_head)->a_head);
 		tmp->next = new;
 	}
 	else
-		ft_t_lstlast(bag->t_head)->a_head = new;
+		ft_t_lstlast(*bag->t_head)->a_head = new;
 	return (new);
 }
 
@@ -27,17 +27,24 @@ t_list_arg	*ft_a_lstlast(t_list_arg *lst)
 	return (tmp);
 }
 
-t_list_arg *ft_a_lstnew(t_parsing *bag)
+t_list_arg *ft_a_lstnew(char *str, t_parsing *bag)
 {
 	t_list_arg	*instance;
 
-	instance = (t_list_arg *) malloc(sizeof(t_list_arg));
+	instance = malloc(sizeof(t_list_arg *));
 	if (!instance)
 		ft_error(MEMORY, bag);
-	instance->input = 1;
-	instance->output = 0;
-	instance->arg = NULL;
-	instance->append = -1;
+	instance->arg = str;
 	instance->next = NULL;
 	return (instance);
+}
+
+void free_p_args(t_parsing *bag)
+{
+	t_list_pre	*tmp;
+
+	tmp = *bag->p_head;
+	(*bag->p_head) = (*bag->p_head)->next;
+	free(tmp->pre_tokken);
+	free(tmp);
 }

@@ -58,6 +58,9 @@ FTLST		=	ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone \
 FTPRT_DIR	=	ft_printf/
 FTPRT		=	countargs decimal dispatch ft_printf hexa hexastr putstrarg udecimal uitoa
 
+GNL_DIR		=	GNL/
+GNL			=	get_next_line
+
 SRC_FILES+=$(addprefix $(FTIS_DIR),$(FTIS))
 SRC_FILES+=$(addprefix $(FTMEM_DIR),$(FTMEM))
 SRC_FILES+=$(addprefix $(FTPUT_DIR),$(FTPUT))
@@ -65,6 +68,7 @@ SRC_FILES+=$(addprefix $(FTTO_DIR),$(FTTO))
 SRC_FILES+=$(addprefix $(FTSTR_DIR),$(FTSTR))
 SRC_FILES+=$(addprefix $(FTLST_DIR),$(FTLST))
 SRC_FILES+=$(addprefix $(FTPRT_DIR),$(FTPRT))
+SRC_FILES+=$(addprefix $(GNL_DIR),$(GNL))
 
 SRCS 		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS 		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -95,6 +99,7 @@ $(OBJSF):
 			@mkdir -p $(OBJS_DIR)$(FTSTR_DIR)
 			@mkdir -p $(OBJS_DIR)$(FTLST_DIR)
 			@mkdir -p $(OBJS_DIR)$(FTPRT_DIR)
+			@mkdir -p $(OBJS_DIR)$(GNL_DIR)
 
 clean:
 			$(RM) -r $(OBJS_DIR)

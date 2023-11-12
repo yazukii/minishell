@@ -41,17 +41,15 @@ void    freebag(t_parsing *bag)
        free(bag->input);
     if (bag->key)
         free(bag->key);
-    if (bag->value)
-        free(bag->value);
-    if (bag->p_head)
-        freelist(&bag->p_head);
+    if (*bag->p_head)
+        freelist(bag->p_head);
 }
 
 void ft_error(int ERRNUMBER, t_parsing *bag)
 {
     if (ERRNUMBER == MEMORY)
-        printf(RED "Memory error\n"RESET);
+        printf( "Memory error\n");
     if (ERRNUMBER == ENVP)
-        printf(RED "Environement variable %s doesn't exist\n"RESET, bag->key);
+        printf( "Environement variable %s doesn't exist\n", bag->key->key);
     freebag(bag);
 }

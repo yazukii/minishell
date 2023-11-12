@@ -15,6 +15,8 @@ void sigset(sigset_t *mySignalSet, t_parsing *bag) {
 
 
 /*void sig_handler(int SIG)
+utiliser la variable global;
+void sig_handler(int SIG)
 {
 	if (SIG == SIGINT)
 	{
@@ -23,6 +25,6 @@ void sigset(sigset_t *mySignalSet, t_parsing *bag) {
 	if (SIG == SIGQUIT)
 	{
 		ft_printf("\n%s", "exit");
-
+		capté avec le readline?
 	}
 }*/

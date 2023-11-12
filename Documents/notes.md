@@ -1,12 +1,12 @@
 ### ERROR && WORK LOG:
     JOSHUA:
+        - heredoc:
+            - pendant l'execution on le feed à travers un pipe
         - gestion des signaux:
             - ctrl-c: free tout et retourne le prompt: print ^C
             - ctrl-d: ferme tout: print: '\n'exit
             - ctrl-\: fait rien
         - dans la nouvelle config de liste comment on gère le heredoc    
-        - heredoc:  
-            - pendant l'execution on le feed à travers un pipe
         - gestion des signaux pendant le heredoc aussi
         - gestion d'erreur
 ### DONE:

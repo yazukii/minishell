@@ -11,9 +11,13 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+<<<<<<< HEAD
 
 t_status g_status;
 
+=======
+/*
+>>>>>>> jmorcom-
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;
@@ -36,7 +40,7 @@ void printlist(t_parsing bag, int st)
 			arg = arg->next;
 		}
 	}
-}
+}*/
 
 char	*create_out(t_parsing *bag)
 {
@@ -63,7 +67,8 @@ int	main(int argc, char **argv, char **envp)
 //	sigset(mySignalSet, bag);
     while (1)
     {
-		bag->input = readline(BLU"minishell$ "RESET);
+		bag->input = readline("minishell$ ");
+		bag->hook_input = bag->input;
 		if (*bag->input)
         	input_handling(bag);
     }
@@ -76,7 +81,7 @@ void input_handling(t_parsing *bag)
 {
 	add_history(bag->input);
 	parseur(bag);
-	printf("%d\n", bag->t_head->builtin_id);
-	printlist(*bag, 0);
+//	printf("%d\n", bag->t_head->builtin_id);
+//	printlist(*bag, 0);
 	free_all(bag);
 }
