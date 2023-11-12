@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 void sigset(sigset_t *mySignalSet, t_parsing *bag) {
 	struct sigaction new_action;
 
@@ -11,10 +11,10 @@ void sigset(sigset_t *mySignalSet, t_parsing *bag) {
 		ft_error(SIGNAL, bag);
 	if (sigaction(SIGINT, &new_action, NULL) < 0)
 		ft_error(SIGNAL, bag);
-}
+}*/
 
 
-void sig_handler(int SIG)
+/*void sig_handler(int SIG)
 {
 	if (SIG == SIGINT)
 	{
@@ -25,4 +25,4 @@ void sig_handler(int SIG)
 		ft_printf("\n%s", "exit");
 
 	}
-}
+}*/

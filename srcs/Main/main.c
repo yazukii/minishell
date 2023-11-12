@@ -51,16 +51,16 @@ char	*create_out(t_parsing *bag)
 int	main(int argc, char **argv, char **envp)
 {
     t_parsing	*bag;
-	sigset_t	*mySignalSet;
+//	sigset_t	*mySignalSet;
 
     (void) argv;
     (void) argc;
     bag = NULL;
-	mySignalSet = NULL;
+	//mySignalSet = NULL;
 	handle_signal(bag);
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
-	sigset(mySignalSet, bag);
+//	sigset(mySignalSet, bag);
     while (1)
     {
 		bag->input = readline(BLU"minishell$ "RESET);
