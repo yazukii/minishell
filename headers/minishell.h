@@ -218,7 +218,7 @@ t_list_pre		*ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
 int				ft_t_arglstsize(t_list_tokken *lst);
 t_list_tokken	*ft_t_lstnew(t_parsing *bag);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
-t_list_tokken	*ft_lstadd_back_token(t_parsing *sac, t_list_tokken *new);
+void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new);
 
 // UTILS_LST_ARG
 t_list_arg		*ft_lstadd_back_arg(t_parsing *bag, t_list_arg *new);

@@ -38,18 +38,22 @@ bool fill_pipe(t_parsing *bag)
  * the following are args*/
 void 	fill_cmd(t_parsing *bag)
 {
-	if (bag->first_cmd == TRUE)
+	(void)bag;
+	char *str=malloc(42);
+	(void)str;
+/*	if (bag->first_cmd == TRUE)
 		bag->first_cmd = FALSE;
 	else
 		ft_lstadd_back_token(bag, ft_t_lstnew(bag));
 	if (!*bag->p_head || check_redir((*bag->p_head)->pre_tokken) == PIPE)
-		ft_error(SYNTAX, bag);
-	(ft_t_lstlast(*bag->t_head)->cmd) = malloc(sizeof (char) * (ft_strlen((*bag->p_head)->pre_tokken) + 1));
+		ft_error(SYNTAX, bag);*/
+	//ft_t_lstlast(*bag->t_head)->cmd = malloc(sizeof (char) * (ft_strlen((*bag->p_head)->pre_tokken) + 1));
+/*	ft_t_lstlast(*bag->t_head)->cmd = malloc(5);
 	ft_strlcpy((*bag->p_head)->pre_tokken, ft_t_lstlast(*bag->t_head)->cmd, ft_strlen((*bag->p_head)->pre_tokken) + 1);
 	free_p_args(bag);
 	while ((*bag->p_head) && check_redir((*bag->p_head)->pre_tokken) != PIPE)
 	{
 		ft_lstadd_back_arg(bag, ft_a_lstnew(ft_strdup((*bag->p_head)->pre_tokken), bag));
 		free_p_args(bag);
-	}
+	}*/
 }

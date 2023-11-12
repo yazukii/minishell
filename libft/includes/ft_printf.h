@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include "libft.h"
-# include <stdarg.h>
 
 void	hexa(char c, unsigned int arg, int *count);
 int		hexastr(unsigned long int address);

@@ -44,11 +44,15 @@ void clean_end_space(t_parsing *bag)
 
 void	tokkenizer(t_parsing *bag)
 {
+	t_list_tokken *new;
+
 	bag->can_exp = TRUE;
 	bag->in_double = FALSE;
 	bag->in_simple = FALSE;
-	bag->t_head = malloc(sizeof (t_list_tokken **));
-	(*bag->t_head) = ft_t_lstnew(bag);
+	char *str=malloc(42);
+	(void) str;
+	new = ft_t_lstnew(bag);
+	bag->t_head = &new;
 	fill_tokkens_recursive(bag);
 	//clean_in_out_put(bag);
 }

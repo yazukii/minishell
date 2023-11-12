@@ -18,7 +18,8 @@
 # include <string.h>
 # include <limits.h>
 # include <stdarg.h>
-#include <sys/types.h>
+# include <sys/types.h>
+# include "printf.h"
 
 typedef struct s_list		t_list;
 typedef struct s_stack		t_stack;
