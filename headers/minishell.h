@@ -126,6 +126,7 @@ typedef struct s_list_tokken
 	char					*cmd;			// Command name if not a builtin
 	struct s_list_arg		*a_head;		// Linked list that contain all the arguments of that command
 	bool					pipe_status;	// Is there a pipe
+	char 					**args;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
 
