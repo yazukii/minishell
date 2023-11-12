@@ -12,7 +12,7 @@
 
 #include"../../includes/libft.h"
 
-int	is_in_set(char c, char const *set)
+int	is_in_set(char c, char *set)
 {
 	while (*set)
 	{
@@ -22,7 +22,7 @@ int	is_in_set(char c, char const *set)
 	return (1);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	int			start;
 	int			end;

@@ -1,17 +1,17 @@
 #include "minishell.h"
-
+/*
 char	*get_env(const char *key, t_list_env **envp)
 {
 	if (!key)
         return(NULL);
 	while (*envp)
 	{
-		if (!ft_strncmp((*envp)->key, key, ft_strlen(key)))
-            return (ft_strtrim(ft_strtrim((*envp)->key, key), "="));
+		if (ft_strcmp((*envp)->key, key, ft_strlen(key)))
+            return ((*envp)->value);
 		*envp = (*envp)->next;
 	}
 	return (NULL);
-}
+}*/
 
 int	ft_strcmp(char const *str, char const *model, int size)
 {
@@ -33,7 +33,9 @@ t_list_env *lst_env_new(char *key, char *value, t_parsing *bag)
 	if (!new)
 		ft_error(MEMORY, bag);
 	new->key = key;
+	new->k_size = 0;
 	new->value = value;
+	new->v_size = 0;
 	return (new);
 }
 
@@ -43,7 +45,7 @@ void	pre_tokken_size(t_parsing *bag)
 	int			i;
 
 	i = 0;
-	current = bag->p_head;
+	current = *bag->p_head;
 	while (current)
 	{
 		while (current->pre_tokken[i])

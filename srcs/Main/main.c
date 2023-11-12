@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;
@@ -34,23 +34,24 @@ void printlist(t_parsing bag, int st)
 			arg = arg->next;
 		}
 	}
-}
+}*/
 
 int	main(int argc, char **argv, char **envp)
 {
     t_parsing	*bag;
-	sigset_t	*mySignalSet;
+//	sigset_t	*mySignalSet;
 
     (void) argv;
     (void) argc;
     bag = NULL;
-	mySignalSet = NULL;
+	//mySignalSet = NULL;
     rl_initialize();
 	bag = init_parseur(bag, envp, TRUE);
 //	sigset(mySignalSet, bag);
     while (1)
     {
-		bag->input = readline(BLU"minishell$ "RESET);
+		bag->input = readline("minishell$ ");
+		bag->hook_input = bag->input;
 		if (*bag->input)
         	input_handling(bag);
 		bag = init_parseur(bag, envp, FALSE);
@@ -63,7 +64,7 @@ void input_handling(t_parsing *bag)
 {
 	add_history(bag->input);
 	parseur(bag);
-	printf("%d\n", bag->t_head->builtin_id);
-	printlist(*bag, 0);
+//	printf("%d\n", bag->t_head->builtin_id);
+//	printlist(*bag, 0);
 	free_all(bag);
 }

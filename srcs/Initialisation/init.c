@@ -15,26 +15,31 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->can_exp = TRUE;
 	bag->in_double = FALSE;
 	bag->in_simple = FALSE;
+	bag->has_expanded = FALSE;
+	bag->heredoc_flag = FALSE;
+	bag->first_cmd = TRUE;
 	bag->key = NULL;
-	bag->key_size = 0;
-	bag->value = NULL;
-	bag->value_size = 0;
-	bag->split_index = 0;
-	bag->pipe_flag = FALSE;
 	bag->p_head = NULL;
-	bag->split = NULL;
 	return (bag);
 }
 
 void init_envp(t_parsing *bag, char **envp)
 {
-	int i;
+	int			i;
+	t_list_env	*current;
 
 	i = 0;
 	while (envp[i] != NULL)
 	{
 		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i]));
 		i++;
+	}
+	current = *bag->env_head;
+	while (current)
+	{
+		(current)->k_size = ft_strlen((current)->key);
+		(current)->v_size = ft_strlen((current)->value);
+		(current) = (current)->next;
 	}
 }
 
