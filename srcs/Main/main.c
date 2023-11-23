@@ -64,17 +64,17 @@ int	main(int argc, char **argv, char **envp)
 		bag->input = readline(create_out(bag));
 		bag->hook_input = bag->input;
 		if (*bag->input)
-        	input_handling(bag);
+			input_handling(bag, envp);
     }
 	free_all(bag);
 	free_env(bag);
     return (0);
 }
 
-void input_handling(t_parsing *bag)
+void input_handling(t_parsing *bag, char **envp)
 {
 	add_history(bag->input);
 	parseur(bag);
-	execution(bag);
+	execution(bag, envp);
 	free_all(bag);
 }

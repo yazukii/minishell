@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-
-/*
- * Parsing:
- * - 4
- */
-
 int	parseur(t_parsing *bag)
 {
 	expand(bag);
@@ -13,7 +7,59 @@ int	parseur(t_parsing *bag)
 	pre_tokken(bag, bag->input);
 	pre_tokken_size(bag);
 	tokkenizer(bag);
+	get_option(bag);
     return (0);
+}
+
+void get_option(t_parsing *bag)
+{
+	t_list_tokken	*current;
+
+	current = bag->t_head;
+	while(current)
+	{
+		if (current->a_head)
+			current->exec = fill_exec(current, bag);
+		current = current->next;
+	}
+}
+
+char **fill_exec(t_list_tokken *current, t_parsing *bag)
+{	char		**ret;
+	t_list_arg	*a_current;
+	int			i;
+	int			len;
+
+	i = 1;
+	a_current = current->a_head;
+	len = ft_number_args(current);
+	ret = malloc(sizeof (char *) * len + 1);
+	if (!ret)
+		ft_error(MEMORY, bag);
+	ret[0] = ft_strdup(current->cmd);
+	while (len)
+	{
+		ret[i] = ft_strdup(a_current->arg);
+		a_current = a_current->next;
+		len--;
+	}
+	ret[i] = NULL;
+	return (ret);
+}
+
+int ft_number_args(t_list_tokken *current)
+{
+	t_list_arg	*a_current;
+	int			i;
+
+	i = 0;
+	a_current = current->a_head;
+	while (a_current)
+	{
+		i++;
+		a_current = a_current->next;
+	}
+	return (i);
 }
 
 void clean_end_space(t_parsing *bag)
@@ -22,8 +68,7 @@ void clean_end_space(t_parsing *bag)
 	int		j;
 	char	*tmp;
 
-	i = 0;
-	j = 0;
+	i = 0;	j = 0;
 	while (bag->input[i])
 	{
 		i++;
@@ -48,6 +93,5 @@ void	tokkenizer(t_parsing *bag)
 	bag->in_double = FALSE;
 	bag->in_simple = FALSE;
 	fill_tokkens_recursive(bag);
-	//clean_in_out_put(bag);
 }
 

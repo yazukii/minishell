@@ -14,11 +14,9 @@ void ft_strcat(char *dst, const char *src)
 {
 	int	i;
 	int	j;
-	int	len;
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(dst);
 	while (dst[i])
 		i++;
 	while (dst[i] && src[j])
@@ -30,7 +28,6 @@ void ft_strcpy(char *dst, const char *src)
 {
 	int		i;
 	int		len;
-	char	*ret;
 
 	i = 0;
 	len = ft_strlen(src);

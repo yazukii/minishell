@@ -37,7 +37,8 @@ SRCS = ./main.c \
 		./get_quote.c \
 		./redir_utils.c \
 		./exec_utils.c \
-		./one_cmd.c
+		./one_cmd.c \
+		./multi_cmds.c
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft

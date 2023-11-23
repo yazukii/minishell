@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int env(t_parsing *bag)
+int ft_env(t_parsing *bag)
 {
 	t_list_env *tmp;
 

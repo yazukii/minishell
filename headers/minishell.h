@@ -91,13 +91,6 @@ enum e_redirections{
 	PIPE
 };
 
-typedef struct s_status
-{
-	int	status;
-	int	child_pid;
-	int quit;
-}	t_status;
-
 typedef struct s_list_env
 {
 	char				*key;
@@ -129,6 +122,7 @@ typedef struct s_list_tokken
 	int 					output;
 	int 					input;
 	int 					append;
+	char					**exec;
 	bool					pipe_status;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
@@ -155,7 +149,7 @@ typedef struct s_parsing
 }	t_parsing;
 
 // MAIN
-void			input_handling(t_parsing *bag);
+void input_handling(t_parsing *bag, char **envp);
 
 // INIT
 t_parsing		*init_parseur(t_parsing *bag, char **envp, int flag);
@@ -168,18 +162,18 @@ void expand(t_parsing *bag);
 void 			pre_tokken(t_parsing *sac, char *prompt);
 void			tokkenizer(t_parsing *sac);
 void			clean_end_space(t_parsing *bag);
+int ft_number_args(t_list_tokken *current);
+char **fill_exec(t_list_tokken *current, t_parsing *bag);
+void get_option(t_parsing *bag);
 
 // Execution
-void child_process(t_list_tokken *current, t_parsing *bag, int *fd);
-void			process_management(t_parsing *bag);
-int				number_cmds(t_list_tokken *head);
-char * parent_process(t_list_tokken *current, t_parsing *bag, int *fd);
-void ft_execute(t_parsing *bag, t_list_tokken *current);
-void ft_one_cmd(t_parsing *bag);
-void ft_multi_cmd(t_parsing *bag);
+void execution(t_parsing *bag, char **envp);
+void ft_execute(t_parsing *bag, t_list_tokken *current, char **envp);
+void ft_one_cmd(t_parsing *bag, char **envp);
+void ft_multi_cmd(t_parsing *bag, char **envp);
 void	prepare_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe);
 void	close_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe);
-void ft_run_cmd(t_parsing *bag, t_list_tokken *cmd);
+void ft_run_cmd(t_parsing *bag, t_list_tokken *cmd, char **envp);
 void	handle_exit_status(int exit_status);
 
 
@@ -270,12 +264,12 @@ int ft_execute_builtin(t_list_tokken *current, t_parsing *bag);
 int 			ft_cd(t_list_tokken *current, char *cwd);
 int ft_echo(t_list_tokken *current);
 int ft_pwd(t_list_tokken *current, t_parsing *bag);
-int				env(t_parsing *bag);
-void export(t_list_tokken *current, t_parsing *bag);
-int unset(t_parsing *bag, t_list_tokken *current);
+int				ft_env(t_parsing *bag);
+int ft_export(t_list_tokken *current, t_parsing *bag);
+int ft_unset(t_parsing *bag, t_list_tokken *current);
 
 // Signals
 void			handle_signal(t_parsing *bag);
 
-extern t_status g_status;
+extern volatile int g_status;
 #endif
