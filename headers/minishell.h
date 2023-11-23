@@ -219,6 +219,8 @@ int				ft_strcmp(char const *str, char const *model, int size);
 bool			state_quote(t_parsing *sac, char c);
 void debug_token(t_parsing *bag);
 void			pre_tokken_size(t_parsing *sac);
+int				parseur(t_parsing *bag);
+void			print_exec(t_list_tokken *test);
 
 // UTILS_LST
 void			ft_pre_lstadd_back(t_list_pre *node, t_list_pre *new, t_parsing *bag);

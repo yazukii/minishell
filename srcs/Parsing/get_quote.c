@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_quote.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 18:01:51 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:09:19 by yidouiss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char *get_quote(char **str, t_parsing *bag)
+char	*get_quote(char **str, t_parsing *bag)
 {
 	char	*word;
 	int		i;
@@ -20,14 +32,14 @@ char *get_quote(char **str, t_parsing *bag)
 	return (word);
 }
 
-bool is_quote(char c)
+bool	is_quote(char c)
 {
 	if (c == '"' || c == '\'')
 		return (TRUE);
 	return (FALSE);
 }
 
-int quote_len(char *str)
+int	quote_len(char *str)
 {
 	char	c;
 	int		i;

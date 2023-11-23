@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   parseur2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 18:01:51 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/11/23 18:01:51 by yidouiss         ###   ########.fr       */
+/*   Created: 2023/11/23 23:26:03 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:42:03 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
-PLACE_HOLDERS:"path_to_file"
-
-int	redirection_left(PLACE_HOLDER:"path_to_file")
+int	parseur(t_parsing *bag)
 {
-	int	fd;
+	expand(bag);
+	clean_end_space(bag);
+	pre_tokken(bag, bag->input);
+	pre_tokken_size(bag);
+	tokkenizer(bag);
+	get_option(bag);
+	print_exec(bag->t_head);
+	return (0);
+}
 
-	fd = open("path_to_file", O_RDONLY);
-	if (fd = -1)
-		perror();
-	return (fd);
+void	print_exec(t_list_tokken *test)
+{
+	char	**test1;
+	int		i;
+
+	i = 0;
+	test1 = test->exec;
+	while (test1[i])
+	{
+		printf("%s\n", test1[i]);
+		i++;
+	}
 }

@@ -1,15 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pre_tokken.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 18:01:51 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:12:06 by yidouiss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishell.h"
 
-// in pretokken check:
-//					- check if you take the sep char in the string you split / DONE
-//						- the char sep is put with the word before it
-//						- if the char sep ==  > < | it needs its own tokkenizer
-//						- if the char sep == \0 ' ' \"
-void pre_tokken(t_parsing *bag, char *prompt)
+void	pre_tokken(t_parsing *bag, char *prompt)
 {
 	t_list_pre	*new;
 
-	while(*prompt == ' ')
+	while (*prompt == ' ')
 		prompt++;
 	while (*prompt)
 	{
@@ -18,9 +25,9 @@ void pre_tokken(t_parsing *bag, char *prompt)
 	}
 }
 
-char *get_pre_token(t_parsing *bag, char **str)
+char	*get_pre_token(t_parsing *bag, char **str)
 {
-	char *word;
+	char	*word;
 
 	word = NULL;
 	if (**str == '>' || **str == '<' || **str == '|')

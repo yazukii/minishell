@@ -1,47 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parseur.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 21:44:03 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:28:04 by yidouiss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void print_exec(t_list_tokken *test);
-
-int	parseur(t_parsing *bag)
-{
-	expand(bag);
-	clean_end_space(bag);
-	pre_tokken(bag, bag->input);
-	pre_tokken_size(bag);
-	tokkenizer(bag);
-	get_option(bag);
-	print_exec(bag->t_head);
-    return (0);
-}
-
-void print_exec(t_list_tokken *test)
-{
-	char **test1;
-	int i;
-
-	i = 0;
-	test1 = test->exec;
-	while (test1[i])
-	{
-		printf("%s\n", test1[i]);
-		i++;
-	}
-}
-
-void get_option(t_parsing *bag)
+void	get_option(t_parsing *bag)
 {
 	t_list_tokken	*current;
 
 	current = bag->t_head;
-	while(current)
+	while (current)
 	{
 		current->exec = fill_exec(current, bag);
 		current = current->next;
 	}
 }
 
-char **fill_exec(t_list_tokken *current, t_parsing *bag)
-{	char		**ret;
+char	**fill_exec(t_list_tokken *current, t_parsing *bag)
+{
+	char		**ret;
 	t_list_arg	*a_current;
 	int			i;
 	int			len;
@@ -64,7 +49,7 @@ char **fill_exec(t_list_tokken *current, t_parsing *bag)
 	return (ret);
 }
 
-int ft_number_args(t_list_tokken *current)
+int	ft_number_args(t_list_tokken *current)
 {
 	t_list_arg	*a_current;
 	int			i;
@@ -79,13 +64,14 @@ int ft_number_args(t_list_tokken *current)
 	return (i);
 }
 
-void clean_end_space(t_parsing *bag)
+void	clean_end_space(t_parsing *bag)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
-	i = 0;	j = 0;
+	i = 0;
+	j = 0;
 	while (bag->input[i])
 	{
 		i++;
@@ -111,4 +97,3 @@ void	tokkenizer(t_parsing *bag)
 	bag->in_simple = FALSE;
 	fill_tokkens_recursive(bag);
 }
-
