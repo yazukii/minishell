@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+void print_exec(t_list_tokken *test);
+
 int	parseur(t_parsing *bag)
 {
 	expand(bag);
@@ -8,7 +10,22 @@ int	parseur(t_parsing *bag)
 	pre_tokken_size(bag);
 	tokkenizer(bag);
 	get_option(bag);
+	print_exec(bag->t_head);
     return (0);
+}
+
+void print_exec(t_list_tokken *test)
+{
+	char **test1;
+	int i;
+
+	i = 0;
+	test1 = test->exec;
+	while (test1[i])
+	{
+		printf("%s\n", test1[i]);
+		i++;
+	}
 }
 
 void get_option(t_parsing *bag)
@@ -18,8 +35,7 @@ void get_option(t_parsing *bag)
 	current = bag->t_head;
 	while(current)
 	{
-		if (current->a_head)
-			current->exec = fill_exec(current, bag);
+		current->exec = fill_exec(current, bag);
 		current = current->next;
 	}
 }
@@ -31,15 +47,16 @@ char **fill_exec(t_list_tokken *current, t_parsing *bag)
 	int			len;
 
 	i = 1;
-	a_current = current->a_head;
+	if (current->a_head)
+		a_current = current->a_head;
 	len = ft_number_args(current);
-	ret = malloc(sizeof (char *) * len + 1);
+	ret = malloc(sizeof (char *) * len + 2);
 	if (!ret)
 		ft_error(MEMORY, bag);
 	ret[0] = ft_strdup(current->cmd);
 	while (len)
 	{
-		ret[i] = ft_strdup(a_current->arg);
+		ret[i++] = ft_strdup(a_current->arg);
 		a_current = a_current->next;
 		len--;
 	}

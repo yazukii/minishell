@@ -76,7 +76,6 @@ void input_handling(t_parsing *bag, char **envp)
 {
 	add_history(bag->input);
 	parseur(bag);
-//	debug_token(bag);
 	execution(bag, envp);
 	free_all(bag);
 }
