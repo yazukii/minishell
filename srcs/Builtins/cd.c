@@ -9,15 +9,15 @@
  * error management
  */
 
-int cd(t_parsing *bag)
+int cd(t_list_tokken *current, char *cwd)
 {
-    if (!(bag->t_head)->a_head)
+    if (!(current)->a_head)
         chdir(getenv("HOME"));
     else
     {
-        if ((bag->t_head)->a_head->arg[0] != '/')
-            (bag->t_head)->a_head->arg = ft_strjoin("/", (bag->t_head)->a_head->arg);
-        if (chdir(ft_strjoin(bag->cwd, (bag->t_head)->a_head->arg)) == -1)
+        if ((current)->a_head->arg[0] != '/')
+            (current)->a_head->arg = ft_strjoin("/", (current)->a_head->arg);
+        if (chdir(ft_strjoin(cwd, (current)->a_head->arg)) == -1)
             printf("This directory does not exist\n");
     }
     return (0);

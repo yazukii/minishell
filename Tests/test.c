@@ -10,18 +10,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void incrementStringPointer(char **str) {
-		(*str)++; // Increment the pointer, but don't modify the content
+void child_process(int *comm);
+void parent_process(int *comm);
+
+int main(void)
+{
+	int		comm[2];
+	pid_t	pid;
+
+	pipe(comm);
+	pid = fork();
+	if (pid == -1)
+		exit(1);
+	else if (pid == 0)
+		child_process(comm);
+	else
+		parent_process(comm);
+	return 0;
 }
 
-int main() {
-	char *str;
+void child_process(int *comm)
+{
+	close(comm[0]);
+	write(comm[1], "test", 5);
+}
 
-	str = malloc(sizeof (char) * 2);
-	if (str != NULL)
-	{
-		str[0] = '0';
-		printf("Modified string: %s\n", str);
-	}
-	return 0;
+void parent_process(int *comm)
+{
+	char *test;
+
+	close(comm[1]);
+	read(comm[0], test, 5);
+	test[0] = '!';
+	printf("%s", test);
 }

@@ -69,7 +69,8 @@ enum	e_errnumber{
 	SIGNAL,
     FORK,
 	FILE_CREATION,
-	SYNTAX
+	SYNTAX,
+	EXECVE
 };
 
 enum	e_tokken_type{
@@ -145,6 +146,7 @@ typedef struct s_parsing
 	char				*hook_input;
 	char				*cwd;
 	t_list_env			*key;
+	char				*pipestr;
 	char				**builtins;
 	t_list_env			*env_head;
 	t_list_pre			*p_head;
@@ -165,6 +167,12 @@ void expand(t_parsing *bag);
 void 			pre_tokken(t_parsing *sac, char *prompt);
 void			tokkenizer(t_parsing *sac);
 void			clean_end_space(t_parsing *bag);
+
+// Execution
+void child_process(t_list_tokken *current, t_parsing *bag, int *fd);
+void			process_management(t_parsing *bag);
+int				number_cmds(t_list_tokken *head);
+char * parent_process(t_list_tokken *current, t_parsing *bag, int *fd);
 
 // EXPAND
 void 			clean_input(t_parsing *bag);
@@ -210,7 +218,6 @@ t_list_pre		*ft_pre_lstlast(t_list_pre *lst);
 t_list_pre		*ft_pre_lstnew(char *pre_tokken, t_parsing *bag);
 
 // UTILS_LST_TOKKEN
-
 int				ft_t_arglstsize(t_list_tokken *lst);
 t_list_tokken	*ft_t_lstnew(t_parsing *bag);
 t_list_tokken	*ft_t_lstlast(t_list_tokken *lst);
@@ -238,21 +245,18 @@ void			free_t(t_list_tokken *head);
 void			free_a(t_list_arg *head);
 void			free_env(t_parsing *bag);
 
+
 // Error
 void ft_error(int ERRNUMBER, t_parsing *bag);
 
-// Execution
-int 			execution(t_parsing *bag);
-void			exec_cmd(t_parsing *bag);
-
 // Builtins
-void    		choose_builtin(t_parsing *bag);
-int 			cd(t_parsing *bag);
-void			echo(t_parsing *bag);
-int				pwd(t_parsing *bag);
+void choose_builtin(t_list_tokken *current, t_parsing *bag);
+int 			cd(t_list_tokken *current, char *cwd);
+void			echo(t_list_tokken *current);
+int pwd(t_list_tokken *current, t_parsing *bag);
 int				env(t_parsing *bag);
-void 			export(t_parsing *bag);
-void			unset(t_parsing *bag);
+void export(t_list_tokken *current, t_parsing *bag);
+void unset(t_parsing *bag, t_list_tokken *current);
 
 // Signals
 void			handle_signal(t_parsing *bag);

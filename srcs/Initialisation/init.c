@@ -29,6 +29,7 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->key = NULL;
 	bag->p_head = NULL;
 	bag->t_head = NULL;
+	bag->pipestr = NULL;
 	return (bag);
 }
 
@@ -39,10 +40,7 @@ void init_envp(t_parsing *bag, char **envp)
 
 	i = 0;
 	while (envp[i] != NULL)
-	{
-		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i]));
-		i++;
-	}
+		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i++]));
 	current = bag->env_head;
 	while (current)
 	{

@@ -1,25 +1,25 @@
 #include "../../headers/minishell.h"
 
-void    choose_builtin(t_parsing *bag)
+void choose_builtin(t_list_tokken *current, t_parsing *bag)
 {
-    switch ((bag->t_head)->builtin_id) {
+    switch (current->builtin_id) {
 		case (NO_BUILTIN):
-			exec_cmd(bag);
+			process_management(current);
 			break;
         case (ECHO):
-            echo(bag);
+            echo(current);
             break;
         case (CD):
-            cd(bag);
+            cd(current, bag->cwd);
             break;
         case (PWD):
-            pwd(bag);
+			pwd(current, bag);
             break;
         case (EXPORT):
-			export(bag);
+			export(current, bag);
             break;
         case (UNSET):
-			unset(bag);
+			unset(bag, current);
             break;
         case (ENV):
             env(bag);

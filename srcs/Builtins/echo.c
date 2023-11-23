@@ -1,14 +1,14 @@
 #include "../../headers/minishell.h"
 
-void echo(t_parsing *bag)
+void echo(t_list_tokken *current)
 {
    t_list_arg	*tmp;
    int 			n;
 
    n = 0;
-   if (!(bag->t_head)->a_head)
+   if (!(current)->a_head)
 	   return ;
-   tmp = (bag->t_head)->a_head;
+   tmp = (current)->a_head;
    if (!ft_strncmp(tmp->arg, "-n", 2))
    {
 	   n = 1;

@@ -46,7 +46,7 @@ char *ft_value(char *str, t_parsing *bag)
 	retstr = malloc(sizeof (char) * j - i);
 	if (!retstr)
 		ft_error(MEMORY, bag);
-	i = -1;
+	i = 0;
 	while (str[i] != '=')
 		i++;
 	j = 0;
@@ -75,8 +75,5 @@ void ft_lstadd_back_envp(t_parsing *bag, t_list_env *new)
 		tmp->next = new;
 	}
 	else
-	{
-		bag->env_head = malloc(sizeof (t_list_env *));
-		(bag->env_head) = new;
-	}
+		bag->env_head = new;
 }
