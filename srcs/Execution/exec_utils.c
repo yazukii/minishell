@@ -59,7 +59,7 @@ char *ft_getenv(t_list_env *head, char *key)
 	t_list_env	*tmp;
 
 	tmp = head;
-	while (ft_strcmp(tmp->key, key, 4))
+	while (!ft_strcmp(tmp->key, key, 4))
 		tmp = tmp->next;
 	return (ft_strdup(tmp->value));
 }

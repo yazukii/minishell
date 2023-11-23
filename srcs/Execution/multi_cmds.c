@@ -1,5 +1,6 @@
 # include "minishell.h"
 
+extern volatile sig_atomic_t g_status;
 
 void ft_multi_cmd(t_parsing *bag, char **envp)
 {

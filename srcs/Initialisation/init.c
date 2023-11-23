@@ -1,17 +1,10 @@
 #include "../../headers/minishell.h"
 
-void	init_status()
-{
-	g_status.child_pid = -1;
-	g_status.quit = 0;
-}
-
 t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 {
-	init_status();
 	if (flag == TRUE)
 	{
-		bag = malloc(sizeof (t_parsing) * 1);
+		bag = malloc(sizeof (t_parsing));
 		init_envp(bag, envp);
 		init_builtins(bag);
 	}
@@ -29,7 +22,6 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	bag->key = NULL;
 	bag->p_head = NULL;
 	bag->t_head = NULL;
-	bag->pipestr = NULL;
 	return (bag);
 }
 

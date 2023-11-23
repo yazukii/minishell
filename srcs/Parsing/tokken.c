@@ -4,7 +4,8 @@ void	  fill_tokkens_recursive(t_parsing *bag)
 {
 	if (!(bag->p_head))
 		return ;
-	ft_lstadd_back_token(bag->t_head, ft_t_lstnew(bag), bag);
+	if (bag->first_cmd)
+		ft_lstadd_back_token(NULL, ft_t_lstnew(bag), bag);
 	r_fill_redir(bag);
 	fill_cmd(bag);
 	if (fill_pipe(bag) == FALSE)
@@ -39,14 +40,17 @@ bool fill_pipe(t_parsing *bag)
  * the following are args*/
 void 	fill_cmd(t_parsing *bag)
 {
+	t_list_tokken	*last;
+
+	last = ft_t_lstlast(bag->t_head);
 	if (bag->first_cmd == TRUE)
 		bag->first_cmd = FALSE;
 	else
 		ft_lstadd_back_token(bag->t_head, ft_t_lstnew(bag), NULL);
-	if (!bag->p_head || check_redir((bag->p_head)->pre_tokken) == PIPE)
+	if (!(bag->p_head) || check_redir((bag->p_head)->pre_tokken) == PIPE)
 		ft_error(SYNTAX, bag);
-	ft_t_lstlast(bag->t_head)->cmd = malloc(sizeof (char) * (ft_strlen((bag->p_head)->pre_tokken) + 1));
-	ft_strlcpy(ft_t_lstlast(bag->t_head)->cmd,(bag->p_head)->pre_tokken, ft_strlen((bag->p_head)->pre_tokken) + 1);
+	last->cmd = malloc(sizeof (char) * ft_strlen(bag->p_head->pre_tokken) + 1);
+	ft_strlcpy(last->cmd,bag->p_head->pre_tokken, ft_strlen(bag->p_head->pre_tokken) + 1);
 	free_p_args(bag);
 	while ((bag->p_head) && check_redir((bag->p_head)->pre_tokken) != PIPE)
 	{

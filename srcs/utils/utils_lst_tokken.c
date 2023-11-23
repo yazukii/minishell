@@ -15,7 +15,7 @@ void	ft_t_relink(t_list_tokken *node)
 void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new, t_parsing *bag)
 {
 	if (node)
-		node->next = new;
+		ft_t_lstlast(node)->next = new;
 	else
 		bag->t_head = new;
 }
@@ -37,18 +37,18 @@ t_list_tokken *ft_t_lstnew(t_parsing *bag)
 {
 	t_list_tokken	*instance;
 
-	instance = (t_list_tokken *)malloc(sizeof(t_list_tokken));
+	instance = malloc(sizeof(t_list_tokken));
 	if (!instance)
 		ft_error(MEMORY, bag);
+	instance->builtin_id = NO_BUILTIN;
 	instance->cmd = NULL;
-	instance->builtin_id = 7;
-	instance->pipe_status = FALSE;
 	instance->heredoc = NULL;
+	instance->a_head = NULL;
 	instance->output = STDOUT_FILENO;
 	instance->input = STDIN_FILENO;
 	instance->append = -1;
+	instance->exec = NULL;
 	instance->pipe_status = FALSE;
-	instance->a_head = NULL;
 	instance->next = NULL;
 	return (instance);
 }

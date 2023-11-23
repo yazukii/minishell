@@ -13,6 +13,17 @@ char	*get_env(const char *key, t_list_env **envp)
 	return (NULL);
 }*/
 
+void debug_token(t_parsing *bag)
+{
+	t_list_tokken	*current;
+
+	current = bag->t_head;
+	while (current)
+	{
+		current = current->next;
+	}
+}
+
 int	ft_strcmp(char const *str, char const *model, int size)
 {
 	int	i;
@@ -23,20 +34,6 @@ int	ft_strcmp(char const *str, char const *model, int size)
 	if (model[i] == '\0' && i == size)
 		return (TRUE);
 	return (FALSE);
-}
-
-t_list_env *lst_env_new(char *key, char *value, t_parsing *bag)
-{
-	t_list_env	*new;
-
-	new = malloc(sizeof (t_list_env));
-	if (!new)
-		ft_error(MEMORY, bag);
-	new->key = key;
-	new->k_size = 0;
-	new->value = value;
-	new->v_size = 0;
-	return (new);
 }
 
 void	pre_tokken_size(t_parsing *bag)

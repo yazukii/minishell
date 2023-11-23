@@ -43,7 +43,6 @@
 # define ERR -1
 				//* Exit status of the most-recently-executed command
 
-
 enum	e_builtins{
 	ECHO,
 	CD,
@@ -118,7 +117,7 @@ typedef struct s_list_tokken
 	enum e_builtins			builtin_id;
 	char					*cmd;
 	char					*heredoc;
-	struct s_list_arg		*a_head;
+	t_list_arg				*a_head;
 	int 					output;
 	int 					input;
 	int 					append;
@@ -141,7 +140,6 @@ typedef struct s_parsing
 	char				*hook_input;
 	char				*cwd;
 	t_list_env			*key;
-	char				*pipestr;
 	char				**builtins;
 	t_list_env			*env_head;
 	t_list_pre			*p_head;
@@ -219,7 +217,7 @@ void clean_redir(t_parsing *bag);
 // UTILS_PARSING
 int				ft_strcmp(char const *str, char const *model, int size);
 bool			state_quote(t_parsing *sac, char c);
-t_list_env		*lst_env_new(char *key, char *value, t_parsing *bag);
+void debug_token(t_parsing *bag);
 void			pre_tokken_size(t_parsing *sac);
 
 // UTILS_LST
@@ -271,5 +269,5 @@ int ft_unset(t_parsing *bag, t_list_tokken *current);
 // Signals
 void			handle_signal(t_parsing *bag);
 
-extern volatile int g_status;
+
 #endif

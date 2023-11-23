@@ -1,10 +1,12 @@
 #include "../../headers/minishell.h"
 
+extern volatile sig_atomic_t g_status;
+
 void	handle_sigtstp(int signum)
 {
 	if (signum == SIGINT)
 	{
-		g_status.status = 130;
+		g_status = 130;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

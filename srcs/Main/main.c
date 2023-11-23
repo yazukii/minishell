@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-t_status g_status;
 
 /*
 void printlist(t_parsing bag, int st)
@@ -38,6 +37,7 @@ void printlist(t_parsing bag, int st)
 		}
 	}
 }*/
+volatile sig_atomic_t g_status;
 
 char	*create_out(t_parsing *bag)
 {
@@ -58,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
     bag = NULL;
 	handle_signal(bag);
     rl_initialize();
+	g_status = EXIT_SUCCESS;
 	bag = init_parseur(bag, envp, TRUE);
     while (1)
     {
@@ -75,6 +76,7 @@ void input_handling(t_parsing *bag, char **envp)
 {
 	add_history(bag->input);
 	parseur(bag);
+//	debug_token(bag);
 	execution(bag, envp);
 	free_all(bag);
 }
