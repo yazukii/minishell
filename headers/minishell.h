@@ -122,6 +122,7 @@ typedef struct s_list_tokken
 	int 					input;
 	int 					append;
 	char					**exec;
+	int						size;
 	bool					pipe_status;
 	struct s_list_tokken	*next;
 }	t_list_tokken;
@@ -173,6 +174,7 @@ void	prepare_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe);
 void	close_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe);
 void ft_run_cmd(t_parsing *bag, t_list_tokken *cmd, char **envp);
 void	handle_exit_status(int exit_status);
+void ft_execute_fork(t_parsing *bag, t_list_tokken *current, char **envp, int *exit_status);
 
 
 // EXECUTION UTILS
@@ -201,6 +203,7 @@ char *get_quote(char **str, t_parsing *bag);
 void			fill_tokkens_recursive(t_parsing *bag);
 void 			fill_cmd(t_parsing *bag);
 bool fill_pipe(t_parsing *bag);
+void	check_builtins(t_list_tokken *current, t_parsing *bag);
 
 // REDIR && HEREDOC
 void write_missing(char *delimiter);

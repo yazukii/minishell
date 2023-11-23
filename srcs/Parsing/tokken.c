@@ -51,7 +51,9 @@ void 	fill_cmd(t_parsing *bag)
 		ft_error(SYNTAX, bag);
 	last->cmd = malloc(sizeof (char) * ft_strlen(bag->p_head->pre_tokken) + 1);
 	ft_strlcpy(last->cmd,bag->p_head->pre_tokken, ft_strlen(bag->p_head->pre_tokken) + 1);
+	last->size = bag->p_head->size;
 	free_p_args(bag);
+	check_builtins(last, bag);
 	while ((bag->p_head) && check_redir((bag->p_head)->pre_tokken) != PIPE)
 	{
 		ft_lstadd_back_arg(bag, ft_a_lstnew(ft_strdup((bag->p_head)->pre_tokken), bag));

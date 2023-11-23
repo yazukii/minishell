@@ -15,15 +15,15 @@ int check_redirections(t_list_pre *current)
 	return (NO_REDIR);
 }
 
-void	check_builtins(t_list_pre *current, t_parsing *bag)
+void	check_builtins(t_list_tokken *current, t_parsing *bag)
 {
     int			j;
 
     j = 0;
     while (bag->builtins[j])
     {
-        if (ft_strcmp(current->pre_tokken, bag->builtins[j], current->size))
-            (ft_t_lstlast(bag->t_head))->builtin_id = j;
+        if (ft_strcmp(current->cmd, bag->builtins[j], current->size))
+            current->builtin_id = j;
         j++;
     }
 }

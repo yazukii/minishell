@@ -6,6 +6,7 @@ void ft_one_cmd(t_parsing *bag, char **envp)
 {
 	int		original_stdin;
 	int		original_stdout;
+	int		exit_status;
 
 	original_stdin = dup(STDIN_FILENO);
 	original_stdout = dup(STDOUT_FILENO);
@@ -16,7 +17,7 @@ void ft_one_cmd(t_parsing *bag, char **envp)
 	if (bag->t_head->builtin_id != NO_BUILTIN)
 		g_status = ft_execute_builtin(bag->t_head, bag);
 	else
-		ft_execute(bag, bag->t_head, envp);
+		ft_execute_fork(bag, bag->t_head, envp, &exit_status);
 	if (bag->t_head->input >= 3)
 		close(bag->t_head->input);
 	if (bag->t_head->output >= 3)
@@ -27,6 +28,17 @@ void ft_one_cmd(t_parsing *bag, char **envp)
 	close(original_stdin);
 }
 
+void ft_execute_fork(t_parsing *bag, t_list_tokken *current, char **envp, int *exit_status)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+		ft_execute(bag, current, envp);
+	waitpid(pid, exit_status, 0);
+	if (WIFEXITED(*exit_status))
+		g_status = WEXITSTATUS(*exit_status);
+}
 
 //replace NULL by the option tro the builtin
 void ft_execute(t_parsing *bag, t_list_tokken *current, char **envp)

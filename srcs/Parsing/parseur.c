@@ -110,5 +110,6 @@ void	tokkenizer(t_parsing *bag)
 	bag->in_double = FALSE;
 	bag->in_simple = FALSE;
 	fill_tokkens_recursive(bag);
+	bag->first_cmd = TRUE;
 }
 
