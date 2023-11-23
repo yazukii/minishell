@@ -9,18 +9,28 @@ void env_delone(t_list_env *env)
 	free(tmp);
 }
 
-void unset(t_parsing *bag, t_list_tokken *current)
+int unset(t_parsing *bag, t_list_tokken *current)
 {
 	char *key = current->a_head->arg;
 	t_list_env *tmp = (bag->env_head);
+	int		exit_status;
 
+	exit_status = EXIT_SUCCESS;
+	if (ft_strchr(key, '-') != NULL)
+	{
+		ft_putstr_fd("unset: '", STDERR_FILENO);
+		ft_putstr_fd(key, STDERR_FILENO);
+		ft_putstr_fd("' :not a valid identifier: \n", STDERR_FILENO);
+		exit_status = EXIT_FAILURE;
+	}
 	while (tmp && tmp->next)
 	{
 		if (ft_strncmp(tmp->next->key, key, 1024) == 0)
 		{
 			env_delone(tmp);
-			return;
+			return (exit_status);
 		}
 		tmp = tmp->next;
 	}
+	return (exit_status);
 }

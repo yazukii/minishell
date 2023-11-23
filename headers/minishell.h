@@ -35,6 +35,7 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 # define PATH  "/Users/yani/Library/Python/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/yani/Library/Python/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/yani/.spicetify:/Users/yani/.spicetifytest"
+# define MAXPATHLEN 4096
 
 # define bool unsigned int
 # define TRUE 1
@@ -173,6 +174,21 @@ void child_process(t_list_tokken *current, t_parsing *bag, int *fd);
 void			process_management(t_parsing *bag);
 int				number_cmds(t_list_tokken *head);
 char * parent_process(t_list_tokken *current, t_parsing *bag, int *fd);
+void ft_execute(t_parsing *bag, t_list_tokken *current);
+void ft_one_cmd(t_parsing *bag);
+void ft_multi_cmd(t_parsing *bag);
+void	prepare_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe);
+void	close_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe);
+void ft_run_cmd(t_parsing *bag, t_list_tokken *cmd);
+void	handle_exit_status(int exit_status);
+
+
+// EXECUTION UTILS
+char	**ft_getsplitedpath(t_list_env *head);
+char *ft_getenv(t_list_env *head, char *key);
+void ft_strcpy(char *dst, const char *src);
+void ft_strcat(char *dst, const char *src);
+void ft_freesplit(char **paths);
 
 // EXPAND
 void 			clean_input(t_parsing *bag);
@@ -250,13 +266,13 @@ void			free_env(t_parsing *bag);
 void ft_error(int ERRNUMBER, t_parsing *bag);
 
 // Builtins
-void choose_builtin(t_list_tokken *current, t_parsing *bag);
-int 			cd(t_list_tokken *current, char *cwd);
-void			echo(t_list_tokken *current);
-int pwd(t_list_tokken *current, t_parsing *bag);
+int ft_execute_builtin(t_list_tokken *current, t_parsing *bag);
+int 			ft_cd(t_list_tokken *current, char *cwd);
+int ft_echo(t_list_tokken *current);
+int ft_pwd(t_list_tokken *current, t_parsing *bag);
 int				env(t_parsing *bag);
 void export(t_list_tokken *current, t_parsing *bag);
-void unset(t_parsing *bag, t_list_tokken *current);
+int unset(t_parsing *bag, t_list_tokken *current);
 
 // Signals
 void			handle_signal(t_parsing *bag);

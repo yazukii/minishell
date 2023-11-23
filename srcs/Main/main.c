@@ -75,7 +75,6 @@ void input_handling(t_parsing *bag)
 {
 	add_history(bag->input);
 	parseur(bag);
-//	printf("%d\n", bag->t_head->builtin_id);
-//	printlist(*bag, 0);
+	execution(bag);
 	free_all(bag);
 }

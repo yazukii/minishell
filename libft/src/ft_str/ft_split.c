@@ -16,7 +16,7 @@ int	ft_checksep(char str)
 {
 	int	i;
 
-	if (str == ' ' || str == '\t' || str == '\n' || str == '\v' || str == '\f')
+	if (!str || str == ':')
 		i = 1;
 	else
 		i = 0;

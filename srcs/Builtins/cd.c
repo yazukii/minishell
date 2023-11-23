@@ -1,6 +1,6 @@
 #include "../../headers/minishell.h"
 
-/*pour cd:
+/*pour ft_cd:
  * change the current dir
  * understanding in which dir you are
  * using ~ to represent the home dir
@@ -9,7 +9,7 @@
  * error management
  */
 
-int cd(t_list_tokken *current, char *cwd)
+int ft_cd(t_list_tokken *current, char *cwd)
 {
     if (!(current)->a_head)
         chdir(getenv("HOME"));
