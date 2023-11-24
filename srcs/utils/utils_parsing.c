@@ -11,20 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	*get_env(const char *key, t_list_env **envp)
-{
-	if (!key)
-        return(NULL);
-	while (*envp)
-	{
-		if (ft_strcmp((*envp)->key, key, ft_strlen(key)))
-            return ((*envp)->value);
-		*envp = (*envp)->next;
-	}
-	return (NULL);
-}*/
-
 
 void	clean_end_space(t_parsing *bag)
 {
@@ -117,4 +103,3 @@ bool	state_quote(t_parsing *bag, char c)
 	}
 	return (bag->can_exp);
 }
-

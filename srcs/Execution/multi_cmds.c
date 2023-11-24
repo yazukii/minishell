@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-extern volatile sig_atomic_t g_status;
+extern volatile sig_atomic_t	g_status;
 
-void ft_multi_cmd(t_parsing *bag, char **envp)
+void	ft_multi_cmd(t_parsing *bag, char **envp)
 {
 	t_list_tokken		*tmp;
 	int					fd_pipe_read_tmp;
@@ -41,7 +41,7 @@ void ft_multi_cmd(t_parsing *bag, char **envp)
 	handle_exit_status(exit_status);
 }
 
-void ft_run_cmd(t_parsing *bag, t_list_tokken *cmd, char **envp)
+void	ft_run_cmd(t_parsing *bag, t_list_tokken *cmd, char **envp)
 {
 	if (cmd->builtin_id != NO_BUILTIN)
 		ft_execute(bag, cmd, envp);

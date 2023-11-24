@@ -273,7 +273,7 @@ int ft_export(t_list_tokken *current, t_parsing *bag);
 int ft_unset(t_parsing *bag, t_list_tokken *current);
 
 // Signals
-void			handle_signal(t_parsing *bag);
+void			handle_signal();
 
 
 #endif

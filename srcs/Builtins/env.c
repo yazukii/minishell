@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int ft_env(t_parsing *bag)
+int	ft_env(t_parsing *bag)
 {
-	t_list_env *tmp;
+	t_list_env	*tmp;
 
 	tmp = bag->env_head;
 	while (tmp)

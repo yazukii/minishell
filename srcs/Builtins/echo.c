@@ -12,26 +12,26 @@
 
 #include "../../headers/minishell.h"
 
-int ft_echo(t_list_tokken *current)
+int	ft_echo(t_list_tokken *current)
 {
-   t_list_arg	*tmp;
-   int 			n;
+	t_list_arg	*tmp;
+	int			n;
 
-   n = 0;
-   if (!(current)->a_head)
-	   return (EXIT_FAILURE);
-   tmp = (current)->a_head;
-   if (!ft_strncmp(tmp->arg, "-n", 2))
-   {
-	   n = 1;
-	   tmp = tmp->next;
-   }
-   while (tmp)
-   {
-	   printf("%s ", tmp->arg);
-	   tmp = tmp->next;
-   }
-   if (n == 0)
-	   printf("\n");
+	n = 0;
+	if (!(current)->a_head)
+		return (EXIT_FAILURE);
+	tmp = (current)->a_head;
+	if (!ft_strncmp(tmp->arg, "-n", 2))
+	{
+		n = 1;
+		tmp = tmp->next;
+	}
+	while (tmp)
+	{
+		printf("%s ", tmp->arg);
+		tmp = tmp->next;
+	}
+	if (n == 0)
+		printf("\n");
 	return (EXIT_SUCCESS);
 }

@@ -9,8 +9,3 @@
 /*   Updated: 2023/11/23 18:01:51 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*	exit:
- * 		- a garder pour la fin pour comprendre toutes les structures a free
- *
- */

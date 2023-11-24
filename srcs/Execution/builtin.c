@@ -12,9 +12,9 @@
 
 #include "../../headers/minishell.h"
 
-int ft_execute_builtin(t_list_tokken *current, t_parsing *bag)
+int	ft_execute_builtin(t_list_tokken *current, t_parsing *bag)
 {
-	if (current->builtin_id ==ECHO)
+	if (current->builtin_id == ECHO)
 		return (ft_echo(current));
 	if (current->builtin_id == CD)
 		return (ft_cd(current, bag->cwd));
@@ -28,9 +28,9 @@ int ft_execute_builtin(t_list_tokken *current, t_parsing *bag)
 		return (ft_env(bag));
 	if (current->builtin_id == EXIT)
 	{
-			free_all(bag);
-			free_env(bag);
-            exit(0);
-    }
+		free_all(bag);
+		free_env(bag);
+		exit(0);
+	}
 	return (EXIT_SUCCESS);
 }

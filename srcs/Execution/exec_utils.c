@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void ft_freesplit(char **paths)
+void	ft_freesplit(char **paths)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ void ft_freesplit(char **paths)
 	free(paths);
 }
 
-void ft_strcat(char *dst, const char *src)
+void	ft_strcat(char *dst, const char *src)
 {
 	int	i;
 	int	j;
@@ -36,10 +36,10 @@ void ft_strcat(char *dst, const char *src)
 	dst[i] = '\0';
 }
 
-void ft_strcpy(char *dst, const char *src)
+void	ft_strcpy(char *dst, const char *src)
 {
-	int		i;
-	int		len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = ft_strlen(src);
@@ -66,7 +66,7 @@ char	**ft_getsplitedpath(t_list_env *head)
 	return (splited_path);
 }
 
-char *ft_getenv(t_list_env *head, char *key)
+char	*ft_getenv(t_list_env *head, char *key)
 {
 	t_list_env	*tmp;
 

@@ -37,7 +37,7 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	return (bag);
 }
 
-void init_envp(t_parsing *bag, char **envp)
+void	init_envp(t_parsing *bag, char **envp)
 {
 	int			i;
 	t_list_env	*current;

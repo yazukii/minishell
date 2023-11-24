@@ -31,11 +31,11 @@ void	check_builtins(t_list_tokken *current, t_parsing *bag)
 {
 	int	j;
 
-    j = 0;
-    while (bag->builtins[j])
-    {
-        if (ft_strcmp(current->cmd, bag->builtins[j], current->size))
-            current->builtin_id = j;
-        j++;
-    }
+	j = 0;
+	while (bag->builtins[j])
+	{
+		if (ft_strcmp(current->cmd, bag->builtins[j], current->size))
+			current->builtin_id = j;
+		j++;
+	}
 }

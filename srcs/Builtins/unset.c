@@ -12,21 +12,25 @@
 
 #include "../../headers/minishell.h"
 
-void env_delone(t_list_env *env)
+void	env_delone(t_list_env *env)
 {
+	t_list_env	*tmp;
+
+	tmp = env->next;
 	if (env == NULL || env->next == NULL)
-		return; // Nothing to delete
-	t_list_env *tmp = env->next;
+		return ;
 	env->next = tmp->next;
 	free(tmp);
 }
 
-int ft_unset(t_parsing *bag, t_list_tokken *current)
+int	ft_unset(t_parsing *bag, t_list_tokken *current)
 {
-	char *key = current->a_head->arg;
-	t_list_env *tmp = (bag->env_head);
-	int		exit_status;
+	char		*key;
+	t_list_env	*tmp;
+	int			exit_status;
 
+	key = current->a_head->arg;
+	tmp = (bag->env_head);
 	exit_status = EXIT_SUCCESS;
 	if (ft_strchr(key, '-') != NULL)
 	{

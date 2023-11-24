@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_list_env * ft_env_lstnew(t_parsing *bag, char *envstr)
+t_list_env	*ft_env_lstnew(t_parsing *bag, char *envstr)
 {
 	t_list_env	*new;
 
@@ -23,7 +23,7 @@ t_list_env * ft_env_lstnew(t_parsing *bag, char *envstr)
 	return (new);
 }
 
-char *ft_key(char *str, t_parsing *bag)
+char	*ft_key(char *str, t_parsing *bag)
 {
 	char	*retstr;
 	int		i;
@@ -41,11 +41,11 @@ char *ft_key(char *str, t_parsing *bag)
 	return (retstr);
 }
 
-char *ft_value(char *str, t_parsing *bag)
+char	*ft_value(char *str, t_parsing *bag)
 {
 	char	*retstr;
 	int		i;
-	int 	j;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -77,7 +77,7 @@ t_list_env	*ft_envp_lstlast(t_list_env *lst)
 	return (tmp);
 }
 
-void ft_lstadd_back_envp(t_parsing *bag, t_list_env *new)
+void	ft_lstadd_back_envp(t_parsing *bag, t_list_env *new)
 {
 	t_list_env	*tmp;
 

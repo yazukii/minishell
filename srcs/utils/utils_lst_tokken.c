@@ -24,7 +24,8 @@ void	ft_t_relink(t_list_tokken *node)
 	free(tmp);
 }
 
-void ft_lstadd_back_token(t_list_tokken *node, t_list_tokken *new, t_parsing *bag)
+void	ft_lstadd_back_token(t_list_tokken *node, \
+t_list_tokken *new, t_parsing *bag)
 {
 	if (node)
 		ft_t_lstlast(node)->next = new;
@@ -45,7 +46,7 @@ t_list_tokken	*ft_t_lstlast(t_list_tokken *lst)
 	return (tmp);
 }
 
-t_list_tokken *ft_t_lstnew(t_parsing *bag)
+t_list_tokken	*ft_t_lstnew(t_parsing *bag)
 {
 	t_list_tokken	*instance;
 

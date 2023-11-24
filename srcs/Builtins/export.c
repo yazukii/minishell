@@ -12,9 +12,7 @@
 
 #include "minishell.h"
 
-
-
-int ft_export(t_list_tokken *current, t_parsing *bag)
+int	ft_export(t_list_tokken *current, t_parsing *bag)
 {
 	char		**arg;
 	t_list_env	*new;

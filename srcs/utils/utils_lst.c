@@ -24,7 +24,7 @@ t_list_pre	*ft_pre_lstlast(t_list_pre *lst)
 	return (tmp);
 }
 
-void ft_pre_lstadd_back(t_list_pre *node, t_list_pre *new, t_parsing *bag)
+void	ft_pre_lstadd_back(t_list_pre *node, t_list_pre *new, t_parsing *bag)
 {
 	if (node)
 		node->next = new;
@@ -32,7 +32,7 @@ void ft_pre_lstadd_back(t_list_pre *node, t_list_pre *new, t_parsing *bag)
 		bag->p_head = new;
 }
 
-t_list_pre *ft_pre_lstnew(char *pre_tokken, t_parsing *bag)
+t_list_pre	*ft_pre_lstnew(char *pre_tokken, t_parsing *bag)
 {
 	t_list_pre	*instance;
 

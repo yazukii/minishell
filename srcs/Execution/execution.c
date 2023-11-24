@@ -11,15 +11,15 @@
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
 /* we need to fork for each t_tokken
  * then use the pipe() to get the communication going
  * check if it's the last command to not creat a pipe
  * wait for all the previous commands to be executed
- * how to make it so that the previous cmd execution is the input for the next cmd?
+ * how to make it so that the previous cmd execution
+ * is the input for the next cmd?
  * */
 
-void execution(t_parsing *bag, char **envp)
+void	execution(t_parsing *bag, char **envp)
 {
 	if (!bag->t_head)
 		ft_error(INPUT, bag);

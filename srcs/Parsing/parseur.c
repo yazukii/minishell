@@ -24,11 +24,11 @@ int	parseur(t_parsing *bag)
 	return (0);
 }
 
-void refactor_redir(t_parsing *bag)
+void	refactor_redir(t_parsing *bag)
 {
-	t_list_tokken  *first;
-	t_list_tokken  *last;
-	t_list_tokken  *current;
+	t_list_tokken	*first;
+	t_list_tokken	*last;
+	t_list_tokken	*current;
 
 	first = bag->t_head;
 	last = ft_t_lstlast(bag->t_head);
@@ -49,8 +49,7 @@ void refactor_redir(t_parsing *bag)
 	}
 }
 
-
-void get_option(t_parsing *bag)
+void	get_option(t_parsing *bag)
 {
 	t_list_tokken	*current;
 

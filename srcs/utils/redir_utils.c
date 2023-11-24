@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-char *get_redir(char **str, t_parsing *bag)
+char	*get_redir(char **str, t_parsing *bag)
 {
 	char	*word;
-	int 	check;
+	int		check;
 
 	check = check_redir(*str);
 	if (check == APPEND || check == HEREDOC)
@@ -35,7 +35,7 @@ char *get_redir(char **str, t_parsing *bag)
 	return (word);
 }
 
-int check_redir(char *str)
+int	check_redir(char *str)
 {
 	if (str[0] == '<' && str[1] == '<')
 		return (HEREDOC);

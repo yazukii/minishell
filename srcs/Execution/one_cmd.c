@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-extern volatile sig_atomic_t g_status;
+extern volatile sig_atomic_t	g_status;
 
-void ft_one_cmd(t_parsing *bag, char **envp)
+void	ft_one_cmd(t_parsing *bag, char **envp)
 {
 	int		original_stdin;
 	int		original_stdout;
@@ -40,21 +40,21 @@ void ft_one_cmd(t_parsing *bag, char **envp)
 	close(original_stdin);
 }
 
-void ft_execute_fork(t_parsing *bag, t_list_tokken *current, char **envp, int *exit_status)
+void	ft_execute_fork(t_parsing *bag, t_list_tokken *current, \
+char **envp, int *exit_status)
 {
 	int	pid;
 
 	pid = fork();
 	if (pid == 0)
 		ft_execute(bag, current, envp);
-	// ici on gere le heredoc
 	waitpid(pid, exit_status, 0);
 	if (WIFEXITED(*exit_status))
 		g_status = WEXITSTATUS(*exit_status);
 }
 
 //replace NULL by the option tro the builtin
-void ft_execute(t_parsing *bag, t_list_tokken *current, char **envp)
+void	ft_execute(t_parsing *bag, t_list_tokken *current, char **envp)
 {
 	char	filepath[MAXPATHLEN];
 	char	**splited_path;

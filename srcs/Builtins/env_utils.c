@@ -25,7 +25,7 @@ t_list_env	*env_lstlast(t_list_env *lst)
 	return (tmp);
 }
 
-void env_add_back(t_list_env **env, t_list_env *new)
+void	env_add_back(t_list_env **env, t_list_env *new)
 {
 	t_list_env	*tmp;
 

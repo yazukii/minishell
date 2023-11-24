@@ -12,7 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-extern volatile sig_atomic_t g_status;
+extern volatile sig_atomic_t	g_status;
 
 void	handle_sigtstp(int signum)
 {
@@ -26,10 +26,10 @@ void	handle_sigtstp(int signum)
 	}
 }
 
-void	handle_signal(t_parsing *bag)
+void	handle_signal(void)
 {
-	(void)bag;
-	struct sigaction sa;
+	struct sigaction	sa;
+
 	sa.sa_handler = &handle_sigtstp;
 	sigaction(SIGINT, &sa, NULL);
 	sa.sa_handler = SIG_IGN;

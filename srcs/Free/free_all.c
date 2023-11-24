@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void free_all(t_parsing *bag)
+void	free_all(t_parsing *bag)
 {
 	if (bag->input)
 	{
@@ -31,11 +31,9 @@ void free_all(t_parsing *bag)
 		free_t(bag->t_head);
 		bag->t_head = NULL;
 	}
-	if (bag->cwd)
-		free(bag->cwd);
 }
 
-void free_env(t_parsing *bag)
+void	free_env(t_parsing *bag)
 {
 	t_list_env	*tmp;
 
@@ -52,9 +50,9 @@ void free_env(t_parsing *bag)
 	}
 }
 
-void free_a(t_list_arg *head)
+void	free_a(t_list_arg *head)
 {
-	t_list_arg *tmp;
+	t_list_arg	*tmp;
 
 	tmp = head;
 	while (head)
@@ -66,9 +64,9 @@ void free_a(t_list_arg *head)
 	}
 }
 
-void free_t(t_list_tokken *head)
+void	free_t(t_list_tokken *head)
 {
-	t_list_tokken *tmp;
+	t_list_tokken	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -81,9 +79,9 @@ void free_t(t_list_tokken *head)
 	}
 }
 
-void free_p(t_list_pre *head)
+void	free_p(t_list_pre *head)
 {
-	t_list_pre *tmp;
+	t_list_pre	*tmp;
 
 	tmp = head;
 	while (head)

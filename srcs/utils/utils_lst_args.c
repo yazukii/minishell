@@ -39,7 +39,7 @@ t_list_arg	*ft_a_lstlast(t_list_arg *lst)
 	return (tmp);
 }
 
-t_list_arg *ft_a_lstnew(char *str, t_parsing *bag)
+t_list_arg	*ft_a_lstnew(char *str, t_parsing *bag)
 {
 	t_list_arg	*instance;
 
@@ -51,7 +51,7 @@ t_list_arg *ft_a_lstnew(char *str, t_parsing *bag)
 	return (instance);
 }
 
-void free_p_args(t_parsing *bag)
+void	free_p_args(t_parsing *bag)
 {
 	t_list_pre	*tmp;
 

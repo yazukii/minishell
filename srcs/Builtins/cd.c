@@ -21,17 +21,16 @@
  * error management
  */
 
-int ft_cd(t_list_tokken *current, char *cwd)
+int	ft_cd(t_list_tokken *current, char *cwd)
 {
-    if (!(current)->a_head)
-        chdir(getenv("HOME"));
-    else
-    {
-        if ((current)->a_head->arg[0] != '/')
-            (current)->a_head->arg = ft_strjoin("/", (current)->a_head->arg);
-        if (chdir(ft_strjoin(cwd, (current)->a_head->arg)) == -1)
-            printf("This directory does not exist\n");
-    }
-    return (0);
+	if (!(current)->a_head)
+		chdir(getenv("HOME"));
+	else
+	{
+		if ((current)->a_head->arg[0] != '/')
+			(current)->a_head->arg = ft_strjoin("/", (current)->a_head->arg);
+		if (chdir(ft_strjoin(cwd, (current)->a_head->arg)) == -1)
+			printf("This directory does not exist\n");
+	}
+	return (0);
 }
-
