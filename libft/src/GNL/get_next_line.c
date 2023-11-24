@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <stdio.h>
 #include <fcntl.h>
+
 static int	read_line(int fd, char **cache, int count);
 
 static int	read_line(int fd, char **cache, int count)
