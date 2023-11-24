@@ -77,7 +77,7 @@ char	**fill_exec(t_list_tokken *current, t_parsing *bag)
 	if (!ret)
 		ft_error(MEMORY, bag);
 	ret[0] = ft_strdup(current->cmd);
-	while (len && len - 1)
+	while (len)
 	{
 		ret[i++] = ft_strdup(a_current->arg);
 		a_current = a_current->next;
