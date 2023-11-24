@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:08:52 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/11/23 23:07:55 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:27:59 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	main(int argc, char **argv, char **envp)
     while (1)
     {
 		bag->input = readline(create_out(bag));
+		if (!bag->input)
+			break ;
 		bag->hook_input = bag->input;
 		if (*bag->input)
 			input_handling(bag, envp);

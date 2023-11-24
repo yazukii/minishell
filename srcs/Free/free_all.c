@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 21:44:03 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/11/23 21:44:03 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:35:17 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ void free_env(t_parsing *bag)
 	tmp = bag->env_head;
 	while (tmp)
 	{
-		bag->env_head = (bag->env_head)->next;
 		if (tmp->key)
 			free(tmp->key);
 		tmp = bag->env_head;
+		if (!tmp->next)
+			break ;
 		(bag->env_head) = (bag->env_head)->next;
-		free(tmp->key);
-		free(tmp->key);
 		tmp = (bag->env_head);
 	}
 }
