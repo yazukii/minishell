@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 21:44:03 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:45:50 by yidouiss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 // check if eof
@@ -23,6 +35,7 @@ char *get_heredoc_input(char *delimiter, t_parsing *bag)
 	char	*input;
 	char	*to_free;
 
+	heredoc = NULL;
 	while (TRUE)
 	{
 		write(1, "> ", 2);
@@ -30,10 +43,14 @@ char *get_heredoc_input(char *delimiter, t_parsing *bag)
 		if (endoffile(input, delimiter))
 			break ;
 		to_free = heredoc;
-		heredoc = ft_strjoin(heredoc, input);
+		if (!heredoc)
+			heredoc = ft_strdup(input);
+		else
+			heredoc = ft_strjoin(heredoc, input);
 		if (!heredoc)
 			ft_error(MEMORY, bag);
-		free(to_free);
+		if (to_free)
+			free(to_free);
 		free(input);
 	}
 	return (heredoc);

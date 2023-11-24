@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_word.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 18:01:51 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:11:02 by yidouiss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char *get_word(char **str, t_parsing *bag)
+char	*get_word(char **str, t_parsing *bag)
 {
 	char	*word;
 	int		i;
@@ -18,9 +30,9 @@ char *get_word(char **str, t_parsing *bag)
 	return (word);
 }
 
-int word_len(char *str)
+int	word_len(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (is_letter(str[i]))
@@ -28,9 +40,10 @@ int word_len(char *str)
 	return (i);
 }
 
-bool is_letter(char c)
+bool	is_letter(char c)
 {
-	if (c == '>' || c == '<' || c == '|' || c == '\'' || c == '"' || c == ' ' || !c)
+	if (c == '>' || c == '<' || c == '|' || c == '\'' \
+	|| c == '"' || c == ' ' || !c)
 		return (FALSE);
 	else
 		return (TRUE);

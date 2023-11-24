@@ -1,16 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_redir.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 21:44:03 by yidouiss          #+#    #+#             */
+/*   Updated: 2023/11/23 23:20:45 by yidouiss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-
-void r_fill_redir(t_parsing *bag)
+void	r_fill_redir(t_parsing *bag)
 {
-	t_list_pre *current;
+	t_list_pre	*current;
 
 	current = find_redir(bag);
 	if (!current)
 		return ;
 	if (check_redir(current->pre_tokken) == HEREDOC)
 		get_heredoc(current, bag);
-	else if (check_redir(current->pre_tokken) == APPEND || check_redir(current->pre_tokken) == INPUT || check_redir(current->pre_tokken) == OUTPUT)
+	else if (check_redir(current->pre_tokken) == APPEND || \
+	check_redir(current->pre_tokken) == INPUT || \
+	check_redir(current->pre_tokken) == OUTPUT)
 		cmd_redir(current, bag);
 	clean_redir(bag);
 	current = find_redir(bag);
@@ -24,7 +37,7 @@ void r_fill_redir(t_parsing *bag)
  * to find the position of the pre_tokken before we use find_before_redir
  * if there is a before then you relink to the before
  * else you relink to the pointer to the list*/
-void clean_redir(t_parsing *bag)
+void	clean_redir(t_parsing *bag)
 {
 	t_list_pre	*tmp;
 	t_list_pre	*next;
@@ -35,7 +48,7 @@ void clean_redir(t_parsing *bag)
 	next = tmp->next;
 	free(tmp->pre_tokken);
 	free(tmp);
-	tmp =  next;
+	tmp = next;
 	next = tmp->next;
 	free(tmp->pre_tokken);
 	free(tmp);
@@ -45,9 +58,9 @@ void clean_redir(t_parsing *bag)
 		bag->p_head = next;
 }
 
-t_list_pre *find_before_redir(t_parsing *bag)
+t_list_pre	*find_before_redir(t_parsing *bag)
 {
-	t_list_pre *current;
+	t_list_pre	*current;
 
 	current = bag->p_head;
 	while (current->next && check_redir(current->next->pre_tokken) != PIPE)
@@ -64,9 +77,9 @@ t_list_pre *find_before_redir(t_parsing *bag)
  * if output create file and get fd
  * if input get file fd or error
  * clean les pre_token liés*/
-void cmd_redir(t_list_pre *current, t_parsing *bag)
+void	cmd_redir(t_list_pre *current, t_parsing *bag)
 {
-	int	redir_type;
+	int				redir_type;
 	t_list_tokken	*cmd_node;
 
 	cmd_node = ft_t_lstlast(bag->t_head);
@@ -93,9 +106,9 @@ void cmd_redir(t_list_pre *current, t_parsing *bag)
 	}
 }
 
-t_list_pre *find_redir(t_parsing *bag)
+t_list_pre	*find_redir(t_parsing *bag)
 {
-	t_list_pre *current;
+	t_list_pre	*current;
 
 	current = bag->p_head;
 	while (current && check_redir(current->pre_tokken) != PIPE)
