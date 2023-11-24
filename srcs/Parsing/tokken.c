@@ -40,7 +40,7 @@ void	fill_tokkens_recursive(t_parsing *bag)
  * If it is then the first pre_tokken should be a pipe
  * if it is then we delete the pipe pre_tokken and move on
  * */
-bool	fill_pipe(t_parsing *bag)
+BOOL	fill_pipe(t_parsing *bag)
 {
 	t_list_pre	*tmp;
 

@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
+
+volatile sig_atomic_t	g_status;
 
 char	*create_out(t_parsing *bag)
 {

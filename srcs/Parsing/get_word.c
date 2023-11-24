@@ -40,7 +40,7 @@ int	word_len(char *str)
 	return (i);
 }
 
-bool	is_letter(char c)
+BOOL	is_letter(char c)
 {
 	if (c == '>' || c == '<' || c == '|' || c == '\'' \
 	|| c == '"' || c == ' ' || !c)

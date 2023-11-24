@@ -14,7 +14,7 @@
 
 // check if eof
 // check if cmd after eof
-// set a bool to heredoc done
+// set a BOOL to heredoc done
 // can the input be NULL
 void get_heredoc(t_list_pre *current, t_parsing *bag)
 {
@@ -71,12 +71,12 @@ unsigned int endoffile(char *input, char *delimiter)
 	return (FALSE);
 }
 
-bool is_eof(char *input, char *delimiter)
+BOOL is_eof(char *input, char *delimiter)
 {
 	int		delimiter_len;
 
 	delimiter_len = ft_strlen(delimiter);
-	return ((bool)(ft_strncmp(input, delimiter, delimiter_len) == 0
+	return ((BOOL)(ft_strncmp(input, delimiter, delimiter_len) == 0
 				   && input[delimiter_len] == '\n'
 				   && ft_strlen(input) == delimiter_len + 1));
 }

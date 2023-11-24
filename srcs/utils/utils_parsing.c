@@ -82,7 +82,7 @@ void	pre_tokken_size(t_parsing *bag)
 	}
 }
 
-bool	state_quote(t_parsing *bag, char c)
+BOOL	state_quote(t_parsing *bag, char c)
 {
 	if (c == '\"' && bag->in_double)
 		bag->in_double = FALSE;

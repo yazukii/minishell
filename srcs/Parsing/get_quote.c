@@ -32,7 +32,7 @@ char	*get_quote(char **str, t_parsing *bag)
 	return (word);
 }
 
-bool	is_quote(char c)
+BOOL	is_quote(char c)
 {
 	if (c == '"' || c == '\'')
 		return (TRUE);

@@ -66,7 +66,7 @@ void	clean_input(t_parsing *bag)
 	bag->i = 0;
 }
 
-bool	check_env(t_parsing *bag)
+BOOL	check_env(t_parsing *bag)
 {
 	int			tmp;
 	t_list_env	*current;
