@@ -76,6 +76,7 @@ debug:
 
 clean :
 	@$(RM) $(OBJS_DIR)
+	@$(RM) minishell
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 fclean : clean

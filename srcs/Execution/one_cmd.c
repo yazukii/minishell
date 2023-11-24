@@ -47,6 +47,7 @@ void ft_execute_fork(t_parsing *bag, t_list_tokken *current, char **envp, int *e
 	pid = fork();
 	if (pid == 0)
 		ft_execute(bag, current, envp);
+	// ici on gere le heredoc
 	waitpid(pid, exit_status, 0);
 	if (WIFEXITED(*exit_status))
 		g_status = WEXITSTATUS(*exit_status);
