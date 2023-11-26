@@ -17,6 +17,7 @@ int	ft_export(t_list_tokken *current, t_parsing *bag)
 	char		**arg;
 	t_list_env	*new;
 
+	printf("test\n");
 	if (!(current)->a_head)
 	{
 		ft_env(bag);

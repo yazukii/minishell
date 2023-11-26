@@ -19,8 +19,6 @@ void	free_all(t_parsing *bag)
 		bag->input = NULL;
 		free(bag->input);
 	}
-	if (bag->hook_input)
-		free(bag->hook_input);
 	if (bag->p_head)
 	{
 		free_p(bag->p_head);

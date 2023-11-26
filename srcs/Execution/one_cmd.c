@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:07:55 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/11/23 23:07:55 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:04:16 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ void	ft_execute(t_parsing *bag, t_list_tokken *current, char **envp)
 	char	**splited_path;
 	int		i;
 
-	if (access(current->cmd, X_OK) == 0)
-		execve(current->cmd, current->exec, envp);
+	if (access(current->exec[0], X_OK) == 0)
+		execve(current->exec[0], current->exec, envp);
 	splited_path = ft_getsplitedpath(bag->env_head);
 	i = 0;
 	while (splited_path && splited_path[i] != NULL)
 	{
 		ft_strcpy(filepath, splited_path[i]);
 		ft_strcat(filepath, "/");
-		ft_strcat(filepath, current->cmd);
+		ft_strcat(filepath, current->exec[0]);
 		if (access(filepath, X_OK) == 0)
 		{
 			execve(filepath, current->exec, envp);
@@ -78,7 +78,7 @@ void	ft_execute(t_parsing *bag, t_list_tokken *current, char **envp)
 	}
 	if (splited_path)
 		ft_freesplit(splited_path);
-	ft_putstr_fd(current->cmd, 2);
+	ft_putstr_fd(current->exec[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
 	exit(127);
 }
