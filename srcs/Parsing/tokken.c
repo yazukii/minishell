@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 21:44:03 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/11/23 23:37:30 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:32:01 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	fill_cmd(t_parsing *bag)
 {
 	t_list_tokken	*last;
 
-	last = ft_t_lstlast(bag->t_head);
 	if (bag->first_cmd == TRUE)
 		bag->first_cmd = FALSE;
 	else
 		ft_lstadd_back_token(bag->t_head, ft_t_lstnew(bag), bag);
+	last = ft_t_lstlast(bag->t_head);
 	if (!(bag->p_head) || check_redir((bag->p_head)->pre_tokken) == PIPE)
 		ft_error(SYNTAX, bag);
 	last->cmd = malloc(sizeof (char) * ft_strlen(bag->p_head->pre_tokken) + 1);
