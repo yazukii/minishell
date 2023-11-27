@@ -45,11 +45,22 @@ void	freebag(t_parsing *bag)
 		freelist(bag->p_head);
 }
 
-void	ft_error(int ERRNUMBER, t_parsing *bag)
+void	ft_error(int errnum, t_parsing *bag)
 {
-	if (ERRNUMBER == MEMORY)
+	printf("%s", RED);
+	if (errnum == ARGS)
+	{
+		printf("Invalid number of arguments\n");
+			exit(1);
+	}
+	if (errnum == MALLOC)
+		printf("malloc failed :(\n");
+	if (errnum == MEMORY)
 		printf("Memory error\n");
-	if (ERRNUMBER == ENVP)
+	if (errnum == ENVP)
 		printf("Environement variable %s doesn't exist\n", bag->key->key);
-	freebag(bag);
+	if (errnum == INPUT)
+		printf("Error with input!\n");
+	printf("%s", RESET);
+	free_all(bAg);
 }

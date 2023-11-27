@@ -74,7 +74,7 @@ char	**fill_exec(t_list_tokken *current, t_parsing *bag)
 	len = ft_number_args(current);
 	ret = malloc(sizeof (char *) * len + 2);
 	if (!ret)
-		ft_error(MEMORY, bag);
+		ft_error(MALLOC, bag);
 	ret[0] = ft_strdup(current->cmd);
 	while (len)
 	{

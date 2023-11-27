@@ -32,7 +32,7 @@ void	clean_end_space(t_parsing *bag)
 		return ;
 	tmp = malloc(sizeof (char) * i + 2);
 	if (!tmp)
-		ft_error(MEMORY, bag);
+		ft_error(MALLOC, bag);
 	ft_strlcpy(tmp, bag->input, i + 2);
 	free(bag->input);
 	bag->input = tmp;

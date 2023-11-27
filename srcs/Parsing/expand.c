@@ -48,7 +48,7 @@ void	clean_input(t_parsing *bag)
 	r_str = malloc(sizeof (char) * ft_strlen(bag->input) - \
 	(bag->key->k_size + 1) + bag->key->v_size + 1);
 	if (!r_str)
-		ft_error(MEMORY, bag);
+		ft_error(MALLOC, bag);
 	while (bag->input[bag->i])
 	{
 		if (bag->input[bag->i] == '$' && !(bag->has_expanded) && \

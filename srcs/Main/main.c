@@ -57,7 +57,8 @@ int	main(int argc, char **argv, char **envp)
 	t_parsing	*bag;
 
 	(void)argv;
-	(void)argc;
+	if (argc > 1)
+			ft_error(ARGS, NULL);
 	bag = NULL;
 	handle_signal();
 	rl_initialize();

@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 21:44:03 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/11/23 21:44:03 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:04:44 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 	if (flag == TRUE)
 	{
 		bag = malloc(sizeof (t_parsing));
+		if (!bag)
+			ft_error(MALLOC, bag);
 		init_envp(bag, envp);
 		init_builtins(bag);
 	}
-	if (!bag)
-		ft_error(MEMORY, NULL);
 	bag->cwd = malloc(sizeof(char) * 1024);
+	if (!bag->cwd)
+		ft_error(MALLOC, bag);
 	bag->index = 0;
 	bag->input = NULL;
 	bag->can_exp = TRUE;
@@ -45,6 +47,8 @@ void	init_envp(t_parsing *bag, char **envp)
 	i = 0;
 	while (envp[i] != NULL)
 		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i++]));
+	if (!bag->env_head)
+		perror("ERROR: ");
 	current = bag->env_head;
 	while (current)
 	{
@@ -58,12 +62,12 @@ void	init_builtins(t_parsing *bag)
 {
 	bag->builtins = malloc(sizeof (char *) * 8);
 	if (!bag->builtins)
-		ft_error(MEMORY, bag);
+		ft_error(MALLOC, bag);
 	bag->builtins[0] = "echo";
 	bag->builtins[1] = "cd";
 	bag->builtins[2] = "pwd";
 	bag->builtins[3] = "export";
-	bag->builtins[4] = "ft_unset";
+	bag->builtins[4] = "unset";
 	bag->builtins[5] = "ft_env";
 	bag->builtins[6] = "exit";
 	bag->builtins[7] = NULL;

@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:12:42 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/08/23 16:43:44 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:40:16 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ enum	e_char{
 };
 
 enum	e_errnumber{
+	ARGS,
+	MALLOC,
 	MEMORY,
 	ENVP,
 	FD,
@@ -267,7 +269,7 @@ void			free_a(t_list_arg *head);
 void			free_env(t_parsing *bag);
 
 // Error
-void			ft_error(int ERRNUMBER, t_parsing *bag);
+void			ft_error(int errnum, t_parsing *bag);
 
 // Builtins
 int				ft_execute_builtin(t_list_tokken *current, t_parsing *bag);
