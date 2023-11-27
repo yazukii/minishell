@@ -62,5 +62,5 @@ void	ft_error(int errnum, t_parsing *bag)
 	if (errnum == INPUT)
 		printf("Error with input!\n");
 	printf("%s", RESET);
-	free_all(bAg);
+	free_all(bag);
 }
