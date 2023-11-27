@@ -6,7 +6,7 @@
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:05:06 by yidouiss          #+#    #+#             */
-/*   Updated: 2023/07/26 18:57:35 by yidouiss         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:47:52 by yidouiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	ft_error(int errnum, t_parsing *bag)
 		printf("Environement variable %s doesn't exist\n", bag->key->key);
 	if (errnum == INPUT)
 		printf("Error with input!\n");
+	if (errnum == PIP)
+		printf("Pipe failed\n");
 	printf("%s", RESET);
 	free_all(bag);
 }

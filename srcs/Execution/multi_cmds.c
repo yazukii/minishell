@@ -26,7 +26,8 @@ void	ft_multi_cmd(t_parsing *bag, char **envp)
 	fd_pipe_read_tmp = 0;
 	while (tmp)
 	{
-		pipe(fd_pipe);
+		if (pipe(fd_pipe) == -1)
+			ft_error(PIP, bag);
 		fork_pid = fork();
 		if (fork_pid == 0)
 		{

@@ -75,7 +75,8 @@ enum	e_errnumber{
 	FORK,
 	FILE_CREATION,
 	SYNTAX,
-	EXECVE
+	EXECVE,
+	PIP
 };
 
 enum	e_tokken_type{
