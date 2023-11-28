@@ -17,18 +17,24 @@ void	free_all(t_parsing *bag)
 	if (bag->input)
 	{
 		bag->input = NULL;
+		bag->hook_input = NULL;
 		free(bag->input);
 	}
-	if (bag->p_head)
+	if (bag->hook_input)
 	{
-		free_p(bag->p_head);
-		bag->p_head = NULL;
+		bag->hook_input = NULL;
+		free(bag->hook_input);
 	}
+	if (bag->p_head)
+		free_p(bag->p_head);
 	if (bag->t_head)
 	{
 		free_t(bag->t_head);
 		bag->t_head = NULL;
+		bag->t_hook = NULL;
 	}
+	else
+		free_t(bag->t_hook);
 }
 
 void	free_env(t_parsing *bag)
@@ -72,7 +78,10 @@ void	free_t(t_list_tokken *head)
 		head = head->next;
 		free_a(tmp->a_head);
 		free(tmp->cmd);
+		if (tmp->hrdoc)
+			free(tmp->hrdoc);
 		free(tmp);
+		tmp = NULL;
 		tmp = head;
 	}
 }

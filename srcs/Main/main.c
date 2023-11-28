@@ -13,7 +13,7 @@
 #include "../../headers/minishell.h"
 
 volatile sig_atomic_t	g_status;
-
+/*
 void printlist(t_parsing bag, int st)
 {
 	t_list_tokken	*tokken = bag.t_head;
@@ -40,7 +40,7 @@ void printlist(t_parsing bag, int st)
 			arg = arg->next;
 		}
 	}
-}
+}*/
 
 char	*create_out(t_parsing *bag)
 {
@@ -82,7 +82,6 @@ void	input_handling(t_parsing *bag, char **envp)
 {
 	add_history(bag->input);
 	parseur(bag);
-	//printlist(*bag, 0);
 	execution(bag, envp);
 	free_all(bag);
 }

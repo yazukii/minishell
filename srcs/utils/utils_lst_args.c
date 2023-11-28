@@ -43,7 +43,7 @@ t_list_arg	*ft_a_lstnew(char *str, t_parsing *bag)
 {
 	t_list_arg	*instance;
 
-	instance = malloc(sizeof(t_list_arg *));
+	instance = ft_calloc(1, sizeof(t_list_arg *));
 	if (!instance)
 		ft_error(MEMORY, bag);
 	instance->arg = str;

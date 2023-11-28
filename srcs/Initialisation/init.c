@@ -16,13 +16,13 @@ t_parsing	*init_parseur(t_parsing *bag, char **envp, int flag)
 {
 	if (flag == TRUE)
 	{
-		bag = malloc(sizeof (t_parsing));
+		bag = ft_calloc(1, sizeof (t_parsing));
 		if (!bag)
 			ft_error(MALLOC, bag);
 		init_envp(bag, envp);
 		init_builtins(bag);
 	}
-	bag->cwd = malloc(sizeof(char) * 1024);
+	bag->cwd = ft_calloc(1, sizeof(char) * 1024);
 	if (!bag->cwd)
 		ft_error(MALLOC, bag);
 	bag->index = 0;
@@ -46,7 +46,10 @@ void	init_envp(t_parsing *bag, char **envp)
 
 	i = 0;
 	while (envp[i] != NULL)
-		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i++]));
+	{
+		ft_lstadd_back_envp(bag, ft_env_lstnew(bag, envp[i]));
+		i++;
+	}
 	if (!bag->env_head)
 		perror("ERROR: ");
 	current = bag->env_head;
@@ -60,7 +63,7 @@ void	init_envp(t_parsing *bag, char **envp)
 
 void	init_builtins(t_parsing *bag)
 {
-	bag->builtins = malloc(sizeof (char *) * 8);
+	bag->builtins = ft_calloc(1, sizeof (char *) * 8);
 	if (!bag->builtins)
 		ft_error(MALLOC, bag);
 	bag->builtins[0] = "echo";

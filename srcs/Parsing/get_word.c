@@ -18,7 +18,7 @@ char	*get_word(char **str, t_parsing *bag)
 	int		i;
 
 	i = 0;
-	word = malloc(sizeof (char) * word_len(*str));
+	word = ft_calloc(1, sizeof (char));
 	if (!word)
 		ft_error(MEMORY, bag);
 	while (is_letter(**str))

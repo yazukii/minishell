@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-void	ft_t_relink(t_list_tokken *node)
-{
-	t_list_tokken	*tmp;
-
-	tmp = node;
-	if (node->next)
-		node = node->next;
-	if (tmp->cmd)
-		free(tmp->cmd);
-	free(tmp);
-}
-
 void	ft_lstadd_back_token(t_list_tokken *node, \
 t_list_tokken *new, t_parsing *bag)
 {
@@ -50,7 +38,7 @@ t_list_tokken	*ft_t_lstnew(t_parsing *bag)
 {
 	t_list_tokken	*instance;
 
-	instance = malloc(sizeof(t_list_tokken));
+	instance = ft_calloc(1, sizeof(t_list_tokken));
 	if (!instance)
 		ft_error(MEMORY, bag);
 	instance->builtin_id = NO_BUILTIN;

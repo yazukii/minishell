@@ -58,18 +58,25 @@ SRCS_DIR = srcs/Main \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
+SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
+		-fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow \
+		-fno-sanitize=null -fno-sanitize=alignment
+
 vpath %.c $(SRCS_DIR)
 
 all : $(NAME)
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(LIBS) -o $@ $^ -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(SAN) $(LIBS) -o $@ $^ -L$(LIBFT_DIR) -lft
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) -I$(READLINE_DIR) -o $@  -I$(INC_DIR1) -I$(INC_DIR2) -I$(LIBFT_DIR) -c $^
+
+san:
+	@ all $(ADD_SAN)
 
 debug:
 	@$(MAKE) -n $(NAME)

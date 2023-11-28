@@ -30,7 +30,7 @@ void	clean_end_space(t_parsing *bag)
 		i--;
 	if (i + 1 == j)
 		return ;
-	tmp = malloc(sizeof (char) * i + 2);
+	tmp = ft_calloc(i + 2, sizeof (char));
 	if (!tmp)
 		ft_error(MALLOC, bag);
 	ft_strlcpy(tmp, bag->input, i + 2);

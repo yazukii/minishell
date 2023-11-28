@@ -72,7 +72,8 @@ void	fill_cmd(t_parsing *bag)
 	last = ft_t_lstlast(bag->t_head);
 	if (!(bag->p_head) || check_redir((bag->p_head)->pre_tokken) == PIPE)
 		ft_error(SYNTAX, bag);
-	last->cmd = malloc(sizeof (char) * ft_strlen(bag->p_head->pre_tokken) + 1);
+	last->cmd = ft_calloc(ft_strlen(bag->p_head->pre_tokken) + 1,\
+	sizeof (char));
 	ft_strlcpy(last->cmd, bag->p_head->pre_tokken, \
 	ft_strlen(bag->p_head->pre_tokken) + 1);
 	last->size = bag->p_head->size;

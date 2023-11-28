@@ -34,16 +34,7 @@ void	ft_multi_cmd(t_parsing *bag, char **envp)
 	handle_exit_status(exit_status);
 }
 
-void	free_pipes(t_pipes *pipes, t_parsing *bag)
-{
-	int	i;
 
-	i = 0;
-	while (i < bag->nmbr_cmds - 1)
-		free (pipes->fd_pipes[i++]);
-	free (pipes->pid);
-	free (pipes);
-}
 
 //check output
 void	final_pipe(t_parsing *bag, char **envp, t_pipes *pipes, int i)
@@ -124,8 +115,12 @@ t_pipes	*open_pipes(t_parsing *bag, t_pipes	*pipes)
 	int	i;
 
 	i = 0;
-	pipes = malloc(sizeof (t_pipes));
-	pipes->fd_pipes = malloc(sizeof (int *) * bag->nmbr_cmds);
+	pipes = ft_calloc(1, sizeof (t_pipes));
+	if (!pipes)
+		ft_error(MEMORY, bag);
+	pipes->fd_pipes = ft_calloc(bag->nmbr_cmds, sizeof (int *));
+	if (!pipes->fd_pipes)
+		ft_error(MEMORY, bag);
 	while (i < bag->nmbr_cmds - 1)
 	{
 		pipes->fd_pipes[i] = malloc(sizeof (int) * 2);
@@ -137,6 +132,17 @@ t_pipes	*open_pipes(t_parsing *bag, t_pipes	*pipes)
 	if (!pipes->pid)
 		ft_error(MALLOC, bag);
 	return (pipes);
+}
+
+void	free_pipes(t_pipes *pipes, t_parsing *bag)
+{
+	int	i;
+
+	i = 0;
+	while (i < bag->nmbr_cmds - 1)
+		free (pipes->fd_pipes[i++]);
+	free (pipes->pid);
+	free (pipes);
 }
 
 void	handle_exit_status(int exit_status)

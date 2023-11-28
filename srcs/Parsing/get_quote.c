@@ -18,7 +18,7 @@ char	*get_quote(char **str, t_parsing *bag)
 	int		i;
 
 	i = 0;
-	word = malloc(sizeof (char) * quote_len(*str) + 1);
+	word = ft_calloc(quote_len(*str) + 1, sizeof (char));
 	if (!word)
 		ft_error(MEMORY, bag);
 	(*str)++;

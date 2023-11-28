@@ -88,7 +88,7 @@ void	fill_exec(t_list_tokken *current, t_parsing *bag)
 	if (current->a_head)
 		a_current = current->a_head;
 	len = ft_number_args(current);
-	current->exec = malloc(sizeof (char *) * (len + 2));
+	current->exec = ft_calloc((len + 2), sizeof (char *));
 	if (!current->exec)
 		ft_error(MALLOC, bag);
 	current->exec[0] = current->cmd;

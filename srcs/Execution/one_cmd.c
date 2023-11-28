@@ -45,10 +45,22 @@ void	ft_execute_fork(t_parsing *bag, t_list_tokken *current, \
 char **envp, int *exit_status)
 {
 	int	pid;
+	int	fd[2];
 
 	pid = fork();
+	pipe(fd);
 	if (pid == 0)
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[1]);
 		ft_execute(bag, current, envp);
+	}
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
+	if (bag->t_head->hrdoc)
+		write(STDIN_FILENO, bag->t_head->hrdoc, ft_strlen(bag->t_head->hrdoc));
 	waitpid(pid, exit_status, 0);
 	if (WIFEXITED(*exit_status))
 		g_status = WEXITSTATUS(*exit_status);

@@ -45,8 +45,8 @@ void	clean_input(t_parsing *bag)
 	int		r_index;
 
 	r_index = 0;
-	r_str = malloc(sizeof (char) * ft_strlen(bag->input) - \
-	(bag->key->k_size + 1) + bag->key->v_size + 1);
+	r_str = ft_calloc(ft_strlen(bag->input) - (bag->key->k_size + 1) \
+	+ bag->key->v_size + 1, sizeof (char));
 	if (!r_str)
 		ft_error(MALLOC, bag);
 	while (bag->input[bag->i])

@@ -36,7 +36,7 @@ t_list_pre	*ft_pre_lstnew(char *pre_tokken, t_parsing *bag)
 {
 	t_list_pre	*instance;
 
-	instance = malloc(sizeof(t_list_pre));
+	instance = ft_calloc(1, sizeof(t_list_pre));
 	if (!instance)
 		ft_error(MEMORY, bag);
 	instance->pre_tokken = pre_tokken;

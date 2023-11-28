@@ -19,9 +19,9 @@ char	*get_redir(char **str, t_parsing *bag)
 
 	check = check_redir(*str);
 	if (check == APPEND || check == HEREDOC)
-		word = malloc(sizeof (char) * 3);
+		word = ft_calloc(1, sizeof (char) * 3);
 	if (check == INPUT || check == OUTPUT || check == PIPE)
-		word = malloc(sizeof (char) * 2);
+		word = ft_calloc(1, sizeof (char) * 2);
 	if (check == HEREDOC || check == APPEND)
 		ft_strlcpy(word, *str, 3);
 	else if (check == INPUT || check == OUTPUT || check == PIPE)

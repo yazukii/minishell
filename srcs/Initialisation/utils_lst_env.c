@@ -16,7 +16,9 @@ t_list_env	*ft_env_lstnew(t_parsing *bag, char *envstr)
 {
 	t_list_env	*new;
 
-	new = malloc(sizeof (t_list_env));
+	new = ft_calloc(1, sizeof (t_list_env));
+	if (!new)
+		ft_error(MALLOC, bag);
 	new->key = ft_key(envstr, bag);
 	new->value = ft_value(envstr, bag);
 	new->next = NULL;
@@ -31,7 +33,7 @@ char	*ft_key(char *str, t_parsing *bag)
 	i = 0;
 	while (str[i] != '=')
 		i++;
-	retstr = malloc(sizeof (char) * i + 1);
+	retstr = ft_calloc(1, sizeof (char) * i + 1);
 	if (!retstr)
 		ft_error(MEMORY, bag);
 	i = -1;
@@ -55,7 +57,7 @@ char	*ft_value(char *str, t_parsing *bag)
 		j++;
 	if (j - i == 1)
 		return (NULL);
-	retstr = malloc(sizeof (char) * j - i);
+	retstr = ft_calloc(1, sizeof (char) * j - i);
 	if (!retstr)
 		ft_error(MEMORY, bag);
 	i = 0;
@@ -69,12 +71,12 @@ char	*ft_value(char *str, t_parsing *bag)
 
 t_list_env	*ft_envp_lstlast(t_list_env *lst)
 {
-	t_list_env	*tmp;
+	t_list_env	*hook;
 
-	tmp = lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
+	hook = lst;
+	while (hook->next)
+		hook = hook->next;
+	return (hook);
 }
 
 void	ft_lstadd_back_envp(t_parsing *bag, t_list_env *new)
