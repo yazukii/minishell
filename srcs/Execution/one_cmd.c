@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 extern volatile sig_atomic_t	g_status;
+//revoir cette merde
 
 void	ft_one_cmd(t_parsing *bag, char **envp)
 {

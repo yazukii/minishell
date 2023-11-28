@@ -176,7 +176,7 @@ void			pre_tokken(t_parsing *sac, char *prompt);
 void			tokkenizer(t_parsing *sac);
 void			clean_end_space(t_parsing *bag);
 int				ft_number_args(t_list_tokken *current);
-char			**fill_exec(t_list_tokken *current, t_parsing *bag);
+void fill_exec(t_list_tokken *current, t_parsing *bag);
 void			get_option(t_parsing *bag);
 void			get_nmbr_cmd(t_parsing *bag);
 
@@ -188,7 +188,7 @@ void			ft_multi_cmd(t_parsing *bag, char **envp);
 void			mid_pipes(t_parsing *bag, char **envp, t_pipes *pipes, int i);
 void			final_pipe(t_parsing *bag, char **envp, t_pipes *pipes, int i);
 void			first_pipe(t_parsing *bag, char **envp, t_pipes *pipes);
-void			open_pipes(t_parsing *bag, t_pipes	*pipes);
+t_pipes * open_pipes(t_parsing *bag, t_pipes	*pipes);
 void			handle_exit_status(int exit_status);
 void			ft_execute_fork(t_parsing *bag, t_list_tokken *current, \
 				char **envp, int *exit_status);
