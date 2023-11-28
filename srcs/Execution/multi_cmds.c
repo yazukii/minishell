@@ -16,68 +16,128 @@ extern volatile sig_atomic_t	g_status;
 
 void	ft_multi_cmd(t_parsing *bag, char **envp)
 {
-	t_list_tokken		*tmp;
-	int					fd_pipe_read_tmp;
-	int					fd_pipe[2];
-	int					exit_status;
-	pid_t				fork_pid;
+	t_pipes			*pipes;
+	int				exit_status;
+	int				i;
 
-	tmp = bag->t_head;
-	fd_pipe_read_tmp = 0;
-	while (tmp)
-	{
-		if (pipe(fd_pipe) == -1)
-			ft_error(PIP, bag);
-		fork_pid = fork();
-		if (fork_pid == 0)
-		{
-			prepare_fds(tmp, &fd_pipe_read_tmp, fd_pipe);
-			ft_run_cmd(bag, tmp, envp);
-		}
-		close_fds(tmp, &fd_pipe_read_tmp, fd_pipe);
-		tmp = tmp->next;
-	}
-	while (waitpid(-1, &exit_status, 0) > 0)
-		;
+	i = -1;
+	pipes = NULL;
+	open_pipes(bag, pipes);
+	first_pipe(bag, envp, pipes);
+	while (++i < bag->nmbr_cmds)
+		mid_pipes(bag, envp, pipes, i);
+	final_pipe(bag, envp, pipes, i);
+	i = 0;
+	while (i < bag->nmbr_cmds)
+		waitpid(pipes->pid[i++], &exit_status, 0);
+	free_pipes(pipes, bag);
 	handle_exit_status(exit_status);
 }
 
-void	ft_run_cmd(t_parsing *bag, t_list_tokken *cmd, char **envp)
+void	free_pipes(t_pipes *pipes, t_parsing *bag)
 {
-	if (cmd->builtin_id != NO_BUILTIN)
-		ft_execute(bag, cmd, envp);
-	exit(ft_execute_builtin(cmd, bag));
+	int	i;
+
+	i = 0;
+	while (i < bag->nmbr_cmds)
+		free (pipes->fd_pipes[i++]);
+	free (pipes->pid);
+	free (pipes);
+}
+
+//check output
+void	final_pipe(t_parsing *bag, char **envp, t_pipes *pipes, int i)
+{
+	if (pipe(pipes->fd_pipes[i]) != 0)
+		exit(1);
+	pipes->pid[i] = fork();
+	if (pipes->pid[i] < 0)
+		exit(1);
+	if (pipes->pid[i] == 0)
+	{
+		close(pipes->fd_pipes[i][1]);
+		dup2(pipes->fd_pipes[i][0], STDIN_FILENO);
+		close(pipes->fd_pipes[i][0]);
+		if (bag->t_head->builtin_id != NO_BUILTIN)
+			ft_execute_builtin(bag->t_head, bag);
+		else
+			ft_execute(bag, bag->t_head, envp);
+	}
+	if (bag->t_head->hrdoc)
+		write(STDIN_FILENO, bag->t_head->hrdoc, ft_strlen(bag->t_head->hrdoc));
+	close(pipes->fd_pipes[i][0]);
+	close(pipes->fd_pipes[i][1]);
+}
+
+void	mid_pipes(t_parsing *bag, char **envp, t_pipes *pipes, int i)
+{
+	if (pipe(pipes->fd_pipes[i]) != 0)
+		exit(1);
+	pipes->pid[i] = fork();
+	if (pipes->pid[i] < 0)
+		exit(1);
+	if (pipes->pid[i] == 0)
+	{
+		close(pipes->fd_pipes[i][1]);
+		dup2(pipes->fd_pipes[i][0], STDIN_FILENO);
+		close(pipes->fd_pipes[i][0]);
+		dup2(pipes->fd_pipes[i + 1][1], STDOUT_FILENO);
+		close(pipes->fd_pipes[i + 1][1]);
+		close(pipes->fd_pipes[i + 1][0]);
+		if (bag->t_head->builtin_id != NO_BUILTIN)
+			ft_execute_builtin(bag->t_head, bag);
+		else
+			ft_execute(bag, bag->t_head, envp);
+	}
+	close(pipes->fd_pipes[i][0]);
+	close(pipes->fd_pipes[i][1]);
+	if (bag->t_head->hrdoc)
+		write(STDIN_FILENO, bag->t_head->hrdoc, ft_strlen(bag->t_head->hrdoc));
+	bag->t_head = bag->t_head->next;
+}
+
+//check input
+void	first_pipe(t_parsing *bag, char **envp, t_pipes *pipes)
+{
+	if (pipe(pipes->fd_pipes[0]) != 0)
+		exit(1);
+	pipes->pid[0] = fork();
+	if (pipes->pid[0] < 0)
+		exit(1);
+	if (pipes->pid[0] == 0)
+	{
+		close(pipes->fd_pipes[0][0]);
+		dup2(pipes->fd_pipes[0][1], STDOUT_FILENO);
+		close(pipes->fd_pipes[0][1]);
+		if (bag->t_head->builtin_id != NO_BUILTIN)
+			ft_execute_builtin(bag->t_head, bag);
+		else
+			ft_execute(bag, bag->t_head, envp);
+	}
+	if (bag->t_head->hrdoc)
+		write(STDIN_FILENO, bag->t_head->hrdoc, ft_strlen(bag->t_head->hrdoc));
+	bag->t_head = bag->t_head->next;
+}
+
+void	open_pipes(t_parsing *bag, t_pipes	*pipes)
+{
+	int	i;
+
+	i = 0;
+	while (i < bag->nmbr_cmds)
+	{
+		pipes->fd_pipes[i] = malloc(sizeof (int) * 2);
+		if (!pipes->fd_pipes[i])
+			ft_error(MALLOC, bag);
+		i++;
+	}
+	pipes->pid = malloc(sizeof (pid_t) * bag->nmbr_cmds);
+	if (!pipes->pid)
+		ft_error(MALLOC, bag);
 }
 
 void	handle_exit_status(int exit_status)
 {
 	if (WIFEXITED(exit_status))
 		g_status = WEXITSTATUS(exit_status);
-}
-
-void	prepare_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe)
-{
-	close(fd_pipe[0]);
-	if (cmd->input == 0)
-		cmd->input = *fd_pipe_read_tmp;
-	dup2(cmd->input, 0);
-	if (cmd->output >= 3)
-		close(fd_pipe[1]);
-	else if (!cmd->next)
-		cmd->output = 1;
-	else
-		cmd->output = fd_pipe[1];
-	dup2(cmd->output, 1);
-}
-
-void	close_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, int *fd_pipe)
-{
-	close(fd_pipe[1]);
-	if (*fd_pipe_read_tmp >= 3)
-		close(*fd_pipe_read_tmp);
-	if (cmd->output >= 3)
-		close(cmd->output);
-	if (cmd->input >= 3)
-		close(cmd->input);
-	*fd_pipe_read_tmp = fd_pipe[0];
 }

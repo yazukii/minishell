@@ -118,11 +118,17 @@ typedef struct s_list_arg
 	struct s_list_arg		*next;
 }	t_list_arg;
 
+typedef struct s_pipes
+{
+	int		**fd_pipes;
+	pid_t	*pid;
+}	t_pipes;
+
 typedef struct s_list_tokken
 {
 	enum e_builtins			builtin_id;
 	char					*cmd;
-	char					*heredoc;
+	char					*hrdoc;
 	t_list_arg				*a_head;
 	int						output;
 	int						input;
@@ -143,6 +149,7 @@ typedef struct s_parsing
 	BOOL				first_cmd;
 	int					index;
 	int					i;
+	int					nmbr_cmds;
 	char				*input;
 	char				*hook_input;
 	char				*cwd;
@@ -151,6 +158,7 @@ typedef struct s_parsing
 	t_list_env			*env_head;
 	t_list_pre			*p_head;
 	t_list_tokken		*t_head;
+	t_list_tokken		*t_hook;
 }	t_parsing;
 
 // MAIN
@@ -170,20 +178,22 @@ void			clean_end_space(t_parsing *bag);
 int				ft_number_args(t_list_tokken *current);
 char			**fill_exec(t_list_tokken *current, t_parsing *bag);
 void			get_option(t_parsing *bag);
+void			get_nmbr_cmd(t_parsing *bag);
 
 // Execution
 void			execution(t_parsing *bag, char **envp);
 void			ft_execute(t_parsing *bag, t_list_tokken *current, char **envp);
 void			ft_one_cmd(t_parsing *bag, char **envp);
 void			ft_multi_cmd(t_parsing *bag, char **envp);
-void			prepare_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, \
-				int *fd_pipe);
-void			close_fds(t_list_tokken *cmd, int *fd_pipe_read_tmp, \
-				int *fd_pipe);
-void			ft_run_cmd(t_parsing *bag, t_list_tokken *cmd, char **envp);
+void			mid_pipes(t_parsing *bag, char **envp, t_pipes *pipes, int i);
+void			final_pipe(t_parsing *bag, char **envp, t_pipes *pipes, int i);
+void			first_pipe(t_parsing *bag, char **envp, t_pipes *pipes);
+void			open_pipes(t_parsing *bag, t_pipes	*pipes);
 void			handle_exit_status(int exit_status);
 void			ft_execute_fork(t_parsing *bag, t_list_tokken *current, \
 				char **envp, int *exit_status);
+void			free_pipes(t_pipes *pipes, t_parsing *bag);
+
 
 // EXECUTION UTILS
 char			**ft_getsplitedpath(t_list_env *head);

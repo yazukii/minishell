@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   hrdoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yidouiss <yidouiss@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 // check if eof
 // check if cmd after eof
-// set a BOOL to heredoc done
+// set a BOOL to hrdoc done
 // can the input be NULL
 void get_heredoc(t_list_pre *current, t_parsing *bag)
 {
@@ -25,7 +25,7 @@ void get_heredoc(t_list_pre *current, t_parsing *bag)
 	delimiter = current->next->pre_tokken;
 	if (!delimiter)
 		write(STDERR_FILENO, "syntax error near unexpected token `newline'", 44);
-	ft_t_lstlast(bag->t_head)->heredoc = get_heredoc_input(delimiter, bag);
+	ft_t_lstlast(bag->t_head)->hrdoc = get_heredoc_input(delimiter, bag);
 	bag->heredoc_flag = TRUE;
 }
 

@@ -2,7 +2,6 @@ NAME = minishell
 CC = gcc
 RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror -g
-LIBS = -lreadline
 
 
 SRCS = ./main.c \
@@ -41,9 +40,11 @@ SRCS = ./main.c \
 
 LIBFT = libft.a
 LIBFT_DIR = ./libft
+LIBS = -lreadline -L$(HOME)/.brew/opt/readline/lib
 OBJS_DIR = ./objs
 INC_DIR1 =	./headers
 INC_DIR2 = ./libft/includes
+READLINE_DIR = $(HOME)/.brew/opt/readline/include
 
 SRCS_DIR = srcs/Main \
 		   srcs/Parsing \
@@ -60,7 +61,6 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 vpath %.c $(SRCS_DIR)
 
 all : $(NAME)
-
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(LIBS) -o $@ $^ -L$(LIBFT_DIR) -lft
@@ -69,7 +69,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -g -o $@ -I$(INC_DIR1) -I$(INC_DIR2) -I$(LIBFT_DIR) -c $^
+	@$(CC) $(CFLAGS) -I$(READLINE_DIR) -o $@  -I$(INC_DIR1) -I$(INC_DIR2) -I$(LIBFT_DIR) -c $^
 
 debug:
 	@$(MAKE) -n $(NAME)

@@ -21,7 +21,24 @@ int	parseur(t_parsing *bag)
 	tokkenizer(bag);
 	get_option(bag);
 	refactor_redir(bag);
+	get_nmbr_cmd(bag);
+	bag->t_hook = bag->t_head;
 	return (0);
+}
+
+void	get_nmbr_cmd(t_parsing *bag)
+{
+	int				i;
+	t_list_tokken	*tmp;
+
+	tmp = bag->t_head;
+	i = 0;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	bag->nmbr_cmds = i;
 }
 
 void	refactor_redir(t_parsing *bag)
@@ -68,7 +85,6 @@ char	**fill_exec(t_list_tokken *current, t_parsing *bag)
 	int			i;
 	int			len;
 
-	i = 1;
 	if (current->a_head)
 		a_current = current->a_head;
 	len = ft_number_args(current);
@@ -76,6 +92,7 @@ char	**fill_exec(t_list_tokken *current, t_parsing *bag)
 	if (!ret)
 		ft_error(MALLOC, bag);
 	ret[0] = ft_strdup(current->cmd);
+	i = 1;
 	while (len)
 	{
 		ret[i++] = ft_strdup(a_current->arg);

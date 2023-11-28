@@ -55,7 +55,7 @@ t_list_tokken	*ft_t_lstnew(t_parsing *bag)
 		ft_error(MEMORY, bag);
 	instance->builtin_id = NO_BUILTIN;
 	instance->cmd = NULL;
-	instance->heredoc = NULL;
+	instance->hrdoc = NULL;
 	instance->a_head = NULL;
 	instance->output = STDOUT_FILENO;
 	instance->input = STDIN_FILENO;
