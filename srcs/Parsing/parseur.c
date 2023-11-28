@@ -78,6 +78,7 @@ void	get_option(t_parsing *bag)
 	}
 }
 
+//refactor cette merde pour que ca march
 void	fill_exec(t_list_tokken *current, t_parsing *bag)
 {
 	t_list_arg	*a_current;
@@ -87,14 +88,14 @@ void	fill_exec(t_list_tokken *current, t_parsing *bag)
 	if (current->a_head)
 		a_current = current->a_head;
 	len = ft_number_args(current);
-	current->exec = malloc(sizeof (char *) * len + 2);
+	current->exec = malloc(sizeof (char *) * (len + 2));
 	if (!current->exec)
 		ft_error(MALLOC, bag);
-	current->exec[0] = ft_strdup(current->cmd);
+	current->exec[0] = current->cmd;
 	i = 1;
 	while (len)
 	{
-		current->exec[i] = ft_strdup(a_current->arg);
+		current->exec[i] = a_current->arg;
 		if (!current->exec[i])
 			ft_error(MALLOC, bag);
 		a_current = a_current->next;
